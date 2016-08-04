@@ -164,7 +164,7 @@
       </column>
       <column id="41" parent="6" name="address">
         <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
+        <data-type>varchar(255)</data-type>
       </column>
       <column id="42" parent="6" name="birthDate">
         <mandatory>1</mandatory>

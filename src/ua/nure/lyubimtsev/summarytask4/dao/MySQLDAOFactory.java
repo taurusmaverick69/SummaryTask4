@@ -1,7 +1,9 @@
 package ua.nure.lyubimtsev.summarytask4.dao;
 
-import ua.nure.lyubimtsev.summarytask4.dao.daoimpl.MySQLAdminDAO;
+import ua.nure.lyubimtsev.summarytask4.dao.daoimpl.AdminDAOImpl;
+import ua.nure.lyubimtsev.summarytask4.dao.daoimpl.DoctorDAOImpl;
 import ua.nure.lyubimtsev.summarytask4.dao.entitydao.AdminDAO;
+import ua.nure.lyubimtsev.summarytask4.dao.entitydao.DoctorDAO;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -28,6 +30,11 @@ public class MySQLDAOFactory extends DAOFactory {
 
     @Override
     public AdminDAO getAdminDAO() {
-        return new MySQLAdminDAO();
+        return new AdminDAOImpl();
+    }
+
+    @Override
+    public DoctorDAO getDoctorDAO() {
+        return new DoctorDAOImpl();
     }
 }

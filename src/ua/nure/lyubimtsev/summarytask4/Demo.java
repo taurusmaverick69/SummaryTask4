@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 @WebServlet(name = "Demo", urlPatterns = "/demo")
 public class Demo extends HttpServlet {
-
 
 
     @Override
@@ -28,4 +31,5 @@ public class Demo extends HttpServlet {
         System.out.println(admin.getPatients());
 
     }
+
 }
