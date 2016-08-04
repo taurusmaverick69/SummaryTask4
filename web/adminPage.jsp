@@ -24,7 +24,7 @@
 
     </li>
 
-    <li><a href="doctors?category=nurse">Просмотр пациентов</a>
+    <li><a href="doctors?category=patients">Просмотр пациентов</a>
     </li>
 </ul>
 

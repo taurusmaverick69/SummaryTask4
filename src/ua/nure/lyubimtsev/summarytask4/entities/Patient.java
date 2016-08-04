@@ -8,12 +8,12 @@ public class Patient {
     private String name;
     private String address;
     private Date birthDate;
-    private String state;
+    private PatientState state;
 
     public Patient() {
     }
 
-    public Patient(int id, String name, String address, Date birthDate, String state) {
+    public Patient(int id, String name, String address, Date birthDate, PatientState state) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -53,11 +53,11 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
-    public String getState() {
+    public PatientState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(PatientState state) {
         this.state = state;
     }
 

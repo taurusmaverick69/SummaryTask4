@@ -32,9 +32,7 @@ public class LoginServlet extends HttpServlet {
             if (doctor == null) {
                 request.setAttribute("loginResult", "Invalid username or password");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-
             } else {
-          //todo      request.setAttribute("patients", doctor.getPatients());
                 request.getRequestDispatcher("main.jsp").forward(request, response);
             }
 

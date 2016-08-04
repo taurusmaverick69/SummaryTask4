@@ -9,20 +9,19 @@ public class Doctor {
     private String login;
     private String password;
     private String name;
-    private String category;
+    private Category category;
     private List<Patient> patients;
 
     public Doctor() {
     }
 
-    public Doctor(int id, String login, String password, String name, String category) {
+    public Doctor(int id, String login, String password, String name, Category category) {
         patients = new ArrayList<>();
         this.id = id;
         this.login = login;
         this.password = password;
         this.name = name;
         this.category = category;
-
     }
 
     public int getId() {
@@ -57,11 +56,11 @@ public class Doctor {
         this.name = name;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -82,6 +81,7 @@ public class Doctor {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
+                ", patients=" + patients +
                 '}';
     }
 }

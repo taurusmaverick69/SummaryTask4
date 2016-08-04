@@ -9,7 +9,7 @@ public interface DoctorDAO {
 
     Doctor getDoctorByLoginAndPassword(String login, String password);
 
-    Doctor getDoctorsById(int id);
+    Doctor getDoctorById(int id);
 
     int insertDoctor(Doctor doctor);
 

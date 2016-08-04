@@ -26,7 +26,8 @@ public class NewEditDoctorServlet extends HttpServlet {
                 request.getParameter("login"),
                 request.getParameter("password"),
                 request.getParameter("name"),
-                request.getParameter("category"));
+                request.getParameter("category")
+        );
 
         if (DAOFactory.getMySQLDAOFactory().getDoctorDAO().updateDoctor(newDoctor) == 1) {
             HttpSession session = request.getSession();
@@ -38,7 +39,7 @@ public class NewEditDoctorServlet extends HttpServlet {
                     .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
             doctors.set(doctors.indexOf(doctorById), newDoctor);
-            request.getRequestDispatcher("doctors").forward(request, response);
+            request.getRequestDispatcher("doctors?category=all").forward(request, response);
         }
     }
 

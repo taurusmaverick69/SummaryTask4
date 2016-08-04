@@ -1,8 +1,24 @@
-<%--@elvariable id="admin" type="ua.nure.lyubimtsev.summarytask4.entities.Admin"--%>
-<%--@elvariable id="doctorsByCategory" type="java.util.List"--%>
 <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.summarytask4.entities.Doctor"--%>
+<%--@elvariable id="doctorsByCategory" type="java.util.List"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<c:url value="editDoctor.jsp" var="editDoctor">
+    <c:param name="id" value="${doctor.id}"/>
+    <c:param name="login" value="${doctor.login}"/>
+    <c:param name="password" value="${doctor.password}"/>
+    <c:param name="name" value="${doctor.name}"/>
+    <c:param name="category" value="${doctor.category}"/>
+</c:url>
+
+<c:url value="editDoctor.jsp" var="deleteDoctor">
+    <c:param name="login" value="${doctor.login}"/>
+    <c:param name="password" value="${doctor.password}"/>
+    <c:param name="name" value="${doctor.name}"/>
+    <c:param name="category" value="${doctor.category}"/>
+</c:url>
+
+
 <html>
 <head>
     <title>Title</title>
@@ -10,12 +26,13 @@
 <body>
 
 <table cellpadding="10">
-    <caption>Doctor list</caption>
+    <caption>Doctors</caption>
     <tr>
         <th>Логин</th>
         <th>Пароль</th>
         <th>Имя</th>
         <th>Категория</th>
+        <th>Пациенты</th>
     </tr>
 
     <c:forEach var="doctor" items="${doctorsByCategory}">
@@ -25,28 +42,11 @@
             <td>${doctor.name}</td>
             <td>${doctor.category}</td>
             <td>
-                <%--<a href="editDoctor.jsp?&login=${doctor.login}&password=${doctor.password}&name=${doctor.name}&category=${doctor.category}">Edit</a>--%>
-                <%--<a href="editDoctor.jsp?&doctor=${doctor}">Edit</a>--%>
-                <%--<a href="delete?id=${doctor.id}">Delete</a>--%>
+                <a href="patients?id=${doctor.id}">Список пациентов</a>
+            </td>
 
-                    <c:url value="editDoctor.jsp" var="editDoctor">
-                        <c:param name="id" value="${doctor.id}"/>
-                        <c:param name="login" value="${doctor.login}"/>
-                        <c:param name="password" value="${doctor.password}"/>
-                        <c:param name="name" value="${doctor.name}"/>
-                        <c:param name="category" value="${doctor.category}"/>
-                    </c:url>
-
-                    <c:url value="editDoctor.jsp" var="deleteDoctor">
-                        <c:param name="login" value="${doctor.login}"/>
-                        <c:param name="password" value="${doctor.password}"/>
-                        <c:param name="name" value="${doctor.name}"/>
-                        <c:param name="category" value="${doctor.category}"/>
-                    </c:url>
-
-                    <a href="${editDoctor}">Edit</a>
-                    <a href="${deleteDoctor}">Delete</a>
-
+            <td><a href="${editDoctor}">Edit</a>
+                <a href="${deleteDoctor}">Delete</a>
             </td>
         </tr>
 

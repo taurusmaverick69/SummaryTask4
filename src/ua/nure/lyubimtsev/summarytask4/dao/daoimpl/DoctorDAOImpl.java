@@ -4,9 +4,7 @@ package ua.nure.lyubimtsev.summarytask4.dao.daoimpl;
 import ua.nure.lyubimtsev.summarytask4.dao.DAOFactory;
 import ua.nure.lyubimtsev.summarytask4.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.summarytask4.dao.entitydao.DoctorDAO;
-import ua.nure.lyubimtsev.summarytask4.entities.Admin;
-import ua.nure.lyubimtsev.summarytask4.entities.Doctor;
-import ua.nure.lyubimtsev.summarytask4.entities.Patient;
+import ua.nure.lyubimtsev.summarytask4.entities.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,11 +32,16 @@ public class DoctorDAOImpl implements DoctorDAO {
                         resultSet.getString("login"),
                         resultSet.getString("password"),
                         resultSet.getString("name"),
-                        resultSet.getString("category")
+                        Category.getByName(resultSet.getString("category"))
                 );
 
 
-                PreparedStatement patientPreparedStatement = connection.prepareStatement("SELECT * FROM patient WHERE doctor_id = ?");
+                PreparedStatement patientPreparedStatement = connection.prepareStatement("SELECT patient.id, patient.name, address, birthDate, state.name\n" +
+                        "FROM patient, doctor_patient, state\n" +
+                        "where patient.id = doctor_patient.patient_id\n" +
+                        "and state_id = state.id " +
+                        "AND doctor_patient.doctor_id = ?");
+
                 patientPreparedStatement.setInt(1, doctor.getId());
                 ResultSet patientResultSet = patientPreparedStatement.executeQuery();
 
@@ -49,7 +52,7 @@ public class DoctorDAOImpl implements DoctorDAO {
                                     patientResultSet.getString("name"),
                                     patientResultSet.getString("address"),
                                     patientResultSet.getDate("birthDate"),
-                                    patientResultSet.getString("state")
+                                    PatientState.getByName(patientResultSet.getString("state"))
                             )
                     );
                 }
@@ -65,7 +68,7 @@ public class DoctorDAOImpl implements DoctorDAO {
     }
 
     @Override
-    public Doctor getDoctorsById(int id) {
+    public Doctor getDoctorById(int id) {
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM doctor WHERE id = ?")) {
 
@@ -98,7 +101,7 @@ public class DoctorDAOImpl implements DoctorDAO {
             preparedStatement.setString(1, doctor.getLogin());
             preparedStatement.setString(2, doctor.getPassword());
             preparedStatement.setString(3, doctor.getName());
-            preparedStatement.setString(4, doctor.getCategory());
+            preparedStatement.setString(4, doctor.getCategory().get);
 
             return preparedStatement.executeUpdate();
 
@@ -113,12 +116,12 @@ public class DoctorDAOImpl implements DoctorDAO {
     public int updateDoctor(Doctor doctor) {
         System.out.println("START");
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE doctor SET login = ?, password = ?,  name = ?, category = ? WHERE id = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE doctor SET login = ?, password = ?,  name = ?, category_id = ? WHERE id = ?")) {
 
             preparedStatement.setString(1, doctor.getLogin());
             preparedStatement.setString(2, doctor.getPassword());
             preparedStatement.setString(3, doctor.getName());
-            preparedStatement.setString(4, doctor.getCategory());
+       //     preparedStatement.setString(4, doctor.getCategory());
             preparedStatement.setInt(5, doctor.getId());
 
             return preparedStatement.executeUpdate();

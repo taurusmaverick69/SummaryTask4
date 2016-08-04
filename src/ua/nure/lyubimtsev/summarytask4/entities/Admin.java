@@ -10,14 +10,12 @@ public class Admin {
     private String password;
     private String name;
     private List<Doctor> doctors;
-    private List<Patient> patients;
 
     public Admin() {
     }
 
     public Admin(int id, String login, String password, String name) {
         doctors = new ArrayList<>();
-        patients = new ArrayList<>();
         this.id = id;
         this.login = login;
         this.password = password;
@@ -64,15 +62,6 @@ public class Admin {
         this.doctors = doctors;
     }
 
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
-
-
     @Override
     public String toString() {
         return "Admin{" +
@@ -81,7 +70,6 @@ public class Admin {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", doctors=" + doctors +
-                ", patients=" + patients +
                 '}';
     }
 }

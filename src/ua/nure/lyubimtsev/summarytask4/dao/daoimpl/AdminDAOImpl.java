@@ -2,9 +2,7 @@ package ua.nure.lyubimtsev.summarytask4.dao.daoimpl;
 
 import ua.nure.lyubimtsev.summarytask4.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.summarytask4.dao.entitydao.AdminDAO;
-import ua.nure.lyubimtsev.summarytask4.entities.Admin;
-import ua.nure.lyubimtsev.summarytask4.entities.Doctor;
-import ua.nure.lyubimtsev.summarytask4.entities.Patient;
+import ua.nure.lyubimtsev.summarytask4.entities.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -58,37 +56,43 @@ public class AdminDAOImpl implements AdminDAO {
                 );
 
 
-                PreparedStatement doctorPreparedStatement = connection.prepareStatement("SELECT * FROM doctor WHERE admin_id = ?");
+                PreparedStatement doctorPreparedStatement = connection.prepareStatement("SELECT doctor.id, login, password, doctor.name, category.name " +
+                        "FROM doctor, category\n" +
+                        " WHERE category_id = category.id AND admin_id = ?");
+
                 doctorPreparedStatement.setInt(1, admin.getId());
                 ResultSet doctorResultSet = doctorPreparedStatement.executeQuery();
 
                 while (doctorResultSet.next()) {
-                    admin.getDoctors().add(
-                            new Doctor(
-                                    doctorResultSet.getInt("id"),
-                                    doctorResultSet.getString("login"),
-                                    doctorResultSet.getString("password"),
-                                    doctorResultSet.getString("name"),
-                                    doctorResultSet.getString("category")
-                            )
+
+                    Doctor doctor = new Doctor(
+                            doctorResultSet.getInt("doctor.id"),
+                            doctorResultSet.getString("login"),
+                            doctorResultSet.getString("password"),
+                            doctorResultSet.getString("doctor.name"),
+                            Category.getByName(doctorResultSet.getString("category.name"))
                     );
-                }
 
 
-                PreparedStatement patientPreparedStatement = connection.prepareStatement("SELECT * FROM patient WHERE admin_id = ?");
-                patientPreparedStatement.setInt(1, admin.getId());
-                ResultSet patientResultSet = patientPreparedStatement.executeQuery();
+                    PreparedStatement patientPreparedStatement = connection.prepareStatement("SELECT id, name, address, birthDate, state_id " +
+                            "FROM patient, doctor_patient " +
+                            "WHERE patient.id = doctor_patient.patient_id " +
+                            "AND doctor_patient.doctor_id = ?");
+                    patientPreparedStatement.setInt(1, doctorResultSet.getInt("id"));
+                    ResultSet patientResultSet = patientPreparedStatement.executeQuery();
 
-                while (patientResultSet.next()) {
-                    admin.getPatients().add(
-                            new Patient(
-                                    patientResultSet.getInt("id"),
-                                    patientResultSet.getString("name"),
-                                    patientResultSet.getString("address"),
-                                    patientResultSet.getDate("birthDate"),
-                                    patientResultSet.getString("state")
-                            )
-                    );
+                    while (patientResultSet.next()) {
+                        doctor.getPatients().add(
+                                new Patient(
+                                        patientResultSet.getInt("id"),
+                                        patientResultSet.getString("name"),
+                                        patientResultSet.getString("address"),
+                                        patientResultSet.getDate("birthDate"),
+                                        PatientState.getByName(patientResultSet.getString("state"))
+                                ));
+                    }
+
+                    admin.getDoctors().add(doctor);
                 }
 
                 return admin;
