@@ -1,3 +1,4 @@
+<%--@elvariable id="doctor" type="ua.nure.lyubimtsev.summarytask4.entities.Doctor"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -5,17 +6,35 @@
     <title>Title</title>
 </head>
 <body>
-<form action="NewEditDoctorServlet" method="post">
 
-    <input type="hidden" name="id" value="${param.id}">
+
+<form action="EditDoctorServlet" method="post">
+
+    <input type="hidden" name="id" value="${doctor.id}">
     <hr>
-    Login: <input name="login" value="${param.login}">
+    Login: <input name="login" value="${doctor.login}">
     <hr>
     Password: <input type="password" name="password">
     <hr>
-    Name: <input name="name" value="${param.name}">
+    Name: <input name="name" value="${doctor.name}">
     <hr>
-    Category: <input name="category" value="${param.category}">
+
+   Category:
+    <select name="category">
+
+
+    <%--@elvariable id="categories" type="java.util.List"--%>
+    <c:forEach var="category" items="${categories}">
+        <c:choose>
+            <c:when test="${category.id eq doctor.category.id}">
+                <option selected>${category.name}</option>
+            </c:when>
+            <c:otherwise>
+                <option name="category">${category.name}</option>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    </select>
     <hr>
     <input type="submit" value="Edit">
 

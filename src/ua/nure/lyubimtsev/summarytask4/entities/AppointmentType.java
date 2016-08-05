@@ -1,25 +1,36 @@
 package ua.nure.lyubimtsev.summarytask4.entities;
 
-public enum AppointmentType {
+public class AppointmentType {
 
-    PROCEDURE("procedure"), MEDICINE("medicine"), OPERATION("operation");
-
+    private int id;
     private String name;
 
-    AppointmentType(String name) {
+    public AppointmentType(int id, String name) {
+        this.id = id;
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public static AppointmentType getByName(String name) {
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        for (AppointmentType appointmentType : values())
-            if (appointmentType.getName().equals(name))
-                return appointmentType;
-
-        return null;
+    @Override
+    public String toString() {
+        return "AppointmentType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

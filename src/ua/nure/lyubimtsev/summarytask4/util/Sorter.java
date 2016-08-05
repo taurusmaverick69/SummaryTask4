@@ -7,7 +7,6 @@ import java.util.Comparator;
 
 public class Sorter {
 
-
     public static final Comparator<Patient> SORT_PATIENTS_ALPHABETICALLY = new Comparator<Patient>() {
         @Override
         public int compare(Patient o1, Patient o2) {
@@ -32,7 +31,7 @@ public class Sorter {
     public static final Comparator<Doctor> SORT_DOCTORS_BY_CATEGORY = new Comparator<Doctor>() {
         @Override
         public int compare(Doctor o1, Doctor o2) {
-            return o1.getCategory().compareTo(o2.getCategory());
+            return o1.getCategory().getName().compareTo(o2.getCategory().getName());
         }
     };
 

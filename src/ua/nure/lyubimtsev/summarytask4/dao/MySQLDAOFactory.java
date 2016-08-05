@@ -1,8 +1,10 @@
 package ua.nure.lyubimtsev.summarytask4.dao;
 
 import ua.nure.lyubimtsev.summarytask4.dao.daoimpl.AdminDAOImpl;
+import ua.nure.lyubimtsev.summarytask4.dao.daoimpl.CategoryDAOImpl;
 import ua.nure.lyubimtsev.summarytask4.dao.daoimpl.DoctorDAOImpl;
 import ua.nure.lyubimtsev.summarytask4.dao.entitydao.AdminDAO;
+import ua.nure.lyubimtsev.summarytask4.dao.entitydao.CategoryDAO;
 import ua.nure.lyubimtsev.summarytask4.dao.entitydao.DoctorDAO;
 
 import javax.naming.Context;
@@ -15,7 +17,6 @@ public class MySQLDAOFactory extends DAOFactory {
     private static DataSource dataSource;
 
     public static DataSource createDataSource() {
-
         if (dataSource == null) {
             try {
                 Context ctx = new InitialContext();
@@ -36,5 +37,10 @@ public class MySQLDAOFactory extends DAOFactory {
     @Override
     public DoctorDAO getDoctorDAO() {
         return new DoctorDAOImpl();
+    }
+
+    @Override
+    public CategoryDAO getCategoryDAO() {
+        return new CategoryDAOImpl();
     }
 }

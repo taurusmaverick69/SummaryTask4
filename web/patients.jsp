@@ -21,14 +21,10 @@
             <td>${patient.name}</td>
             <td>${patient.address}</td>
             <td>${patient.birthDate}</td>
-            <td>${patient.state}</td>
-            <%--<td>--%>
-                <%--<a href="patients?id=${doctor.id}">Список пациентов</a>--%>
-            <%--</td>--%>
-
-            <%--<td><a href="${editDoctor}">Edit</a>--%>
-                <%--<a href="${deleteDoctor}">Delete</a>--%>
-            <%--</td>--%>
+            <td>${patient.state.name}</td>
+            <td><a href="getPatientOnEditServlet?id=${patient.id}">Edit</a>
+            <td><a href="getDoctorOnDeleteServlet?id=${doctor.id}">Delete</a></td>
+            </td>
         </tr>
 
     </c:forEach>

@@ -1,26 +1,36 @@
 package ua.nure.lyubimtsev.summarytask4.entities;
 
-public enum PatientState {
+public class PatientState {
 
-    HEALTHY("healthy"),
-    ON_THE_LIST("on the list");
-
+    private int id;
     private String name;
 
-    PatientState(String name) {
+    public PatientState(int id, String name) {
+        this.id = id;
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public static PatientState getByName(String name) {
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        for (PatientState state : values())
-            if (state.getName().equals(name))
-                return state;
-
-        return null;
+    @Override
+    public String toString() {
+        return "PatientState{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

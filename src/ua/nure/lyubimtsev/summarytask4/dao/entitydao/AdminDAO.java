@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AdminDAO {
 
-    List<Admin> selectAdmins();
+    public List<Admin> selectAdmins();
 
     Admin getAdminByLoginAndPassword(String login, String password);
 

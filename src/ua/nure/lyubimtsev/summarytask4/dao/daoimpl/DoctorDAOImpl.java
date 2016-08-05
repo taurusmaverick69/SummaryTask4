@@ -18,7 +18,8 @@ public class DoctorDAOImpl implements DoctorDAO {
     public Doctor getDoctorByLoginAndPassword(String login, String password) {
 
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
-             PreparedStatement prepareStatement = connection.prepareStatement("SELECT * FROM doctor WHERE login = ? AND password = ?")) {
+             PreparedStatement prepareStatement = connection.prepareStatement("SELECT * FROM doctor, category\n" +
+                     "WHERE doctor.category_id = category.id AND login = ? AND password = ?")) {
 
             prepareStatement.setString(1, login);
             prepareStatement.setString(2, password);
@@ -32,14 +33,14 @@ public class DoctorDAOImpl implements DoctorDAO {
                         resultSet.getString("login"),
                         resultSet.getString("password"),
                         resultSet.getString("name"),
-                        Category.getByName(resultSet.getString("category"))
+                        new Category(resultSet.getInt("category.id"), resultSet.getString("category.name"))
                 );
 
 
-                PreparedStatement patientPreparedStatement = connection.prepareStatement("SELECT patient.id, patient.name, address, birthDate, state.name\n" +
+                PreparedStatement patientPreparedStatement = connection.prepareStatement("SELECT *" +
                         "FROM patient, doctor_patient, state\n" +
-                        "where patient.id = doctor_patient.patient_id\n" +
-                        "and state_id = state.id " +
+                        "WHERE patient.id = doctor_patient.patient_id\n" +
+                        "AND state_id = state.id " +
                         "AND doctor_patient.doctor_id = ?");
 
                 patientPreparedStatement.setInt(1, doctor.getId());
@@ -52,7 +53,7 @@ public class DoctorDAOImpl implements DoctorDAO {
                                     patientResultSet.getString("name"),
                                     patientResultSet.getString("address"),
                                     patientResultSet.getDate("birthDate"),
-                                    PatientState.getByName(patientResultSet.getString("state"))
+                                    new PatientState(patientResultSet.getInt("state.id"), patientResultSet.getString("state.name"))
                             )
                     );
                 }
@@ -69,25 +70,25 @@ public class DoctorDAOImpl implements DoctorDAO {
 
     @Override
     public Doctor getDoctorById(int id) {
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM doctor WHERE id = ?")) {
-
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()){
-                return new Doctor(
-                        resultSet.getInt("id"),
-                        resultSet.getString("login"),
-                        resultSet.getString("password"),
-                        resultSet.getString("name"),
-                        resultSet.getString("category")
-                );
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM doctor WHERE id = ?")) {
+//
+//            preparedStatement.setInt(1, id);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//
+//            if (resultSet.next()) {
+//                return new Doctor(
+//                        resultSet.getInt("id"),
+//                        resultSet.getString("login"),
+//                        resultSet.getString("password"),
+//                        resultSet.getString("name"),
+//                        resultSet.getString("category")
+//                );
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
         return null;
     }
@@ -101,7 +102,7 @@ public class DoctorDAOImpl implements DoctorDAO {
             preparedStatement.setString(1, doctor.getLogin());
             preparedStatement.setString(2, doctor.getPassword());
             preparedStatement.setString(3, doctor.getName());
-            preparedStatement.setString(4, doctor.getCategory().get);
+     //       preparedStatement.setString(4, doctor.getCategory());
 
             return preparedStatement.executeUpdate();
 
@@ -121,7 +122,7 @@ public class DoctorDAOImpl implements DoctorDAO {
             preparedStatement.setString(1, doctor.getLogin());
             preparedStatement.setString(2, doctor.getPassword());
             preparedStatement.setString(3, doctor.getName());
-       //     preparedStatement.setString(4, doctor.getCategory());
+            //     preparedStatement.setString(4, doctor.getCategory());
             preparedStatement.setInt(5, doctor.getId());
 
             return preparedStatement.executeUpdate();

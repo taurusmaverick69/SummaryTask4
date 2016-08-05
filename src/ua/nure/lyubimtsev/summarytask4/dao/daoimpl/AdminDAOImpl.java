@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDAOImpl implements AdminDAO {
+
     @Override
     public List<Admin> selectAdmins() {
 
@@ -56,9 +57,10 @@ public class AdminDAOImpl implements AdminDAO {
                 );
 
 
-                PreparedStatement doctorPreparedStatement = connection.prepareStatement("SELECT doctor.id, login, password, doctor.name, category.name " +
+                PreparedStatement doctorPreparedStatement = connection.prepareStatement("SELECT *\n" +
                         "FROM doctor, category\n" +
-                        " WHERE category_id = category.id AND admin_id = ?");
+                        "WHERE category_id = category.id \n" +
+                        "AND admin_id = ?");
 
                 doctorPreparedStatement.setInt(1, admin.getId());
                 ResultSet doctorResultSet = doctorPreparedStatement.executeQuery();
@@ -67,17 +69,18 @@ public class AdminDAOImpl implements AdminDAO {
 
                     Doctor doctor = new Doctor(
                             doctorResultSet.getInt("doctor.id"),
-                            doctorResultSet.getString("login"),
-                            doctorResultSet.getString("password"),
+                            doctorResultSet.getString("doctor.login"),
+                            doctorResultSet.getString("doctor.password"),
                             doctorResultSet.getString("doctor.name"),
-                            Category.getByName(doctorResultSet.getString("category.name"))
+                            new Category(doctorResultSet.getInt("category.id"), doctorResultSet.getString("category.name"))
                     );
 
-
-                    PreparedStatement patientPreparedStatement = connection.prepareStatement("SELECT id, name, address, birthDate, state_id " +
-                            "FROM patient, doctor_patient " +
-                            "WHERE patient.id = doctor_patient.patient_id " +
+                    PreparedStatement patientPreparedStatement = connection.prepareStatement("SELECT *\n" +
+                            "FROM patient, doctor_patient, state\n" +
+                            "WHERE patient.id = doctor_patient.patient_id \n" +
+                            "AND patient.state_id = state.id \n" +
                             "AND doctor_patient.doctor_id = ?");
+
                     patientPreparedStatement.setInt(1, doctorResultSet.getInt("id"));
                     ResultSet patientResultSet = patientPreparedStatement.executeQuery();
 
@@ -88,7 +91,7 @@ public class AdminDAOImpl implements AdminDAO {
                                         patientResultSet.getString("name"),
                                         patientResultSet.getString("address"),
                                         patientResultSet.getDate("birthDate"),
-                                        PatientState.getByName(patientResultSet.getString("state"))
+                                        new PatientState(patientResultSet.getInt("state.id"), patientResultSet.getString("state.name"))
                                 ));
                     }
 

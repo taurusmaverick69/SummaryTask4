@@ -1,33 +1,37 @@
 package ua.nure.lyubimtsev.summarytask4.entities;
 
-import java.io.Serializable;
+public class Category {
 
-public enum Category {
-
-    PEDIATRICIAN("pediatrician"),
-    TRAUMATOLOGIST("traumatologist"),
-    SURGEON("surgeon"),
-    NURSE("nurse");
-
+    private int id;
     private String name;
 
-    Category(String name) {
+
+    public Category(int id, String name) {
+        this.id = id;
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public static Category getByName(String name) {
-
-        for (Category category : values())
-            if (category.getName().equals(name))
-                return category;
-
-        return null;
+    public void setName(String name) {
+        this.name = name;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

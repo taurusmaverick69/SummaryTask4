@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("loginResult", "Invalid username or password");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
+                session.setAttribute("doctor", doctor);
                 request.getRequestDispatcher("main.jsp").forward(request, response);
             }
 
