@@ -41,8 +41,6 @@ public class DoctorServlet extends HttpServlet {
 
         System.out.println(user instanceof Patient);
 
-
-
         System.out.println("DoctorServlet.processRequest");
 
 
