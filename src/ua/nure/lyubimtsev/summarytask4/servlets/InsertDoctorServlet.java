@@ -12,48 +12,47 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "EditDoctorServlet", urlPatterns = "/editDoctorServlet")
-public class EditDoctorServlet extends HttpServlet {
+@WebServlet(name = "InsertDoctorServlet", urlPatterns = "/insertDoctorServlet")
+public class InsertDoctorServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+        List<Category> categories = (List<Category>) session.getAttribute("categories");
 
-        String categoryByParameter = request.getParameter("category");
-        List<Category> categories = ((List<Category>) session.getAttribute("categories"));
+        String categoryStr = request.getParameter("category");
 
-        Category categoryByName = categories
+        Category myCategory = categories
                 .stream()
-                .filter(category -> category.getName().equals(categoryByParameter))
+                .filter(category -> category.getName().equals(categoryStr))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        Doctor newDoctor = new Doctor(
-                id,
+        Admin admin = (Admin) session.getAttribute("user");
+        // Admin admin = (Admin) session.getAttribute("userId");
+
+
+        Doctor doctor = new Doctor(
                 request.getParameter("login"),
                 request.getParameter("password"),
                 request.getParameter("name"),
-                categoryByName
+                myCategory,
+                admin
         );
 
-        if (DAOFactory.getMySQLDAOFactory().getDoctorDAO().updateDoctor(newDoctor) > 0) {
-            List<Doctor> doctors = ((Admin) session.getAttribute("admin")).getDoctors();
+        boolean success = DAOFactory.getMySQLDAOFactory().getDoctorDAO().insertDoctor(doctor) > 0;
 
-            Doctor doctorById = doctors
-                    .stream()
-                    .filter(doctor -> doctor.getId() == id)
-                    .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
-
-            doctors.set(doctors.indexOf(doctorById), newDoctor);
-            request.getRequestDispatcher("doctors?category=all").forward(request, response);
+        if (success) {
+            admin.getDoctors().add(doctor);
         }
+
+        response.sendRedirect("displayInsertDoctorServlet?success=" + success);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
-
 }

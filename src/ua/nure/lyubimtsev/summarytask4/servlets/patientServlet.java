@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,25 +23,26 @@ public class PatientServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        List<Doctor> doctors = ((Admin) session.getAttribute("user")).getDoctors();
+        List<Patient> patients = new ArrayList<>();
 
         int id = Integer.parseInt(request.getParameter("id"));
 
-        HttpSession session = request.getSession();
+        if (id == 0) {
+            for (Doctor doctor : doctors) {
+                patients.addAll(doctor.getPatients());
+            }
+        } else {
+            Doctor myDoctor = doctors
+                    .stream()
+                    .filter(doctor -> doctor.getId() == id)
+                    .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        List<Doctor> doctors = ((Admin) session.getAttribute("admin")).getDoctors();
+            patients = myDoctor.getPatients();
+        }
 
-
-        Doctor myDoctor = doctors
-                .stream()
-                .filter(doctor -> doctor.getId() == id)
-                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
-
-        List<Patient> patients = myDoctor.getPatients();
-
-
-        request.setAttribute("patients", patients);
+        session.setAttribute("patients", patients);
         request.getRequestDispatcher("patients.jsp").forward(request, response);
-
-
     }
 }

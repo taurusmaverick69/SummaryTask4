@@ -8,7 +8,7 @@
 <body>
 
 
-<form action="EditDoctorServlet" method="post">
+<form action="editDoctorServlet" method="post">
 
     <input type="hidden" name="id" value="${doctor.id}">
     <hr>
@@ -21,7 +21,6 @@
 
    Category:
     <select name="category">
-
 
     <%--@elvariable id="categories" type="java.util.List"--%>
     <c:forEach var="category" items="${categories}">

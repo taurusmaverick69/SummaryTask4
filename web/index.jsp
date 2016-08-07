@@ -13,9 +13,9 @@
 </c:if>
 
 <form action="login" method="post">
-    Login: <input name="login" required="required">
+    Login: <input name="login" required>
     <hr/>
-    Password: <input type="password" name="password" required="required">
+    Password: <input type="password" name="password" required>
     <hr/>
     <input type="submit" value="Login">
 </form>

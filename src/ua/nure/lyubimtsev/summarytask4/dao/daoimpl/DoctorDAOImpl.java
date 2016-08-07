@@ -102,7 +102,8 @@ public class DoctorDAOImpl implements DoctorDAO {
             preparedStatement.setString(1, doctor.getLogin());
             preparedStatement.setString(2, doctor.getPassword());
             preparedStatement.setString(3, doctor.getName());
-     //       preparedStatement.setString(4, doctor.getCategory());
+            preparedStatement.setInt(4, doctor.getCategory().getId());
+            preparedStatement.setInt(5, doctor.getAdmin().getId());
 
             return preparedStatement.executeUpdate();
 
@@ -115,7 +116,6 @@ public class DoctorDAOImpl implements DoctorDAO {
 
     @Override
     public int updateDoctor(Doctor doctor) {
-        System.out.println("START");
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE doctor SET login = ?, password = ?,  name = ?, category_id = ? WHERE id = ?")) {
 

@@ -26,18 +26,15 @@ public class GetDoctorOnEditServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         HttpSession session = request.getSession();
-        List<Doctor> doctors = ((Admin) session.getAttribute("admin")).getDoctors();
+        List<Doctor> doctors = ((Admin) session.getAttribute("user")).getDoctors();
 
         Doctor doctorById = doctors
                 .stream()
                 .filter(doctor -> doctor.getId() == id)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        List<Category> categories = DAOFactory.getMySQLDAOFactory().getCategoryDAO().getCategories();
 
         session.setAttribute("doctor", doctorById);
-        session.setAttribute("categories", categories);
-
         request.getRequestDispatcher("editDoctor.jsp").forward(request, response);
     }
 }

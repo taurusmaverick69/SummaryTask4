@@ -31,6 +31,14 @@
 
 </table>
 
+<li>Сортировка
+    <ul>
+        <li><a href="sortPatientsServlet?sort=alphabetically">По алфавиту</a></li>
+        <li><a href="sortPatientsServlet?sort=birthDate">По дате рождения</a></li>
+    </ul>
+</li>
+
+
 
 </body>
 </html>

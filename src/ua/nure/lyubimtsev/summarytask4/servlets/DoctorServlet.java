@@ -1,6 +1,8 @@
 package ua.nure.lyubimtsev.summarytask4.servlets;
 
+import ua.nure.lyubimtsev.summarytask4.dao.DAOFactory;
 import ua.nure.lyubimtsev.summarytask4.entities.Admin;
+import ua.nure.lyubimtsev.summarytask4.entities.Category;
 import ua.nure.lyubimtsev.summarytask4.entities.Doctor;
 import ua.nure.lyubimtsev.summarytask4.entities.Patient;
 
@@ -31,44 +33,26 @@ public class DoctorServlet extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String category = request.getParameter("category");
+
         HttpSession session = request.getSession();
+        String category = request.getParameter("category");
+        List<Doctor> doctors = ((Admin) session.getAttribute("user")).getDoctors();
 
-        Object user = session.getAttribute("admin");
-
-
-        System.out.println(user.getClass());
-
-        System.out.println(user instanceof Patient);
-
-        System.out.println("DoctorServlet.processRequest");
-
-
-        List<Doctor> doctors = ((Admin) session.getAttribute("admin")).getDoctors();
-
-        switch (category) {
-            case "all":
-                request.setAttribute("doctorsByCategory", doctors);
-                request.getRequestDispatcher("doctors.jsp").forward(request, response);
-                break;
-            case "patients":
-                List<Patient> patients = new ArrayList<>();
-                for (Doctor doctor : doctors) {
-                    patients.addAll(doctor.getPatients());
-                }
-
-                request.setAttribute("patients", patients);
-                request.getRequestDispatcher("patients.jsp").forward(request, response);
-                break;
-            default:
-                List<Doctor> doctorsByCategory = doctors
-                        .stream()
-                        .filter(doctor -> doctor.getCategory().getName().equals(category))
-                        .collect(Collectors.toList());
-
-                request.setAttribute("doctorsByCategory", doctorsByCategory);
-                request.getRequestDispatcher("doctors.jsp").forward(request, response);
-                break;
+        if (category.equals("all")){
+            session.setAttribute("doctorsByCategory", doctors);
+        } else {
+            List<Doctor> doctorsByCategory = doctors
+                    .stream()
+                    .filter(doctor -> doctor.getCategory().getName().equals(category))
+                    .collect(Collectors.toList());
+            session.setAttribute("doctorsByCategory", doctorsByCategory);
         }
+
+        request.setAttribute("category", category);
+
+
+        List<Category> categories = DAOFactory.getMySQLDAOFactory().getCategoryDAO().getCategories();
+        session.setAttribute("categories", categories);
+        request.getRequestDispatcher("doctors.jsp").forward(request, response);
     }
 }

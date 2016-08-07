@@ -27,7 +27,7 @@ public class GetPatientOnEditServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         HttpSession session = request.getSession();
-        List<Doctor> doctors = ((Admin) session.getAttribute("admin")).getDoctors();
+        List<Doctor> doctors = ((Admin) session.getAttribute("user")).getDoctors();
 
         Doctor doctorById = doctors
                 .stream()
