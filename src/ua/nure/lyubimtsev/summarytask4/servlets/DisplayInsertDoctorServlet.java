@@ -20,6 +20,5 @@ public class DisplayInsertDoctorServlet extends HttpServlet {
         request.setAttribute("result", success ? "Employee Successfully Inserted" : "Employee Not Inserted");
 
         request.getRequestDispatcher("doctors.jsp").forward(request, response);
-
     }
 }
