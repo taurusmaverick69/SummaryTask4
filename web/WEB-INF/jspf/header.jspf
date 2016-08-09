@@ -2,13 +2,13 @@
 Header (top area). 
 ===========================================================================--%> 
 
-<%@ page import="ua.nure.lyubimtsev.SummaryTask4.db.entities.Role" %>
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
 <tr>
 <td id="header">
 
+	<%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.User"--%>
 <c:if test="${not empty user}">
 <%--=========================================================================== 
 This is the user menu. 
@@ -49,7 +49,7 @@ This way we define the menu located at the right of header.
 <%--=========================================================================== 
 Type user name if the user object is presented in the current session.  
 ===========================================================================--%> 
-	<c:out value="${user.firstName} ${user.lastName}"/>
+	<c:out value="${user.name}"/>
 	
 <%--=========================================================================== 
 Type user role name if the user object is presented in the current session.  
@@ -73,7 +73,6 @@ Type link to logout
 		<a href="login.jsp">Login</a>
 	</div>
 </c:if>
-
 	</td>
 </tr>
 

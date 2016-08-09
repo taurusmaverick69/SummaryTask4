@@ -11,12 +11,12 @@
 <p>Вы вошли как администратор ${user.login}</p>
 
 <ul>
-    <li><a href="doctors?category=all">Просмотр врачей</a>
+    <li><a href="controller?command=doctors&role=all">Просмотр врачей</a>
         <ul>
-            <li><a href="doctors?category=pediatrician">Педиатры</a></li>
-            <li><a href="doctors?category=traumatologist">Травматологи</a></li>
-            <li><a href="doctors?category=surgeon">Хирурги</a></li>
-            <li><a href="doctors?category=nurse">Медсёстры</a></li>
+            <li><a href="controller?command=doctors&role=pediatrician">Педиатры</a></li>
+            <li><a href="controller?command=doctors&role=traumatologist">Травматологи</a></li>
+            <li><a href="controller?command=doctors&role=surgeon">Хирурги</a></li>
+            <li><a href="controller?command=doctors&role=nurse">Медсёстры</a></li>
         </ul>
     </li>
 

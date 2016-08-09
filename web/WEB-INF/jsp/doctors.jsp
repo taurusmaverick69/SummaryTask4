@@ -24,7 +24,7 @@
             <td>${doctor.login}</td>
             <td>${doctor.password}</td>
             <td>${doctor.name}</td>
-            <td>${doctor.category.name}</td>
+            <td>${doctor.role.name}</td>
 
             <td><a href="patients?id=${doctor.id}">Список пациентов (${doctor.patients.size()})</a></td>
             <td><a href="getDoctorOnEditServlet?id=${doctor.id}">Edit</a>
