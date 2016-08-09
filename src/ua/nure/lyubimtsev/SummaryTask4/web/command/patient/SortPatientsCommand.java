@@ -1,10 +1,11 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.command.patient;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
+import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

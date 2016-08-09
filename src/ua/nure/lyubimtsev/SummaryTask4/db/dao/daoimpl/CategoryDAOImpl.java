@@ -1,8 +1,9 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.RoleDAO;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Role;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.CategoryDAO;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,26 +12,29 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleDAOImpl implements RoleDAO {
+public class CategoryDAOImpl implements CategoryDAO {
     @Override
-    public List<Role> getRoles() {
+    public List<Category> getCategories() {
 
-        List<Role> roles = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
 
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
              Statement statement = connection.createStatement()) {
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM role");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM category");
 
             while (resultSet.next()) {
-                roles.add(new Role(
+                categories.add(new Category(
                         resultSet.getInt("id"),
-                        resultSet.getString("name")));
+                        resultSet.getString("name")
+                ));
             }
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return roles;
+
+        return categories;
     }
 }

@@ -1,9 +1,11 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao;
 
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.RoleDAOImpl;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.UserDAOImpl;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.RoleDAO;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.UserDAO;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.AdminDAOImpl;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.CategoryDAOImpl;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.DoctorDAOImpl;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.PatientDAOImpl;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.*;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -29,11 +31,43 @@ public class MySQLDAOFactory extends DAOFactory {
 
 
     @Override
-    public UserDAO getUserDAO() {return new UserDAOImpl();
+    public AdminDAO getAdminDAO() {
+        return new AdminDAOImpl();
     }
 
     @Override
-    public RoleDAO getRoleDAO() {
-        return new RoleDAOImpl();
+    public CategoryDAO getCategoryDAO() {
+        return new CategoryDAOImpl();
     }
+
+    @Override
+    public AppointmentDAO getAppointmentDAO() {
+        return null;
+    }
+
+    @Override
+    public DoctorDAO getDoctorDAO() {
+        return new DoctorDAOImpl();
+    }
+
+    @Override
+    public MedicalCardDAO getMedicalCardDAO() {
+        return null;
+    }
+
+    @Override
+    public PatientDAO getPatientDAO() {
+        return new PatientDAOImpl();
+    }
+
+    @Override
+    public StateDAO getStateDAO() {
+        return null;
+    }
+
+    @Override
+    public TypeDAO getTypeDAO() {
+        return null;
+    }
+
 }

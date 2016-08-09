@@ -4,7 +4,8 @@ import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.User;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginCommand extends Command {
@@ -57,23 +59,34 @@ public class LoginCommand extends Command {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-
         DAOFactory factory = DAOFactory.getMySQLDAOFactory();
-        User user = factory.getUserDAO().getUserByLoginAndPassword(login, md5Custom(password));
+        Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, md5Custom(password));
 
-        if (user == null) {
-            request.setAttribute("loginResult", "Invalid username or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
-            session.setAttribute("user", user);
-            if (user.getRole().getName().equals("admin")) {
-                redirect.setURL(Path.PAGE_ADMIN_PAGE);
+
+        if (admin == null) {
+
+            Doctor doctor = factory.getDoctorDAO().getDoctorByLoginAndPassword(login, md5Custom(password));
+
+            if (doctor == null) {
+                request.setAttribute("loginResult", "Invalid username or password");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
-                session.setAttribute("patients", user.getPatients());
+                doctor.setPatients(factory.getPatientDAO().getPatientsByDoctor(doctor));
+                session.setAttribute("doctor", doctor);
                 redirect.setURL(Path.PAGE_PATIENTS_PAGE);
             }
+        } else {
 
+            List<Doctor> doctors = factory.getDoctorDAO().getDoctors();
+            for (Doctor doctor : doctors){
+                doctor.setPatients(factory.getPatientDAO().getPatientsByDoctor(doctor));
+            }
+
+            admin.setDoctors(doctors);
+            session.setAttribute("admin", admin);
+            redirect.setURL(Path.PAGE_ADMIN_PAGE);
         }
+
 
         return redirect;
     }

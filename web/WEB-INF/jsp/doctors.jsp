@@ -24,11 +24,11 @@
             <td>${doctor.login}</td>
             <td>${doctor.password}</td>
             <td>${doctor.name}</td>
-            <td>${doctor.role.name}</td>
+            <td>${doctor.category.name}</td>
 
-            <td><a href="patients?id=${doctor.id}">Список пациентов (${doctor.patients.size()})</a></td>
-            <td><a href="getDoctorOnEditServlet?id=${doctor.id}">Edit</a>
-            <td><a href="getDoctorOnDeleteServlet?id=${doctor.id}">Delete</a></td>
+            <td><a href="controller?command=patients&patients?id=${doctor.id}">Список пациентов (${doctor.patients.size()})</a></td>
+            <td><a href="controller?command=getDoctorOnUpdate&id=${doctor.id}">Edit</a>
+            <td><a href="controller?command=getDoctorOnDelete&?id=${doctor.id}">Delete</a></td>
         </tr>
     </c:forEach>
 
@@ -38,9 +38,9 @@
 <ul>
     <li>Сортировка
         <ul>
-            <li><a href="sortDoctorsServlet?sort=alphabetically">По алфавиту</a></li>
-            <li><a href="sortDoctorsServlet?sort=category">По категории</a></li>
-            <li><a href="sortDoctorsServlet?sort=numberOfPatients">По количеству пациентов</a></li>
+            <li><a href="controller?command=sortDoctors&sort=alphabetically">По алфавиту</a></li>
+            <li><a href="controller?command=sortDoctors&sort=category">По категории</a></li>
+            <li><a href="controller?command=sortDoctors&sort=numberOfPatients">По количеству пациентов</a></li>
         </ul>
     </li>
 

@@ -1,15 +1,14 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
-public class Role {
+public class Category {
 
     private int id;
     private String name;
 
-    public Role(int id, String name) {
+    public Category(int id, String name) {
         this.id = id;
         this.name = name;
     }
-
 
     public int getId() {
         return id;
@@ -29,7 +28,7 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

@@ -28,4 +28,13 @@ public class Redirect {
     public void setForwardingType(ForwardingType forwardingType) {
         this.forwardingType = forwardingType;
     }
+
+
+    @Override
+    public String toString() {
+        return "Redirect{" +
+                "forwardingType=" + forwardingType +
+                ", URL='" + URL + '\'' +
+                '}';
+    }
 }

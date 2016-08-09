@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 /**
  * Main servlet controller.
  *
@@ -38,8 +39,6 @@ public class Controller extends HttpServlet {
      */
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        System.out.println("Controller.process");
-
         LOG.debug("Controller starts");
 
         // extract command name from the request
@@ -61,6 +60,9 @@ public class Controller extends HttpServlet {
         LOG.trace("Forward address --> " + redirect.getURL());
 
         LOG.debug("Controller finished, now go to forward address --> " + redirect.getURL());
+
+
+        System.out.println("redirect = " + redirect);
 
 
         // go to forward

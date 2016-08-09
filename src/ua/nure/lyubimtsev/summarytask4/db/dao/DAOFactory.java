@@ -1,8 +1,7 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao;
 
-
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.RoleDAO;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.UserDAO;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.*;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 
 public abstract class DAOFactory {
 
@@ -16,9 +15,20 @@ public abstract class DAOFactory {
         return factory;
     }
 
-    public abstract UserDAO getUserDAO();
+    public abstract AdminDAO getAdminDAO();
 
-    public abstract RoleDAO getRoleDAO();
+    public abstract CategoryDAO getCategoryDAO();
 
+    public abstract AppointmentDAO getAppointmentDAO();
+
+    public abstract DoctorDAO getDoctorDAO();
+
+    public abstract MedicalCardDAO getMedicalCardDAO();
+
+    public abstract PatientDAO getPatientDAO();
+
+    public abstract StateDAO getStateDAO();
+
+    public abstract TypeDAO getTypeDAO();
 
 }

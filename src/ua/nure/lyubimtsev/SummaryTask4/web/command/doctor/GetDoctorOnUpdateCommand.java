@@ -1,10 +1,12 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.command.doctor;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.User;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
+import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,9 +25,9 @@ public class GetDoctorOnUpdateCommand extends Command {
         int id = Integer.parseInt(request.getParameter("id"));
 
         HttpSession session = request.getSession();
-        List<User> doctors = ((User) session.getAttribute("user")).getDoctors();
+        List<Doctor> doctors = ((Admin) session.getAttribute("admin")).getDoctors();
 
-        User doctorById = doctors
+        Doctor doctorById = doctors
                 .stream()
                 .filter(doctor -> doctor.getId() == id)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));

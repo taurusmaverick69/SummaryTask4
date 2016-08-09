@@ -11,30 +11,27 @@
     </c:out>
 </c:if>
 
-
 <table id="main-container">
 
-    <%@ include file="/WEB-INF/jspf/header.jspf"%>
+    <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-    <tr >
+    <tr>
         <td class="content center">
-            <%-- CONTENT --%>
 
-            <%--===========================================================================
-            Defines the web form.
-            ===========================================================================--%>
             <form id="login_form" action="controller" method="post">
 
                 <input type="hidden" name="command" value="login"/>
 
-                <fieldset >
+                <fieldset>
                     <legend>Login</legend>
                     <input name="login"/><br/>
-                </fieldset><br/>
+                </fieldset>
+                <br/>
                 <fieldset>
                     <legend>Password</legend>
                     <input type="password" name="password"/>
-                </fieldset><br/>
+                </fieldset>
+                <br/>
 
                 <input type="submit" value="Login">
             </form>
@@ -43,7 +40,7 @@
         </td>
     </tr>
 
-    <%@ include file="/WEB-INF/jspf/footer.jspf"%>
+    <%@ include file="/WEB-INF/jspf/footer.jspf" %>
 
 </table>
 

@@ -1,6 +1,7 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.command;
 
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
 import javax.servlet.ServletException;

@@ -3,35 +3,19 @@ package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class Admin {
 
     private int id;
     private String login;
     private String password;
     private String name;
-    private Role role;
-    private List<Patient> patients;
-    private List<User> doctors;
+    private List<Doctor> doctors;
 
-    public User() {
-    }
-
-    public User(int id, String login, String password, String name, Role role) {
+    public Admin(int id, String login, String password, String name) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.name = name;
-        this.role = role;
-        this.patients = new ArrayList<>();
-        this.doctors = new ArrayList<>();
-    }
-
-    public User(String login, String password, String name, Role role) {
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.role = role;
-        this.patients = new ArrayList<>();
         this.doctors = new ArrayList<>();
     }
 
@@ -67,27 +51,22 @@ public class User {
         this.name = name;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
-
-    public List<User> getDoctors() {
+    public List<Doctor> getDoctors() {
         return doctors;
     }
 
-    public void setDoctors(List<User> doctors) {
+    public void setDoctors(List<Doctor> doctors) {
         this.doctors = doctors;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", doctors=" + doctors +
+                '}';
     }
 }
