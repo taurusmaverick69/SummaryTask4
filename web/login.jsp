@@ -12,7 +12,10 @@
     </c:out>
 </c:if>
 
-<form action="login" method="post">
+<form action="controller" method="post">
+
+    <input type="hidden" name="command" value="login"/>
+
     Login: <input name="login" required>
     <hr/>
     Password: <input type="password" name="password" required>

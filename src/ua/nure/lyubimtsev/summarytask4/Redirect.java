@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.summarytask4;
+package ua.nure.lyubimtsev.SummaryTask4;
 
 public class Redirect {
 

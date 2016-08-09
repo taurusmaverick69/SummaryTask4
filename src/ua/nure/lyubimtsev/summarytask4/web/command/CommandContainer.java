@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.summarytask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.command;
 
 import org.apache.log4j.Logger;
 

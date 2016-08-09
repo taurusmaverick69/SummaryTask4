@@ -1,12 +1,12 @@
-package ua.nure.lyubimtsev.summarytask4.web;
+package ua.nure.lyubimtsev.SummaryTask4.web;
 
 import org.apache.log4j.Logger;
-import ua.nure.lyubimtsev.summarytask4.ForwardingType;
-import ua.nure.lyubimtsev.summarytask4.Path;
-import ua.nure.lyubimtsev.summarytask4.Redirect;
-import ua.nure.lyubimtsev.summarytask4.exception.AppException;
-import ua.nure.lyubimtsev.summarytask4.web.command.Command;
-import ua.nure.lyubimtsev.summarytask4.web.command.CommandContainer;
+import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
+import ua.nure.lyubimtsev.SummaryTask4.Path;
+import ua.nure.lyubimtsev.SummaryTask4.Redirect;
+import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
+import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.command.CommandContainer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +23,6 @@ import java.io.IOException;
 @WebServlet(name = "Controller", urlPatterns = "/controller")
 public class Controller extends HttpServlet {
 
-    private static final long serialVersionUID = 2423353715955164816L;
-
     private static final Logger LOG = Logger.getLogger(Controller.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +37,8 @@ public class Controller extends HttpServlet {
      * Main method of this controller.
      */
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        System.out.println("Controller.process");
 
         LOG.debug("Controller starts");
 

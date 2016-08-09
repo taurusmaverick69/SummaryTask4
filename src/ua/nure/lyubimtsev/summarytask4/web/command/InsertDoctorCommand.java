@@ -1,17 +1,14 @@
-package ua.nure.lyubimtsev.summarytask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.command;
 
-import ua.nure.lyubimtsev.summarytask4.ForwardingType;
-import ua.nure.lyubimtsev.summarytask4.Redirect;
-import ua.nure.lyubimtsev.summarytask4.db.dao.DAOFactory;
-import ua.nure.lyubimtsev.summarytask4.db.entities.Admin;
-import ua.nure.lyubimtsev.summarytask4.db.entities.Category;
-import ua.nure.lyubimtsev.summarytask4.db.entities.Doctor;
-import ua.nure.lyubimtsev.summarytask4.exception.AppException;
-import ua.nure.lyubimtsev.summarytask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
+import ua.nure.lyubimtsev.SummaryTask4.Redirect;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Role;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.User;
+import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,32 +20,29 @@ import java.util.stream.Collectors;
 public class InsertDoctorCommand extends Command {
 
 
-
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         HttpSession session = request.getSession();
-        List<Category> categories = (List<Category>) session.getAttribute("categories");
+        List<Role> categories = (List<Role>) session.getAttribute("roles");
 
-        String categoryStr = request.getParameter("category");
+        String roleStr = request.getParameter("role");
 
-        Category myCategory = categories
+        Role myRole = categories
                 .stream()
-                .filter(category -> category.getName().equals(categoryStr))
+                .filter(category -> category.getName().equals(roleStr))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        Admin admin = (Admin) session.getAttribute("user");
-        // Admin admin = (Admin) session.getAttribute("userId");
+        User admin = (User) session.getAttribute("user");
 
 
-        Doctor doctor = new Doctor(
+        User doctor = new User(
                 request.getParameter("login"),
                 request.getParameter("password"),
                 request.getParameter("name"),
-                myCategory,
-                admin
+                myRole
         );
 
-        boolean success = DAOFactory.getMySQLDAOFactory().getDoctorDAO().insertDoctor(doctor) > 0;
+        boolean success = DAOFactory.getMySQLDAOFactory().getUserDAO().insertUser(doctor) > 0;
 
         if (success) {
             admin.getDoctors().add(doctor);

@@ -1,16 +1,15 @@
-package ua.nure.lyubimtsev.summarytask4;
+package ua.nure.lyubimtsev.SummaryTask4;
 
 public class Path {
 
     private final static String SEND_REDIRECT = "sendRedirect";
     private final static String FORWARD = "forward";
 
-
     // pages
     public static final String PAGE_LOGIN = "/login.jsp";
     public static final String PAGE_ERROR_PAGE = "/WEB-INF/jsp/error_page.jsp";
 
-    public static final String PAGE_ADMIN_PAGE = "/WEB-INF/jsp/admin_page.jsp";
+    public static final String PAGE_ADMIN_PAGE = "/WEB-INF/jsp/admin/admin_page.jsp";
 
     public static final String PAGE_DOCTORS_PAGE = "/WEB-INF/jsp/doctors.jsp";
     public static final String PAGE_INSERT_DOCTOR_PAGE = "/WEB-INF/jsp/insert_doctor.jsp";

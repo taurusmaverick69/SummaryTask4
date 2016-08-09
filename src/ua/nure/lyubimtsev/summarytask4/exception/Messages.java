@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.summarytask4.exception;
+package ua.nure.lyubimtsev.SummaryTask4.exception;
 
 /**
  * Holder for messages of exceptions.

@@ -1,13 +1,12 @@
-package ua.nure.lyubimtsev.summarytask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.command;
 
 
-import ua.nure.lyubimtsev.summarytask4.ForwardingType;
-import ua.nure.lyubimtsev.summarytask4.Path;
-import ua.nure.lyubimtsev.summarytask4.Redirect;
-import ua.nure.lyubimtsev.summarytask4.db.dao.DAOFactory;
-import ua.nure.lyubimtsev.summarytask4.db.entities.Admin;
-import ua.nure.lyubimtsev.summarytask4.db.entities.Category;
-import ua.nure.lyubimtsev.summarytask4.db.entities.Doctor;
+import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
+import ua.nure.lyubimtsev.SummaryTask4.Path;
+import ua.nure.lyubimtsev.SummaryTask4.Redirect;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Role;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,22 +25,24 @@ public class DoctorCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String category = request.getParameter("category");
-        List<Doctor> doctors = ((Admin) session.getAttribute("user")).getDoctors();
+        String role = request.getParameter("role");
 
-        if (category.equals("all")){
+
+        List<User> doctors = ((User) session.getAttribute("user")).getDoctors();
+
+        if (role.equals("all")){
             session.setAttribute("doctorsByCategory", doctors);
         } else {
-            List<Doctor> doctorsByCategory = doctors
+            List<User> doctorsByCategory = doctors
                     .stream()
-                    .filter(doctor -> doctor.getCategory().getName().equals(category))
+                    .filter(doctor -> doctor.getRole().getName().equals(role))
                     .collect(Collectors.toList());
             session.setAttribute("doctorsByCategory", doctorsByCategory);
         }
 
-        request.setAttribute("category", category);
+        request.setAttribute("role", role);
 
-        List<Category> categories = DAOFactory.getMySQLDAOFactory().getCategoryDAO().getCategories();
+        List<Role> categories = DAOFactory.getMySQLDAOFactory().getRoleDAO().getRoles();
         session.setAttribute("categories", categories);
 
         return new Redirect(Path.PAGE_DOCTORS_PAGE, ForwardingType.FORWARD);

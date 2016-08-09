@@ -1,5 +1,5 @@
-<%--@elvariable id="category" type="ua.nure.lyubimtsev.summarytask4.db.entities.Category"--%>
-<%--@elvariable id="doctor" type="ua.nure.lyubimtsev.summarytask4.db.entities.Doctor"--%>
+<%--@elvariable id="category" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Category"--%>
+<%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="doctorsByCategory" type="java.util.List"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

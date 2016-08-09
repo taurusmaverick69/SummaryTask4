@@ -1,10 +1,10 @@
-package ua.nure.lyubimtsev.summarytask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.command;
 
 import org.apache.log4j.Logger;
-import ua.nure.lyubimtsev.summarytask4.ForwardingType;
-import ua.nure.lyubimtsev.summarytask4.Path;
-import ua.nure.lyubimtsev.summarytask4.Redirect;
-import ua.nure.lyubimtsev.summarytask4.exception.AppException;
+import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
+import ua.nure.lyubimtsev.SummaryTask4.Path;
+import ua.nure.lyubimtsev.SummaryTask4.Redirect;
+import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,13 +1,11 @@
-package ua.nure.lyubimtsev.summarytask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.command;
 
-import ua.nure.lyubimtsev.summarytask4.ForwardingType;
-import ua.nure.lyubimtsev.summarytask4.Path;
-import ua.nure.lyubimtsev.summarytask4.Redirect;
-import ua.nure.lyubimtsev.summarytask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
+import ua.nure.lyubimtsev.SummaryTask4.Path;
+import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

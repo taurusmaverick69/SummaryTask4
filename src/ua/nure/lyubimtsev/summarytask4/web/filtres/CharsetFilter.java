@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.summarytask4.web.filtres;
+package ua.nure.lyubimtsev.SummaryTask4.web.filtres;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,6 +10,7 @@ public class CharsetFilter implements Filter {
     private final static String ENCODING = "UTF-8";
 
     public void init(FilterConfig config) throws ServletException {
+        System.out.println("CharsetFilter.init");
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {

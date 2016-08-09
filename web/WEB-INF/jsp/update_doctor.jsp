@@ -1,4 +1,4 @@
-<%--@elvariable id="doctor" type="ua.nure.lyubimtsev.summarytask4.db.entities.Doctor"--%>
+<%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>

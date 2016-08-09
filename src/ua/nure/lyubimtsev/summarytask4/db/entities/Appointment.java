@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.summarytask4.db.entities;
+package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
 public class Appointment {
 
