@@ -21,7 +21,9 @@
 </head>
 
 <body>
-<form action="insertDoctorServlet" method="post">
+<form action="controller" method="post">
+
+    <input type="hidden" name="command" value="insertDoctor"/>
 
     Login: <input name="login"/>
     <hr>
@@ -36,14 +38,7 @@
     <select name="category">
         <%--@elvariable id="categories" type="java.util.List"--%>
         <c:forEach var="category" items="${categories}">
-            <c:choose>
-                <c:when test="${category.id eq doctor.category.id}">
-                    <option selected>${category.name}</option>
-                </c:when>
-                <c:otherwise>
-                    <option name="category">${category.name}</option>
-                </c:otherwise>
-            </c:choose>
+            <option>${category.name}</option>
         </c:forEach>
     </select>
     <hr>

@@ -10,4 +10,6 @@ public interface DoctorDAO {
 
     Doctor getDoctorByLoginAndPassword(String login, String password);
 
+    int insertDoctor(Doctor doctor);
+
 }

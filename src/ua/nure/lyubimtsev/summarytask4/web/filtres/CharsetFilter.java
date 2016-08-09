@@ -10,7 +10,6 @@ public class CharsetFilter implements Filter {
     private final static String ENCODING = "UTF-8";
 
     public void init(FilterConfig config) throws ServletException {
-        System.out.println("CharsetFilter.init");
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {

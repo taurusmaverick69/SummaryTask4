@@ -1,6 +1,8 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.command;
 
 import org.apache.log4j.Logger;
+import ua.nure.lyubimtsev.SummaryTask4.web.command.doctor.*;
+import ua.nure.lyubimtsev.SummaryTask4.web.command.patient.*;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,21 +19,23 @@ public class CommandContainer {
 //        commands.put("logout", new LogoutCommand());
 //        commands.put("viewSettings", new ViewSettingsCommand());
         commands.put("noCommand", new NoCommand());
-
+        commands.put("forwardCommand", new ForwardCommand());
 
         // doctor commands
-        commands.put("login", new LoginCommand());
-        commands.put("doctors", new DoctorCommand());
+        commands.put("doctors", new GetDoctorsCommand());
         commands.put("insertDoctor", new InsertDoctorCommand());
         commands.put("displayInsertDoctor", new DisplayInsertDoctorCommand());
         commands.put("getDoctorOnUpdate", new GetDoctorOnUpdateCommand());
         commands.put("updateDoctor", new UpdateDoctorCommand());
-        commands.put("sortDoctorsCommand", new SortDoctorsCommand());
+        commands.put("sortDoctors", new SortDoctorsCommand());
 
 
-        commands.put("patients", new PatientCommand());
+        commands.put("patients", new GetPatientsCommand());
+        commands.put("insertPatient", new InsertPatientCommand());
+        commands.put("displayInsertPatient", new DisplayInsertPatientCommand());
         commands.put("getPatientOnUpdate", new GetPatientOnUpdateCommand());
-        commands.put("sortPatientsCommand", new SortPatientsCommand());
+        commands.put("updatePatient", new UpdatePatientCommand());
+        commands.put("sortPatients", new SortPatientsCommand());
 
 
         LOG.debug("Command container was successfully initialized");

@@ -73,4 +73,24 @@ public class DoctorDAOImpl implements DoctorDAO {
         return doctor;
 
     }
+
+    @Override
+    public int insertDoctor(Doctor doctor) {
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO doctor VALUES (DEFAULT,?,?,?,?,?)")) {
+
+            preparedStatement.setString(1, doctor.getLogin());
+            preparedStatement.setString(2, doctor.getPassword());
+            preparedStatement.setString(3, doctor.getName());
+            preparedStatement.setInt(4, doctor.getAdmin_id());
+            preparedStatement.setInt(5, doctor.getCategory().getId());
+
+            return preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

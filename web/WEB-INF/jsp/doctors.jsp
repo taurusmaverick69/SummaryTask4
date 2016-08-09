@@ -1,4 +1,5 @@
-<%--@elvariable id="category" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Category"--%>
+<%@ page import="static ua.nure.lyubimtsev.SummaryTask4.Path.PAGE_INSERT_PATIENT_PAGE" %>
+<%@ page import="static ua.nure.lyubimtsev.SummaryTask4.Path.PAGE_INSERT_DOCTOR_PAGE" %><%--@elvariable id="category" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Category"--%>
 <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="doctorsByCategory" type="java.util.List"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -26,7 +27,7 @@
             <td>${doctor.name}</td>
             <td>${doctor.category.name}</td>
 
-            <td><a href="controller?command=patients&patients?id=${doctor.id}">Список пациентов (${doctor.patients.size()})</a></td>
+            <td><a href="controller?command=patients&id=${doctor.id}">Список пациентов (${doctor.patients.size()})</a></td>
             <td><a href="controller?command=getDoctorOnUpdate&id=${doctor.id}">Edit</a>
             <td><a href="controller?command=getDoctorOnDelete&?id=${doctor.id}">Delete</a></td>
         </tr>
@@ -44,11 +45,10 @@
         </ul>
     </li>
 
+    <li><a href="controller?command=forwardCommand&page=<%=PAGE_INSERT_DOCTOR_PAGE%>">Добавить</a></li>
 
-    <li><a href="insert_doctor.jsp">Добавить</a></li>
 
 </ul>
-
 
 </body>
 </html>

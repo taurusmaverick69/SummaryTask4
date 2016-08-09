@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @WebServlet(name = "InsertDoctorServlet", urlPatterns = "/insertDoctorServlet")
 public class InsertDoctorCommand extends Command {
 
-
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         HttpSession session = request.getSession();
@@ -37,23 +36,21 @@ public class InsertDoctorCommand extends Command {
 
         Admin admin = (Admin) session.getAttribute("admin");
 
-
         Doctor doctor = new Doctor(
                 request.getParameter("login"),
                 request.getParameter("password"),
                 request.getParameter("name"),
-                myCategory
+                myCategory,
+                admin.getId()
         );
 
-      //  boolean success = DAOFactory.getMySQLDAOFactory().getDoctorDAO().in(doctor) > 0;
-        boolean success = false;
-//
-//        if (success) {
-//            admin.getDoctors().add(doctor);
-//        }
 
+        boolean success = DAOFactory.getMySQLDAOFactory().getDoctorDAO().insertDoctor(doctor) > 0;
+
+        if (success) {
+            admin.getDoctors().add(doctor);
+        }
 
         return new Redirect("displayInsertDoctorServlet?success=" + success, ForwardingType.SEND_REDIRECT);
-
     }
 }

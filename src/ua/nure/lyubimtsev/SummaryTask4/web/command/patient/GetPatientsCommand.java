@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @WebServlet(name = "PatientServlet", urlPatterns = "/patients")
-public class PatientCommand extends Command {
+public class GetPatientsCommand extends Command {
 
 
     @Override

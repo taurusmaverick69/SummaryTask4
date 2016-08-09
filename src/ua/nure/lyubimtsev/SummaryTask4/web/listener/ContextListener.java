@@ -64,8 +64,6 @@ public class ContextListener implements ServletContextListener {
 		// initialize commands container
         // just load class to JVM
 
-
-
 		try {
 			Class.forName("ua.nure.lyubimtsev.SummaryTask4.web.command.CommandContainer");
 		} catch (ClassNotFoundException ex) {

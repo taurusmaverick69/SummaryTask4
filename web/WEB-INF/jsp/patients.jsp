@@ -33,11 +33,10 @@
 
 <li>Сортировка
     <ul>
-        <li><a href="sortPatientsServlet?sort=alphabetically">По алфавиту</a></li>
-        <li><a href="sortPatientsServlet?sort=birthDate">По дате рождения</a></li>
+        <li><a href="controller?command=sortPatients&sort=alphabetically">По алфавиту</a></li>
+        <li><a href="controller?command=sortPatients&sort=birthDate">По дате рождения</a></li>
     </ul>
 </li>
-
 
 
 </body>
