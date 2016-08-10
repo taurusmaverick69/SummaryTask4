@@ -19,7 +19,7 @@ public class CommandContainer {
 //        commands.put("logout", new LogoutCommand());
 //        commands.put("viewSettings", new ViewSettingsCommand());
         commands.put("noCommand", new NoCommand());
-        commands.put("forwardCommand", new ForwardCommand());
+        commands.put("forward", new ForwardCommand());
 
         // doctor commands
         commands.put("doctors", new GetDoctorsCommand());
@@ -29,7 +29,6 @@ public class CommandContainer {
         commands.put("updateDoctor", new UpdateDoctorCommand());
         commands.put("sortDoctors", new SortDoctorsCommand());
 
-
         commands.put("patients", new GetPatientsCommand());
         commands.put("insertPatient", new InsertPatientCommand());
         commands.put("displayInsertPatient", new DisplayInsertPatientCommand());
@@ -37,10 +36,8 @@ public class CommandContainer {
         commands.put("updatePatient", new UpdatePatientCommand());
         commands.put("sortPatients", new SortPatientsCommand());
 
-
         LOG.debug("Command container was successfully initialized");
         LOG.trace("Number of commands --> " + commands.size());
-
     }
 
     /**

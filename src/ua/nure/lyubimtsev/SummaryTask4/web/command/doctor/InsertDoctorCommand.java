@@ -1,8 +1,11 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.command.doctor;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
+import ua.nure.lyubimtsev.SummaryTask4.Hash;
+import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.DoctorDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,19 +42,23 @@ public class InsertDoctorCommand extends Command {
 
         Doctor doctor = new Doctor(
                 request.getParameter("login"),
-                request.getParameter("password"),
+                Hash.md5Custom(request.getParameter("password")),
                 request.getParameter("name"),
                 myCategory,
                 admin.getId()
         );
 
+        DoctorDAO doctorDAO = DAOFactory.getMySQLDAOFactory().getDoctorDAO();
 
-        boolean success = DAOFactory.getMySQLDAOFactory().getDoctorDAO().insertDoctor(doctor) > 0;
-
-        if (success) {
-            admin.getDoctors().add(doctor);
+        if (doctorDAO.isLoginExists(doctor.getLogin())) {
+            return new Redirect(Path.PAGE_INSERT_DOCTOR_PAGE + "?result=" + "Пользователь с таким именем уже существует", ForwardingType.FORWARD);
+        } else {
+            boolean success = doctorDAO.insertDoctor(doctor) > 0;
+            if (success) {
+                admin.getDoctors().add(doctor);
+            }
+            return new Redirect("controller?command=displayInsertDoctor&success=" + success, ForwardingType.SEND_REDIRECT);
         }
 
-        return new Redirect("displayInsertDoctorServlet?success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

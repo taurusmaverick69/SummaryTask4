@@ -45,8 +45,7 @@
         </ul>
     </li>
 
-    <li><a href="controller?command=forwardCommand&page=<%=PAGE_INSERT_DOCTOR_PAGE%>">Добавить</a></li>
-
+    <li><a href="controller?command=forward&page=<%=PAGE_INSERT_DOCTOR_PAGE%>">Добавить</a></li>
 
 </ul>
 

@@ -21,6 +21,16 @@
 </head>
 
 <body>
+
+<%--@elvariable id="result" type="java.lang.String"--%>
+<c:if test="${not empty result}">
+    <c:out value="${result}">
+    </c:out>
+</c:if>
+
+${param.result}
+
+
 <form action="controller" method="post">
 
     <input type="hidden" name="command" value="insertDoctor"/>

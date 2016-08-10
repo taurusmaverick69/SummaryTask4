@@ -107,6 +107,7 @@
       <column id="31" parent="5" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
       </column>
       <column id="32" parent="5" name="login">
         <mandatory>1</mandatory>

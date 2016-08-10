@@ -17,9 +17,9 @@ public class DisplayInsertDoctorCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        boolean success = Boolean.parseBoolean("success");
+        boolean success = Boolean.parseBoolean(request.getParameter("success"));
         request.setAttribute("result", success ? "Doctor Successfully Inserted" : "Doctor Not Inserted");
-        return new Redirect(Path.PAGE_DOCTORS_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.PAGE_RESULT_PAGE, ForwardingType.FORWARD);
 
     }
 }

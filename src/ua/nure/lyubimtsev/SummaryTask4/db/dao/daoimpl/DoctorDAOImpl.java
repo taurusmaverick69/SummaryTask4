@@ -87,10 +87,24 @@ public class DoctorDAOImpl implements DoctorDAO {
 
             return preparedStatement.executeUpdate();
 
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public boolean isLoginExists(String login) {
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT login FROM doctor WHERE login = ?")) {
+
+            preparedStatement.setString(1, login);
+
+            return preparedStatement.executeQuery().next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

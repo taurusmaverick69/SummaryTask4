@@ -12,4 +12,6 @@ public interface DoctorDAO {
 
     int insertDoctor(Doctor doctor);
 
+    boolean isLoginExists(String login);
+
 }

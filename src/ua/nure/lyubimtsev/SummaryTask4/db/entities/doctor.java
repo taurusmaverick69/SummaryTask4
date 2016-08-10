@@ -10,6 +10,7 @@ public class Doctor {
     private String password;
     private String name;
     private Category category;
+    private int admin_id;
     private List<Patient> patients;
 
     public Doctor(int id, String login, String password, String name, Category category) {
@@ -21,11 +22,13 @@ public class Doctor {
         this.patients = new ArrayList<>();
     }
 
-    public Doctor(String login, String password, String name, Category category) {
+    public Doctor(String login, String password, String name, Category category, int admin_id) {
         this.login = login;
         this.password = password;
         this.name = name;
         this.category = category;
+        this.admin_id = admin_id;
+        this.patients = new ArrayList<>();
     }
 
     public int getId() {
@@ -74,6 +77,14 @@ public class Doctor {
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
+    }
+
+    public int getAdmin_id() {
+        return admin_id;
+    }
+
+    public void setAdmin_id(int admin_id) {
+        this.admin_id = admin_id;
     }
 
     @Override

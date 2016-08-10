@@ -1,6 +1,7 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.command;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
+import ua.nure.lyubimtsev.SummaryTask4.Hash;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
@@ -22,32 +23,6 @@ import java.util.List;
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginCommand extends Command {
 
-    public static String md5Custom(String st) {
-        MessageDigest messageDigest = null;
-        byte[] digest = new byte[0];
-
-        try {
-            messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.reset();
-            messageDigest.update(st.getBytes());
-            digest = messageDigest.digest();
-        } catch (NoSuchAlgorithmException e) {
-            // тут можно обработать ошибку
-            // возникает она если в передаваемый алгоритм в getInstance(,,,) не существует
-            e.printStackTrace();
-        }
-
-        BigInteger bigInt = new BigInteger(1, digest);
-        String md5Hex = bigInt.toString(16);
-
-        while (md5Hex.length() < 32) {
-            md5Hex = "0" + md5Hex;
-        }
-
-        return md5Hex;
-    }
-
-
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
@@ -60,12 +35,12 @@ public class LoginCommand extends Command {
         String password = request.getParameter("password");
 
         DAOFactory factory = DAOFactory.getMySQLDAOFactory();
-        Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, md5Custom(password));
+        Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, Hash.md5Custom(password));
 
 
         if (admin == null) {
 
-            Doctor doctor = factory.getDoctorDAO().getDoctorByLoginAndPassword(login, md5Custom(password));
+            Doctor doctor = factory.getDoctorDAO().getDoctorByLoginAndPassword(login, Hash.md5Custom(password));
 
             if (doctor == null) {
                 request.setAttribute("loginResult", "Invalid username or password");
