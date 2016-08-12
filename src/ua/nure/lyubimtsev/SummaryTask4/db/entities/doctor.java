@@ -13,6 +13,9 @@ public class Doctor {
     private int admin_id;
     private List<Patient> patients;
 
+    public Doctor() {
+    }
+
     public Doctor(int id, String login, String password, String name, Category category) {
         this.id = id;
         this.login = login;
@@ -98,4 +101,8 @@ public class Doctor {
                 ", patients=" + patients +
                 '}';
     }
+
+
+
+
 }

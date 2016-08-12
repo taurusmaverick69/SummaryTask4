@@ -32,7 +32,6 @@ public class GetDoctorOnUpdateCommand extends Command {
                 .filter(doctor -> doctor.getId() == id)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-
         session.setAttribute("doctor", doctorById);
 
         return new Redirect(Path.PAGE_UPDATE_DOCTOR_PAGE, ForwardingType.FORWARD);

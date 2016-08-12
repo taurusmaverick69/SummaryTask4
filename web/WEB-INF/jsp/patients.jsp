@@ -1,3 +1,4 @@
+<%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -16,6 +17,7 @@
     </tr>
 
     <%--@elvariable id="patients" type="java.util.List"--%>
+    <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
     <c:forEach var="patient" items="${patients}">
         <tr>
             <td>${patient.name}</td>
@@ -36,6 +38,8 @@
         <li><a href="controller?command=sortPatients&sort=alphabetically">По алфавиту</a></li>
         <li><a href="controller?command=sortPatients&sort=birthDate">По дате рождения</a></li>
     </ul>
+
+<li><a href="controller?command=forward&page=<%=Path.PAGE_INSERT_PATIENT_PAGE%>">Добавить</a></li>
 </li>
 
 

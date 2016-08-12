@@ -1,9 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao;
 
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.AdminDAOImpl;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.CategoryDAOImpl;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.DoctorDAOImpl;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.PatientDAOImpl;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.*;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.*;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 
@@ -26,9 +23,7 @@ public class MySQLDAOFactory extends DAOFactory {
             }
         }
         return dataSource;
-
     }
-
 
     @Override
     public AdminDAO getAdminDAO() {
@@ -62,7 +57,7 @@ public class MySQLDAOFactory extends DAOFactory {
 
     @Override
     public StateDAO getStateDAO() {
-        return null;
+        return new StateDAOImpl();
     }
 
     @Override

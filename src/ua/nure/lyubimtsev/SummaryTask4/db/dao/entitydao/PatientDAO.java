@@ -10,5 +10,7 @@ public interface PatientDAO {
 
     List<Patient> getPatientsByDoctor(Doctor doctor);
 
+    int insertPatient(Patient patient);
+
 
 }

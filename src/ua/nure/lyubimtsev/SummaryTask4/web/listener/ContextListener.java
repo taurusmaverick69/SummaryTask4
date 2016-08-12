@@ -38,7 +38,7 @@ public class ContextListener implements ServletContextListener {
 
 	/**
 	 * Initializes log4j framework.
-	 * 
+	 *
 	 * @param servletContext
 	 */
 	private void initLog4J(ServletContext servletContext) {
@@ -56,8 +56,7 @@ public class ContextListener implements ServletContextListener {
 	
 	/**
 	 * Initializes CommandContainer.
-	 * 
-	 * @param servletContext
+	 *
 	 */
 	private void initCommandContainer() {
 		

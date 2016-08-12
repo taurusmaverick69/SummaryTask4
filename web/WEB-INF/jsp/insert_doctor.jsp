@@ -35,13 +35,13 @@ ${param.result}
 
     <input type="hidden" name="command" value="insertDoctor"/>
 
-    Login: <input name="login"/>
+    Login: <input name="login" required minlength="5" maxlength="45"/>
     <hr>
-    Password: <input type="password" name="password" id="password1"/>
+    Password: <input type="password" name="password" id="password1" required minlength="5" maxlength="45"/>
     <hr>
-    Confirm Password:<input type="password" id="password2"/>
+    Confirm Password:<input type="password" id="password2" required minlength="5" maxlength="45"/>
     <hr>
-    Name:<input name="name"/>
+    Name:<input name="name" required minlength="5" maxlength="45"/>
     <hr>
 
     Category:

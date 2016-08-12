@@ -4,12 +4,9 @@ import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.PatientDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.PatientState;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +19,6 @@ public class PatientDAOImpl implements PatientDAO {
 
         List<Patient> patients = new ArrayList<>();
 
-
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_PATIENTS_BY_DOCTOR)) {
 
@@ -30,13 +26,13 @@ public class PatientDAOImpl implements PatientDAO {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 patients.add(new Patient(
                         resultSet.getInt("patient.id"),
                         resultSet.getString("patient.name"),
                         resultSet.getString("patient.address"),
                         resultSet.getDate("patient.birthDate"),
-                        new PatientState(resultSet.getInt("state.id"), resultSet.getString("state.name"))
+                        new State(resultSet.getInt("state.id"), resultSet.getString("state.name"))
                 ));
             }
 
@@ -45,5 +41,36 @@ public class PatientDAOImpl implements PatientDAO {
         }
 
         return patients;
+    }
+
+    @Override
+    public int insertPatient(Patient patient) {
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement patientPreparedStatement = connection.prepareStatement("INSERT INTO patient VALUES (DEFAULT, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement patient_doctorPreparedStatement = connection.prepareStatement("INSERT INTO patient_doctor VALUES (?,?)")) {
+
+            patientPreparedStatement.setString(1, patient.getName());
+            patientPreparedStatement.setString(2, patient.getAddress());
+            patientPreparedStatement.setDate(3, new Date(patient.getBirthDate().getTime()));
+            patientPreparedStatement.setInt(4, patient.getState().getId());
+
+
+            patientPreparedStatement.executeUpdate();
+
+            int patientId = 0;
+            ResultSet generatedKeys = patientPreparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()){
+                patientId = generatedKeys.getInt(1);
+            }
+
+            patient_doctorPreparedStatement.setInt(1, patientId);
+            patient_doctorPreparedStatement.setInt(2, patient.getDoctor_id());
+
+            return patient_doctorPreparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

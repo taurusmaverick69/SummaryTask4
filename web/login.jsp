@@ -24,12 +24,12 @@
 
                 <fieldset>
                     <legend>Login</legend>
-                    <input name="login"/><br/>
+                    <input name="login" required/><br/>
                 </fieldset>
                 <br/>
                 <fieldset>
                     <legend>Password</legend>
-                    <input type="password" name="password"/>
+                    <input type="password" name="password" required/>
                 </fieldset>
                 <br/>
 

@@ -1,11 +1,11 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
-public class PatientState {
+public class State {
 
     private int id;
     private String name;
 
-    public PatientState(int id, String name) {
+    public State(int id, String name) {
         this.id = id;
         this.name = name;
     }

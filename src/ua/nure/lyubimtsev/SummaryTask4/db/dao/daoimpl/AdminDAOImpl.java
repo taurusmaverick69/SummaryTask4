@@ -4,13 +4,8 @@ package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.AdminDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.PatientState;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminDAOImpl implements AdminDAO {
 

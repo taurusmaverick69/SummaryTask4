@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
 public class ForwardCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {

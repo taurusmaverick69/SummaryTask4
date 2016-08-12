@@ -32,6 +32,7 @@ public class GetPatientsCommand extends Command {
         int id = Integer.parseInt(request.getParameter("id"));
 
         if (id == 0) {
+
             for (Doctor doctor : doctors) {
                 patients.addAll(doctor.getPatients());
             }
@@ -44,8 +45,9 @@ public class GetPatientsCommand extends Command {
             patients = myDoctor.getPatients();
         }
 
-        session.setAttribute("patients", patients);
 
+
+        session.setAttribute("patients", patients);
         return new Redirect(Path.PAGE_PATIENTS_PAGE, ForwardingType.FORWARD);
     }
 }

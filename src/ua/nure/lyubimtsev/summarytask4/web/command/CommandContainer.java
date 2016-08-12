@@ -29,6 +29,8 @@ public class CommandContainer {
         commands.put("updateDoctor", new UpdateDoctorCommand());
         commands.put("sortDoctors", new SortDoctorsCommand());
 
+
+
         commands.put("patients", new GetPatientsCommand());
         commands.put("insertPatient", new InsertPatientCommand());
         commands.put("displayInsertPatient", new DisplayInsertPatientCommand());

@@ -8,13 +8,9 @@
 <body>
 
 
-<form action="editDoctorServlet" method="post">
+<form action="controller?command=adminUpdateDoctor" method="post">
 
     <input type="hidden" name="id" value="${doctor.id}">
-    <hr>
-    Login: <input name="login" value="${doctor.login}">
-    <hr>
-    Password: <input type="password" name="password">
     <hr>
     Name: <input name="name" value="${doctor.name}">
     <hr>
@@ -29,7 +25,7 @@
                 <option selected>${category.name}</option>
             </c:when>
             <c:otherwise>
-                <option name="category">${category.name}</option>
+                <option>${category.name}</option>
             </c:otherwise>
         </c:choose>
     </c:forEach>

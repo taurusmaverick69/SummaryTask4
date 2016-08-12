@@ -94,9 +94,32 @@ public class DoctorDAOImpl implements DoctorDAO {
     }
 
     @Override
+    public int updateDoctor(Doctor doctor) {
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE doctor SET login = ?, password = ?, name = ?, category_id = ? WHERE id = ?")) {
+
+            preparedStatement.setString(1, doctor.getName());
+            preparedStatement.setInt(2, doctor.getCategory().getId());
+            preparedStatement.setInt(3, doctor.getId());
+
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int doctorUpdateDoctor(Doctor doctor) {
+        return 0;
+    }
+
+    @Override
     public boolean isLoginExists(String login) {
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT login FROM doctor WHERE login = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT id FROM doctor WHERE login = ?")) {
 
             preparedStatement.setString(1, login);
 

@@ -7,6 +7,7 @@ import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
 import javax.servlet.ServletException;
@@ -15,9 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
@@ -37,6 +35,7 @@ public class LoginCommand extends Command {
         DAOFactory factory = DAOFactory.getMySQLDAOFactory();
         Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, Hash.md5Custom(password));
 
+        session.setAttribute("states", factory.getStateDAO().getStates());
 
         if (admin == null) {
 
@@ -48,6 +47,7 @@ public class LoginCommand extends Command {
             } else {
                 doctor.setPatients(factory.getPatientDAO().getPatientsByDoctor(doctor));
                 session.setAttribute("doctor", doctor);
+                session.setAttribute("patients", doctor.getPatients());
                 redirect.setURL(Path.PAGE_PATIENTS_PAGE);
             }
         } else {
