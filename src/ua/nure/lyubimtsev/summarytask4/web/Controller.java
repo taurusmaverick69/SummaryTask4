@@ -45,6 +45,8 @@ public class Controller extends HttpServlet {
         String commandName = request.getParameter("command");
         LOG.trace("Request parameter: command --> " + commandName);
 
+        System.err.println(commandName);
+
         // obtain commands object by its name
         Command command = CommandContainer.get(commandName);
         LOG.trace("Obtained command --> " + command);
@@ -54,7 +56,6 @@ public class Controller extends HttpServlet {
 
         try {
             redirect = command.execute(request, response);
-            System.err.println(redirect.getURL());
         } catch (AppException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
         }

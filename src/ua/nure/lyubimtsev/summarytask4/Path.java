@@ -32,10 +32,10 @@ public class Path {
     public static final String PAGE_SETTINGS = "/WEB-INF/jsp/settings.jsp";
 
     // commands
-    public static final String COMMAND_LIST_ORDERS = "/controller?commands=listOrders";
-    public static final String COMMAND_LIST_MENU = "/controller?commands=listMenu";
+    public static final String COMMAND_LIST_ORDERS = "/controller?command=listOrders";
+    public static final String COMMAND_LIST_MENU = "/controller?command=listMenu";
 
-    public static final String COMMAND_GET_PATIENTS = "/controller?commands=patients";
+    public static final String COMMAND_GET_PATIENTS = "/controller?command=patients";
 
 
 }
