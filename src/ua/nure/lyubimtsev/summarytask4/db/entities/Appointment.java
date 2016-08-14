@@ -1,22 +1,28 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
+import java.util.Date;
+
 public class Appointment {
 
     private int id;
     private String diagnose;
-    private AppointmentType type;
+    private Type type;
     private String info;
-    private MedicalCard medicalCard;
+    private Date date;
+    private Doctor doctor;
+    private int medicalCardId;
 
     public Appointment() {
     }
 
-    public Appointment(int id, String diagnose, AppointmentType type, String info, MedicalCard medicalCard) {
+    public Appointment(int id, String diagnose, Type type, String info, Date date, Doctor doctor, int medicalCardId) {
         this.id = id;
         this.diagnose = diagnose;
         this.type = type;
         this.info = info;
-        this.medicalCard = medicalCard;
+        this.date = date;
+        this.doctor = doctor;
+        this.medicalCardId = medicalCardId;
     }
 
     public int getId() {
@@ -35,11 +41,11 @@ public class Appointment {
         this.diagnose = diagnose;
     }
 
-    public AppointmentType getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(AppointmentType type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -51,23 +57,28 @@ public class Appointment {
         this.info = info;
     }
 
-    public MedicalCard getMedicalCard() {
-        return medicalCard;
+    public Date getDate() {
+        return date;
     }
 
-    public void setMedicalCard(MedicalCard medicalCard) {
-        this.medicalCard = medicalCard;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "Appointment{" +
-                "id=" + id +
-                ", diagnose='" + diagnose + '\'' +
-                ", type=" + type +
-                ", info='" + info + '\'' +
-                ", medicalCard=" + medicalCard +
-                '}';
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public int getMedicalCardId() {
+        return medicalCardId;
+    }
+
+    public void setMedicalCardId(int medicalCardId) {
+        this.medicalCardId = medicalCardId;
     }
 }
 

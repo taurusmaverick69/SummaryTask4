@@ -1,5 +1,4 @@
-<%@ page import="static ua.nure.lyubimtsev.SummaryTask4.Path.PAGE_INSERT_PATIENT_PAGE" %>
-<%@ page import="static ua.nure.lyubimtsev.SummaryTask4.Path.PAGE_INSERT_DOCTOR_PAGE" %><%--@elvariable id="category" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Category"--%>
+<%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %><%--@elvariable id="category" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Category"--%>
 <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="doctorsByCategory" type="java.util.List"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -45,7 +44,7 @@
         </ul>
     </li>
 
-    <li><a href="controller?command=forward&page=<%=PAGE_INSERT_DOCTOR_PAGE%>">Добавить</a></li>
+    <li><a href="controller?command=forward&page=<%=Path.INSERT_DOCTOR_PAGE%>">Добавить</a></li>
 
 </ul>
 

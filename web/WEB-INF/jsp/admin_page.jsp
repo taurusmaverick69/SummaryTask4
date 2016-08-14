@@ -20,7 +20,7 @@
         </ul>
     </li>
 
-    <li><a href="controller?command=patients&id=0">Просмотр пациентов</a>
+    <li><a href="controller?command=patients">Просмотр пациентов</a>
     </li>
 </ul>
 

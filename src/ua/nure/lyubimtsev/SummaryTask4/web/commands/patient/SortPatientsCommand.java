@@ -1,11 +1,11 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command.patient;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,6 +51,6 @@ public class SortPatientsCommand extends Command {
         }
 
         request.setAttribute("patients", patients);
-        return new Redirect(Path.PAGE_PATIENTS_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.PATIENTS_PAGE, ForwardingType.FORWARD);
     }
 }

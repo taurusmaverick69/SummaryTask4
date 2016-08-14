@@ -103,6 +103,27 @@ public class Doctor {
     }
 
 
+    public static Builder newBuilder() {
+        return new Doctor().new Builder();
+    }
+
+    public class Builder {
+
+        public Builder setName(String name) {
+            Doctor.this.name = name;
+            return this;
+        }
+
+        public Builder setCategory(Category category) {
+            Doctor.this.category = category;
+            return this;
+        }
+
+        public Doctor build() {
+            return Doctor.this;
+        }
+    }
+
 
 
 }

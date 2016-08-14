@@ -1,8 +1,8 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
 import org.apache.log4j.Logger;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.doctor.*;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.patient.*;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor.*;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.patient.*;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -29,8 +29,6 @@ public class CommandContainer {
         commands.put("updateDoctor", new UpdateDoctorCommand());
         commands.put("sortDoctors", new SortDoctorsCommand());
 
-
-
         commands.put("patients", new GetPatientsCommand());
         commands.put("insertPatient", new InsertPatientCommand());
         commands.put("displayInsertPatient", new DisplayInsertPatientCommand());
@@ -38,15 +36,23 @@ public class CommandContainer {
         commands.put("updatePatient", new UpdatePatientCommand());
         commands.put("sortPatients", new SortPatientsCommand());
 
+
+        commands.put("getMedicalCard", new GetMedicalCardCommand());
+
+
+        commands.put("insertAppointment", new InsertAppointmentCommand());
+
+
+
         LOG.debug("Command container was successfully initialized");
         LOG.trace("Number of commands --> " + commands.size());
     }
 
     /**
-     * Returns command object with the given name.
+     * Returns commands object with the given name.
      *
      * @param commandName
-     *            Name of the command.
+     *            Name of the commands.
      * @return Command object.
      */
     public static Command get(String commandName) {

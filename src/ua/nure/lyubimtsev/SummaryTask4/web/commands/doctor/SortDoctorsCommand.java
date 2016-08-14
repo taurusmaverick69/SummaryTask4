@@ -1,11 +1,11 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command.doctor;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,6 +60,6 @@ public class SortDoctorsCommand extends Command {
         }
 
         request.setAttribute("doctorsByCategory", doctorsByCategory);
-        return new Redirect(Path.PAGE_DOCTORS_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }
 }

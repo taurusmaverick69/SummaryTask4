@@ -10,7 +10,7 @@
 <table cellpadding="10">
     <caption>Patients</caption>
     <tr>
-        <th>Имя</th>
+        <th>ФИО</th>
         <th>Адрес</th>
         <th>Дата рождения</th>
         <th>Состояние</th>
@@ -24,8 +24,8 @@
             <td>${patient.address}</td>
             <td>${patient.birthDate}</td>
             <td>${patient.state.name}</td>
+            <td><a href="controller?command=getMedicalCard&id=${patient.id}&name=${patient.name}">Мед. карта</a>
             <td><a href="getPatientOnEditServlet?id=${patient.id}">Edit</a>
-            <td><a href="getDoctorOnDeleteServlet?id=${doctor.id}">Delete</a></td>
             </td>
         </tr>
 
@@ -39,7 +39,7 @@
         <li><a href="controller?command=sortPatients&sort=birthDate">По дате рождения</a></li>
     </ul>
 
-<li><a href="controller?command=forward&page=<%=Path.PAGE_INSERT_PATIENT_PAGE%>">Добавить</a></li>
+<li><a href="controller?command=forward&page=<%=Path.INSERT_PATIENT_PAGE%>">Добавить</a></li>
 </li>
 
 

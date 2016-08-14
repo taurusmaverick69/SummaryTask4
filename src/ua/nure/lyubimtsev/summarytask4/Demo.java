@@ -18,7 +18,9 @@ public class Demo extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        System.out.println(req.getParameter("isTitles"));
+        req.setAttribute("userRole", Role.ADMIN);
+
+        req.getRequestDispatcher("test.jsp").forward(req, resp);
 
     }
 

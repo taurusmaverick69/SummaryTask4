@@ -1,13 +1,14 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Hash;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.DoctorDAO;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.PatientDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginCommand extends Command {
@@ -33,35 +33,30 @@ public class LoginCommand extends Command {
         String password = request.getParameter("password");
 
         DAOFactory factory = DAOFactory.getMySQLDAOFactory();
-        Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, Hash.md5Custom(password));
-
         session.setAttribute("states", factory.getStateDAO().getStates());
+        session.setAttribute("categories", factory.getCategoryDAO().getCategories());
 
+        Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, Hash.md5Custom(password));
+        PatientDAO patientDAO = factory.getPatientDAO();
+        DoctorDAO doctorDAO = factory.getDoctorDAO();
         if (admin == null) {
 
-            Doctor doctor = factory.getDoctorDAO().getDoctorByLoginAndPassword(login, Hash.md5Custom(password));
-
+            Doctor doctor = doctorDAO.getDoctorByLoginAndPassword(login, Hash.md5Custom(password));
             if (doctor == null) {
                 request.setAttribute("loginResult", "Invalid username or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
-                doctor.setPatients(factory.getPatientDAO().getPatientsByDoctor(doctor));
-                session.setAttribute("doctor", doctor);
-                session.setAttribute("patients", doctor.getPatients());
-                redirect.setURL(Path.PAGE_PATIENTS_PAGE);
+                doctor.setPatients(patientDAO.getPatientsByDoctor(doctor));
+                session.setAttribute("user", doctor);
+                redirect.setURL(Path.COMMAND_GET_PATIENTS);
             }
+
         } else {
-
-            List<Doctor> doctors = factory.getDoctorDAO().getDoctors();
-            for (Doctor doctor : doctors){
-                doctor.setPatients(factory.getPatientDAO().getPatientsByDoctor(doctor));
-            }
-
-            admin.setDoctors(doctors);
-            session.setAttribute("admin", admin);
-            redirect.setURL(Path.PAGE_ADMIN_PAGE);
+            admin.setDoctors(doctorDAO.getAllDoctors());
+            admin.setPatients(patientDAO.getAllPatients());
+            session.setAttribute("user", admin);
+            redirect.setURL(Path.ADMIN_PAGE);
         }
-
 
         return redirect;
     }

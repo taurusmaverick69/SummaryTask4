@@ -1,7 +1,6 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
 import javax.servlet.ServletException;
@@ -13,9 +12,9 @@ import java.io.Serializable;
 public abstract class Command implements Serializable {
 
     /**
-     * Execution method for command.
+     * Execution method for commands.
      *
-     * @return Type of Object Redirect which contains address to go once the command is executed and type of forwarding(sendRedirect for PRG pattern or forward).
+     * @return Type of Object Redirect which contains address to go once the commands is executed and type of forwarding(sendRedirect for PRG pattern or forward).
      */
     public abstract Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException;
 

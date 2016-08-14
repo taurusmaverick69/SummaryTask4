@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DoctorDAO {
 
-    List<Doctor> getDoctors();
+    List<Doctor> getAllDoctors();
 
     Doctor getDoctorByLoginAndPassword(String login, String password);
 

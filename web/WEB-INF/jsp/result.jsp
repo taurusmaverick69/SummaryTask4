@@ -14,7 +14,7 @@
     </c:out>
 </c:if>
 
-<a href="controller?command=forward&page=<%=Path.PAGE_DOCTORS_PAGE%>">Вернуться к списку</a>
+<a href="controller?command=forward&page=<%=Path.DOCTORS_PAGE%>">Вернуться к списку</a>
 
 </body>
 </html>

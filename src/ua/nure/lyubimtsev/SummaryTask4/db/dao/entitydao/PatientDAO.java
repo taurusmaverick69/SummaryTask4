@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface PatientDAO {
 
+    List<Patient> getAllPatients();
 
     List<Patient> getPatientsByDoctor(Doctor doctor);
 
     int insertPatient(Patient patient);
-
 
 }

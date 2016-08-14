@@ -15,6 +15,32 @@ public class PatientDAOImpl implements PatientDAO {
     private static final String GET_PATIENTS_BY_DOCTOR = "SELECT * FROM patient, patient_doctor, state WHERE patient.state_id = state.id AND patient.id = patient_doctor.patient_id AND doctor_id = ?";
 
     @Override
+    public List<Patient> getAllPatients() {
+        List<Patient> patients = new ArrayList<>();
+
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             Statement statement = connection.createStatement()) {
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM patient, state WHERE patient.state_id = state.id");
+
+            while (resultSet.next()) {
+                patients.add(new Patient(
+                        resultSet.getInt("patient.id"),
+                        resultSet.getString("patient.name"),
+                        resultSet.getString("patient.address"),
+                        resultSet.getDate("patient.birthDate"),
+                        new State(resultSet.getInt("state.id"), resultSet.getString("state.name"))
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return patients;
+    }
+
+    @Override
     public List<Patient> getPatientsByDoctor(Doctor doctor) {
 
         List<Patient> patients = new ArrayList<>();

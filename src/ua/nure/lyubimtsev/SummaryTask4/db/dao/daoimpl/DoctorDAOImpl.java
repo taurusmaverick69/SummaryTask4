@@ -16,7 +16,7 @@ public class DoctorDAOImpl implements DoctorDAO {
     private static final String GET_DOCTOR_BY_LOGIN_AND_PASSWORD = "SELECT * FROM doctor, category WHERE doctor.category_id = category.id AND login = ? AND password = ?";
 
     @Override
-    public List<Doctor> getDoctors() {
+    public List<Doctor> getAllDoctors() {
 
         List<Doctor> doctors = new ArrayList<>();
 

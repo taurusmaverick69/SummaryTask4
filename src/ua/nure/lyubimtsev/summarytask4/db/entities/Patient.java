@@ -8,17 +8,26 @@ public class Patient {
     private String name;
     private String address;
     private Date birthDate;
-    private PatientState state;
+    private State state;
+    private int doctor_id;
 
     public Patient() {
     }
 
-    public Patient(int id, String name, String address, Date birthDate, PatientState state) {
+    public Patient(int id, String name, String address, Date birthDate, State state) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.birthDate = birthDate;
         this.state = state;
+    }
+
+    public Patient(String name, String address, Date birthDate, State state, int doctor_id) {
+        this.name = name;
+        this.address = address;
+        this.birthDate = birthDate;
+        this.state = state;
+        this.doctor_id = doctor_id;
     }
 
     public int getId() {
@@ -53,11 +62,11 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
-    public PatientState getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(PatientState state) {
+    public void setState(State state) {
         this.state = state;
     }
 
@@ -70,5 +79,13 @@ public class Patient {
                 ", birthDate=" + birthDate +
                 ", state='" + state + '\'' +
                 '}';
+    }
+
+    public int getDoctor_id() {
+        return doctor_id;
+    }
+
+    public void setDoctor_id(int doctor_id) {
+        this.doctor_id = doctor_id;
     }
 }

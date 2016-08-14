@@ -1,10 +1,10 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command.patient;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ public class DisplayInsertPatientCommand extends Command {
 
         boolean success = Boolean.parseBoolean(request.getParameter("success"));
         request.setAttribute("result", success ? "Patient Successfully Inserted" : "Patient Not Inserted");
-        return new Redirect(Path.PAGE_RESULT_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.RESULT_PAGE, ForwardingType.FORWARD);
 
     }
 }

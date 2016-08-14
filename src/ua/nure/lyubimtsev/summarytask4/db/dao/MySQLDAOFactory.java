@@ -37,7 +37,7 @@ public class MySQLDAOFactory extends DAOFactory {
 
     @Override
     public AppointmentDAO getAppointmentDAO() {
-        return null;
+        return new AppointmentDAOImpl();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class MySQLDAOFactory extends DAOFactory {
 
     @Override
     public MedicalCardDAO getMedicalCardDAO() {
-        return null;
+        return new MedicalCardDAOImpl();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MySQLDAOFactory extends DAOFactory {
 
     @Override
     public TypeDAO getTypeDAO() {
-        return null;
+        return new TypeDAOImpl();
     }
 
 }

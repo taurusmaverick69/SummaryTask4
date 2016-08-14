@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command.patient;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
@@ -9,7 +9,7 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,7 +42,7 @@ public class GetPatientOnUpdateCommand extends Command {
         session.setAttribute("doctor", doctorById);
         session.setAttribute("categories", categories);
 
-        return new Redirect(Path.PAGE_UPDATE_DOCTOR_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.UPDATE_DOCTOR_PAGE, ForwardingType.FORWARD);
 
     }
 }

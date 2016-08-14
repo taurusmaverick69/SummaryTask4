@@ -1,14 +1,12 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command.doctor;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor;
 
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +26,7 @@ public class GetDoctorsCommand extends Command {
         HttpSession session = request.getSession();
         String category = request.getParameter("category");
 
-        List<Doctor> doctors = ((Admin) session.getAttribute("admin")).getDoctors();
+        List<Doctor> doctors = ((Admin) session.getAttribute("user")).getDoctors();
 
         if (category.equals("all")) {
             session.setAttribute("doctorsByCategory", doctors);
@@ -42,9 +40,8 @@ public class GetDoctorsCommand extends Command {
 
         request.setAttribute("category", category);
 
-        List<Category> categories = DAOFactory.getMySQLDAOFactory().getCategoryDAO().getCategories();
-        session.setAttribute("categories", categories);
 
-        return new Redirect(Path.PAGE_DOCTORS_PAGE, ForwardingType.FORWARD);
+
+        return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }
 }

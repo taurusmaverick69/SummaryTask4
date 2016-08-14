@@ -10,6 +10,7 @@ public class Admin {
     private String password;
     private String name;
     private List<Doctor> doctors;
+    private List<Patient> patients;
 
     public Admin(int id, String login, String password, String name) {
         this.id = id;
@@ -17,6 +18,7 @@ public class Admin {
         this.password = password;
         this.name = name;
         this.doctors = new ArrayList<>();
+        this.patients = new ArrayList<>();
     }
 
     public int getId() {
@@ -59,6 +61,14 @@ public class Admin {
         this.doctors = doctors;
     }
 
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
@@ -67,6 +77,7 @@ public class Admin {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", doctors=" + doctors +
+                ", patients=" + patients +
                 '}';
     }
 }

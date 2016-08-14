@@ -5,8 +5,8 @@ import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.CommandContainer;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.CommandContainer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,29 +41,26 @@ public class Controller extends HttpServlet {
 
         LOG.debug("Controller starts");
 
-        // extract command name from the request
+        // extract commands name from the request
         String commandName = request.getParameter("command");
         LOG.trace("Request parameter: command --> " + commandName);
 
-        // obtain command object by its name
+        // obtain commands object by its name
         Command command = CommandContainer.get(commandName);
         LOG.trace("Obtained command --> " + command);
 
-        // execute command and get forward address
-        Redirect redirect = new Redirect(Path.PAGE_ERROR_PAGE, ForwardingType.FORWARD);
+        // execute commands and get forward address
+        Redirect redirect = new Redirect(Path.ERROR_PAGE, ForwardingType.FORWARD);
 
         try {
             redirect = command.execute(request, response);
+            System.err.println(redirect.getURL());
         } catch (AppException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
         }
         LOG.trace("Forward address --> " + redirect.getURL());
 
         LOG.debug("Controller finished, now go to forward address --> " + redirect.getURL());
-
-
-        System.out.println("redirect = " + redirect);
-
 
         // go to forward
         switch (redirect.getForwardingType()) {

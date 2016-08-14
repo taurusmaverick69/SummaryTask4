@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.listener;
+package ua.nure.lyubimtsev.SummaryTask4.web.listeners;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -9,7 +9,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
- * Context listener.
+ * Context listeners.
  * 
  * @author Vladislav
  * 
@@ -64,13 +64,13 @@ public class ContextListener implements ServletContextListener {
         // just load class to JVM
 
 		try {
-			Class.forName("ua.nure.lyubimtsev.SummaryTask4.web.command.CommandContainer");
+			Class.forName("ua.nure.lyubimtsev.SummaryTask4.web.commands.CommandContainer");
 		} catch (ClassNotFoundException ex) {
 			throw new IllegalStateException("Cannot initialize Command Container");
 		}
 	}
 	
 	private void log(String msg) {
-		System.out.println("[ua.nure.lyubimtsev.SummaryTask4.web.listener.ContextListener] " + msg);
+		System.out.println("[ua.nure.lyubimtsev.SummaryTask4.web.listeners.ContextListener] " + msg);
 	}
 }

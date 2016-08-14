@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command.doctor;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Hash;
@@ -10,16 +10,14 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
-import javax.print.Doc;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +36,7 @@ public class InsertDoctorCommand extends Command {
                 .filter(category -> category.getName().equals(categoryStr))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        Admin admin = (Admin) session.getAttribute("admin");
+        Admin admin = (Admin) session.getAttribute("user");
 
         Doctor doctor = new Doctor(
                 request.getParameter("login"),
@@ -51,13 +49,13 @@ public class InsertDoctorCommand extends Command {
         DoctorDAO doctorDAO = DAOFactory.getMySQLDAOFactory().getDoctorDAO();
 
         if (doctorDAO.isLoginExists(doctor.getLogin())) {
-            return new Redirect(Path.PAGE_INSERT_DOCTOR_PAGE + "?result=" + "Пользователь с таким именем уже существует", ForwardingType.FORWARD);
+            return new Redirect(Path.INSERT_DOCTOR_PAGE + "?result=" + "Пользователь с таким именем уже существует", ForwardingType.FORWARD);
         } else {
             boolean success = doctorDAO.insertDoctor(doctor) > 0;
             if (success) {
                 admin.getDoctors().add(doctor);
             }
-            return new Redirect("controller?command=displayInsertDoctor&success=" + success, ForwardingType.SEND_REDIRECT);
+            return new Redirect("controller?commands=displayInsertDoctor&success=" + success, ForwardingType.SEND_REDIRECT);
         }
 
     }

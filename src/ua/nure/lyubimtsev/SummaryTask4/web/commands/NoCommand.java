@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
 import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
@@ -20,11 +20,11 @@ public class NoCommand extends Command {
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
 
-        String errorMessage = "No such command";
+        String errorMessage = "No such commands";
         request.setAttribute("errorMessage", errorMessage);
         LOG.error("Set the request attribute: errorMessage --> " + errorMessage);
 
         LOG.debug("Command finished");
-        return new Redirect(Path.PAGE_ERROR_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.ERROR_PAGE, ForwardingType.FORWARD);
     }
 }

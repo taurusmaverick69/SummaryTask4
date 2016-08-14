@@ -1,12 +1,16 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
-public class AppointmentType {
+public class Type {
 
     private int id;
     private String name;
 
-    public AppointmentType(int id, String name) {
+    public Type(int id, String name) {
         this.id = id;
+        this.name = name;
+    }
+
+    public Type(String name) {
         this.name = name;
     }
 

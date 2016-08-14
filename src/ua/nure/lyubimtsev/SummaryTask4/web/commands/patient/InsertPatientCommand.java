@@ -1,12 +1,11 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command.patient;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
-import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.*;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +57,6 @@ public class InsertPatientCommand extends Command {
         if (success) {
             doctor.getPatients().add(patient);
         }
-        return new Redirect("controller?command=displayInsertPatient&success=" + success, ForwardingType.SEND_REDIRECT);
+        return new Redirect("controller?commands=displayInsertPatient&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

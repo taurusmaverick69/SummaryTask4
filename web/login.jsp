@@ -22,6 +22,7 @@
 
                 <input type="hidden" name="command" value="login"/>
 
+
                 <fieldset>
                     <legend>Login</legend>
                     <input name="login" required/><br/>

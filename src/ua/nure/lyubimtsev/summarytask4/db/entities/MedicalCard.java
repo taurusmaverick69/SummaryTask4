@@ -1,20 +1,24 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MedicalCard {
 
     private int id;
     private Date registrationDate;
-    private Patient patient;
+    private int patientId;
+    private List<Appointment> appointments;
 
     public MedicalCard() {
     }
 
-    public MedicalCard(int id, Date registrationDate, Patient patient) {
+    public MedicalCard(int id, Date registrationDate, int patientId) {
         this.id = id;
         this.registrationDate = registrationDate;
-        this.patient = patient;
+        this.patientId = patientId;
+        this.appointments = new ArrayList<>();
     }
 
     public int getId() {
@@ -33,12 +37,20 @@ public class MedicalCard {
         this.registrationDate = registrationDate;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public int getPatientId() {
+        return patientId;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     @Override
@@ -46,7 +58,8 @@ public class MedicalCard {
         return "MedicalCard{" +
                 "id=" + id +
                 ", registrationDate=" + registrationDate +
-                ", patient=" + patient +
+                ", patientId=" + patientId +
+                ", appointments=" + appointments +
                 '}';
     }
 }

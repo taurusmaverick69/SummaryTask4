@@ -1,4 +1,4 @@
-package ua.nure.lyubimtsev.SummaryTask4.web.command.doctor;
+package ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
@@ -7,7 +7,7 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
-import ua.nure.lyubimtsev.SummaryTask4.web.command.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,7 +43,7 @@ public class UpdateDoctorCommand extends Command {
         );
 
         if (DAOFactory.getMySQLDAOFactory().getDoctorDAO().updateDoctor(newDoctor) > 0) {
-            List<Doctor> doctors = ((Admin) session.getAttribute("admin")).getDoctors();
+            List<Doctor> doctors = ((Admin) session.getAttribute("user")).getDoctors();
 
             Doctor doctorById = doctors
                     .stream()
