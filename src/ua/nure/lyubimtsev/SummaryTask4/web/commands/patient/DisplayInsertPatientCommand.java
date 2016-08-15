@@ -15,9 +15,11 @@ public class DisplayInsertPatientCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
+
+        System.out.println("DisplayInsertPatientCommand.execute");
         boolean success = Boolean.parseBoolean(request.getParameter("success"));
         request.setAttribute("result", success ? "Patient Successfully Inserted" : "Patient Not Inserted");
-        return new Redirect(Path.RESULT_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.PATIENTS_PAGE, ForwardingType.FORWARD);
 
     }
 }

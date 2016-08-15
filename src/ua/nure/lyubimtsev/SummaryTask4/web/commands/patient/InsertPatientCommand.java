@@ -1,6 +1,7 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
+import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.*;
@@ -25,17 +26,11 @@ public class InsertPatientCommand extends Command {
         HttpSession session = request.getSession();
 
         List<State> states = (List<State>) session.getAttribute("states");
-
-        String stateStr = request.getParameter("state");
-
+        int stateId = Integer.parseInt(request.getParameter("state"));
         State myState = states
                 .stream()
-                .filter(state -> state.getName().equals(stateStr))
+                .filter(state -> state.getId() == stateId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
-
-        String doctorIdStr = request.getParameter("doctor");
-        Doctor doctor = (Doctor) session.getAttribute("doctor");
-        int doctorId = doctorIdStr == null ? doctor.getId() : Integer.parseInt(doctorIdStr);
 
 
         Date date = null;
@@ -44,6 +39,10 @@ public class InsertPatientCommand extends Command {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+
+        Object user = session.getAttribute("user");
+        int doctorId = user instanceof Admin ? Integer.parseInt(request.getParameter("doctor")) : ((Doctor) user).getId();
 
         Patient patient = new Patient(
                 request.getParameter("name"),
@@ -55,8 +54,18 @@ public class InsertPatientCommand extends Command {
 
         boolean success = DAOFactory.getMySQLDAOFactory().getPatientDAO().insertPatient(patient) > 0;
         if (success) {
-            doctor.getPatients().add(patient);
+
+
+
+
+            if (user instanceof Admin) {
+                ((Admin) user).getPatients().add(patient);
+            }
+
+            if (user instanceof Doctor) {
+                ((Doctor) user).getPatients().add(patient);
+            }
         }
-        return new Redirect("controller?commands=displayInsertPatient&success=" + success, ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.DISPLAY_INSERT_PATIENT_COMMAND + "&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

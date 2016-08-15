@@ -11,8 +11,6 @@
 
 <form action="controller?command=insertPatient" method="post">
 
-    <input type="hidden" name="command" value="insertPatient"/>
-
     Name: <input name="name" required maxlength="45"/>
     <hr>
     Address: <input name="address" required/>
@@ -24,7 +22,7 @@
     <select name="state">
 
         <c:forEach var="state" items="${states}">
-            <option>${state.name}</option>
+            <option value="${state.id}" >${state.name}</option>
         </c:forEach>
     </select>
     <hr>

@@ -7,6 +7,12 @@
 </head>
 <body>
 
+<%--@elvariable id="result" type="java.lang.String"--%>
+<c:if test="${not empty result}">
+    <c:out value="${result}">
+    </c:out>
+</c:if>
+
 <table cellpadding="10">
     <caption>Patients</caption>
     <tr>
@@ -16,13 +22,15 @@
         <th>Состояние</th>
     </tr>
 
+
+
     <%--@elvariable id="patients" type="java.util.List"--%>
     <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
     <c:forEach var="patient" items="${patients}">
         <tr>
             <td>${patient.name}</td>
             <td>${patient.address}</td>
-            <td>${patient.birthDate}</td>
+            <td>${patient.formatBirthDate()}</td>
             <td>${patient.state.name}</td>
             <td><a href="controller?command=getMedicalCard&id=${patient.id}&name=${patient.name}">Мед. карта</a>
             <td><a href="getPatientOnEditServlet?id=${patient.id}">Edit</a>

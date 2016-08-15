@@ -9,6 +9,6 @@
               username="root"
               password="root"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/hospitalDB"/>
+              url="jdbc:mysql://localhost:3306/hospitalDB?autoReconnect=true&amp;useSSL=false"/>
 
 </Context>

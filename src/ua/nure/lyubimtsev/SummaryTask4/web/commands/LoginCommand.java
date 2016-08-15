@@ -48,7 +48,7 @@ public class LoginCommand extends Command {
             } else {
                 doctor.setPatients(patientDAO.getPatientsByDoctor(doctor));
                 session.setAttribute("user", doctor);
-                redirect.setURL(Path.COMMAND_GET_PATIENTS);
+                redirect.setURL(Path.GET_PATIENTS_COMMAND);
             }
 
         } else {

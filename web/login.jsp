@@ -18,10 +18,9 @@
     <tr>
         <td class="content center">
 
-            <form id="login_form" action="controller" method="post">
+            <form id="login_form" action="controller?command=login" method="post">
 
-                <input type="hidden" name="command" value="login"/>
-
+                <%--<input type="hidden" name="command" value="login"/>--%>
 
                 <fieldset>
                     <legend>Login</legend>
