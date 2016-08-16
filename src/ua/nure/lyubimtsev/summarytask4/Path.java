@@ -8,7 +8,6 @@ public class Path {
     // pages
     public static final String LOGIN_PAGE = "/login.jsp";
     public static final String ERROR_PAGE = "/WEB-INF/jsp/error_page.jsp";
-    public static final String RESULT_PAGE = "/WEB-INF/jsp/result.jsp";
 
     public static final String ADMIN_PAGE = "/WEB-INF/jsp/admin_page.jsp";
 
@@ -25,6 +24,7 @@ public class Path {
 
 
     public static final String INSERT_APPOINTMENT_PAGE = "/WEB-INF/jsp/insert_appointment.jsp";
+    public static final String INDEX = "/WEB-INF/jsp/index.jsp";
 
 
     public static final String PAGE_LIST_MENU = "/WEB-INF/jsp/client/list_menu.jsp";
@@ -35,7 +35,10 @@ public class Path {
     public static final String COMMAND_LIST_ORDERS = "/controller?command=listOrders";
     public static final String COMMAND_LIST_MENU = "/controller?command=listMenu";
 
-    public static final String COMMAND_GET_PATIENTS = "/controller?command=patients";
+    public static final String GET_PATIENTS_COMMAND = "/controller?command=patients";
+
+
+    public static final String DISPLAY_INSERT_PATIENT_COMMAND = "controller?command=displayInsertPatient";
 
 
 }

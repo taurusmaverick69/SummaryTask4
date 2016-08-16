@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{console_runner-d0a557e5cb67f9cd9bbb9673355c7e8e, jquery, jquery-2.1.1, materialize, stopExecutionOnTimeout-53beeb1a007ec32040abaf4c9385ebfc}" />
+  </component>
+</project>

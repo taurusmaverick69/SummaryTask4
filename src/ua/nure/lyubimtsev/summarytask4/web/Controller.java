@@ -45,8 +45,6 @@ public class Controller extends HttpServlet {
         String commandName = request.getParameter("command");
         LOG.trace("Request parameter: command --> " + commandName);
 
-        System.err.println(commandName);
-
         // obtain commands object by its name
         Command command = CommandContainer.get(commandName);
         LOG.trace("Obtained command --> " + command);
@@ -66,6 +64,7 @@ public class Controller extends HttpServlet {
         // go to forward
         switch (redirect.getForwardingType()) {
             case SEND_REDIRECT:
+                System.err.println("redirect.getURL() = " + redirect.getURL());
                 response.sendRedirect(redirect.getURL());
                 break;
             case FORWARD:

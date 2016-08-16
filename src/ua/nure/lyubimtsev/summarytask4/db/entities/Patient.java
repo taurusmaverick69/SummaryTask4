@@ -1,5 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Patient {
@@ -57,6 +58,11 @@ public class Patient {
     public Date getBirthDate() {
         return birthDate;
     }
+
+    public String formatBirthDate() {
+        return new SimpleDateFormat("dd.MM.yyyy").format(birthDate);
+    }
+
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;

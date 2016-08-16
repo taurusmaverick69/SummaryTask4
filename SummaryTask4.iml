@@ -34,5 +34,10 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="stopExecutionOnTimeout-53beeb1a007ec32040abaf4c9385ebfc" level="application" />
+    <orderEntry type="library" name="console_runner-d0a557e5cb67f9cd9bbb9673355c7e8e" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="materialize" level="application" />
+    <orderEntry type="library" name="jquery-2.1.1" level="application" />
   </component>
 </module>
