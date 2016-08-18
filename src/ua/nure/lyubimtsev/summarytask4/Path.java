@@ -31,11 +31,12 @@ public class Path {
     public static final String PAGE_LIST_ORDERS = "/WEB-INF/jsp/admin/list_orders.jsp";
     public static final String PAGE_SETTINGS = "/WEB-INF/jsp/settings.jsp";
 
-    // commands
-    public static final String COMMAND_LIST_ORDERS = "/controller?command=listOrders";
-    public static final String COMMAND_LIST_MENU = "/controller?command=listMenu";
 
+
+    // commands
+    public static final String GET_DOCTORS_COMMAND = "/controller?command=doctors";
     public static final String GET_PATIENTS_COMMAND = "/controller?command=patients";
+
 
 
     public static final String DISPLAY_INSERT_PATIENT_COMMAND = "controller?command=displayInsertPatient";

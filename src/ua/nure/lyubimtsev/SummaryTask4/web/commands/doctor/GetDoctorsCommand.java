@@ -23,24 +23,37 @@ public class GetDoctorsCommand extends Command {
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
         HttpSession session = request.getSession();
-        String category = request.getParameter("category");
 
-        List<Doctor> doctors = ((Admin) session.getAttribute("user")).getDoctors();
+        List<Doctor> allDoctors = ((Admin) session.getAttribute("user")).getDoctors();
 
-        if (category.equals("all")) {
-            session.setAttribute("doctorsByCategory", doctors);
-        } else {
-            List<Doctor> doctorsByCategory = doctors
-                    .stream()
-                    .filter(doctor -> doctor.getCategory().getName().equals(category))
-                    .collect(Collectors.toList());
-            session.setAttribute("doctorsByCategory", doctorsByCategory);
-        }
+        List<Doctor> pediatricians = allDoctors
+                .stream()
+                .filter(doctor -> doctor.getCategory().getName().equals("pediatrician"))
+                .collect(Collectors.toList());
 
-        request.setAttribute("category", category);
+        List<Doctor> traumatologists = allDoctors
+                .stream()
+                .filter(doctor -> doctor.getCategory().getName().equals("traumatologist"))
+                .collect(Collectors.toList());
+
+        List<Doctor> surgeons = allDoctors
+                .stream()
+                .filter(doctor -> doctor.getCategory().getName().equals("surgeon"))
+                .collect(Collectors.toList());
+
+        List<Doctor> nurses = allDoctors
+                .stream()
+                .filter(doctor -> doctor.getCategory().getName().equals("nurse"))
+                .collect(Collectors.toList());
 
 
+        session.setAttribute("allDoctors", allDoctors);
+        session.setAttribute("pediatricians", pediatricians);
+        session.setAttribute("traumatologists", traumatologists);
+        session.setAttribute("surgeons", surgeons);
+        session.setAttribute("nurses", nurses);
 
         return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }

@@ -55,7 +55,7 @@ public class LoginCommand extends Command {
             admin.setDoctors(doctorDAO.getAllDoctors());
             admin.setPatients(patientDAO.getAllPatients());
             session.setAttribute("user", admin);
-            redirect.setURL(Path.ADMIN_PAGE);
+            redirect.setURL(Path.GET_DOCTORS_COMMAND);
         }
 
         return redirect;
