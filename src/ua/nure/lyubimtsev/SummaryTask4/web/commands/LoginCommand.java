@@ -46,13 +46,16 @@ public class LoginCommand extends Command {
                 request.setAttribute("loginResult", "Invalid username or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
-                doctor.setPatients(patientDAO.getPatientsByDoctor(doctor));
+                doctor.setPatients(patientDAO.getPatientsByDoctorId(doctor.getId()));
                 session.setAttribute("user", doctor);
                 redirect.setURL(Path.GET_PATIENTS_COMMAND);
             }
 
         } else {
             admin.setDoctors(doctorDAO.getAllDoctors());
+            for (Doctor doctor : admin.getDoctors()) {
+                doctor.setPatients(patientDAO.getPatientsByDoctorId(doctor.getId()));
+            }
             admin.setPatients(patientDAO.getAllPatients());
             session.setAttribute("user", admin);
             redirect.setURL(Path.GET_DOCTORS_COMMAND);

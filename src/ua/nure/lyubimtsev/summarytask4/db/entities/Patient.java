@@ -59,11 +59,6 @@ public class Patient {
         return birthDate;
     }
 
-    public String formatBirthDate() {
-        return new SimpleDateFormat("dd.MM.yyyy").format(birthDate);
-    }
-
-
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
@@ -76,6 +71,14 @@ public class Patient {
         this.state = state;
     }
 
+    public int getDoctor_id() {
+        return doctor_id;
+    }
+
+    public void setDoctor_id(int doctor_id) {
+        this.doctor_id = doctor_id;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -83,15 +86,8 @@ public class Patient {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", birthDate=" + birthDate +
-                ", state='" + state + '\'' +
+                ", state=" + state +
+                ", doctor_id=" + doctor_id +
                 '}';
-    }
-
-    public int getDoctor_id() {
-        return doctor_id;
-    }
-
-    public void setDoctor_id(int doctor_id) {
-        this.doctor_id = doctor_id;
     }
 }

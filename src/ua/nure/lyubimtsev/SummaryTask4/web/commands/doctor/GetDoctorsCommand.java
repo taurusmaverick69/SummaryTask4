@@ -6,8 +6,10 @@ import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
+import javax.print.Doc;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -27,6 +29,12 @@ public class GetDoctorsCommand extends Command {
         HttpSession session = request.getSession();
 
         List<Doctor> allDoctors = ((Admin) session.getAttribute("user")).getDoctors();
+        List<Patient> allPatients = ((Admin) session.getAttribute("user")).getPatients();
+
+
+        for (Doctor doctor : allDoctors) {
+            System.err.println(doctor.getPatients().size());
+        }
 
         List<Doctor> pediatricians = allDoctors
                 .stream()

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PatientDAOImpl implements PatientDAO {
 
-    private static final String GET_PATIENTS_BY_DOCTOR = "SELECT * FROM patient, patient_doctor, state WHERE patient.state_id = state.id AND patient.id = patient_doctor.patient_id AND doctor_id = ?";
+    private static final String GET_PATIENTS_BY_DOCTOR_ID = "SELECT * FROM patient, patient_doctor, state WHERE patient.state_id = state.id AND patient.id = patient_doctor.patient_id AND doctor_id = ?";
 
     @Override
     public List<Patient> getAllPatients() {
@@ -41,14 +41,14 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public List<Patient> getPatientsByDoctor(Doctor doctor) {
+    public List<Patient> getPatientsByDoctorId(int doctorId) {
 
         List<Patient> patients = new ArrayList<>();
 
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_PATIENTS_BY_DOCTOR)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_PATIENTS_BY_DOCTOR_ID)) {
 
-            preparedStatement.setInt(1, doctor.getId());
+            preparedStatement.setInt(1, doctorId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

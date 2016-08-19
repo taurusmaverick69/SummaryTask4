@@ -12,13 +12,8 @@
     <script src="mdl/material.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-
     <style>
-        .full-width {
-            width: 100%;
-        }
-
-        #view-source {
+        #add-doctor {
             position: fixed;
             display: block;
             right: 0;
@@ -29,14 +24,12 @@
         }
     </style>
 
-
 </head>
 <body>
 
 
 <!-- Simple header with fixed tabs. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
-            mdl-layout--fixed-tabs">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
@@ -62,22 +55,22 @@
             <a href="#nurses" class="mdl-layout__tab">Медсёстры</a>
         </div>
     </header>
+
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Title</span>
     </div>
-    <main class="mdl-layout__content">
 
+    <main class="mdl-layout__content">
         <section class="mdl-layout__tab-panel is-active" id="allDoctors">
             <div class="page-content">
 
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" cellspacing="0" width="100%">
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
                     <thead>
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">Логин</th>
                         <th class="mdl-data-table__cell--non-numeric">Пароль</th>
                         <th class="mdl-data-table__cell--non-numeric">Имя</th>
                         <th class="mdl-data-table__cell--non-numeric">Категория</th>
-                        <th class="mdl-data-table__cell--non-numeric">Пациенты</th>
                     </tr>
                     </thead>
 
@@ -91,23 +84,21 @@
                             <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
                             <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
 
+
                             <td class="mdl-data-table__cell--non-numeric">
-                                <form action="controller?command=patients&id=${doctor.id}">
-                                    <button id="${doctor.id}" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab" >
-                                        <i class="material-icons">group</i>
-                                    </button>
-                                </form>
-                                <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--right" data-mdl-for="${doctor.id}">
-                                    Пациенты: (${doctor.patients.size()})
-                                </div>
+                                <a href="controller?command=patients&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">group</i>
+                                    <a class="mdl-badge mdl-badge--overlap"
+                                       data-badge="${doctor.patients.size()}"></a>
+                                </a>
                             </td>
 
                             <td class="mdl-data-table__cell--non-numeric">
-                                <form action="controller?command=getDoctorOnUpdate&id=${doctor.id}">
-                                    <button id="${doctor.id}" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab" >
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                </form>
+                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">edit</i>
+                                </a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -117,17 +108,18 @@
 
             </div>
         </section>
+
+
         <section class="mdl-layout__tab-panel" id="pediatricians">
             <div class="page-content">
 
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
                     <thead>
                     <tr>
-                        <th>Логин</th>
-                        <th>Пароль</th>
-                        <th>Имя</th>
-                        <th>Категория</th>
-                        <th>Пациенты</th>
+                        <th class="mdl-data-table__cell--non-numeric">Логин</th>
+                        <th class="mdl-data-table__cell--non-numeric">Пароль</th>
+                        <th class="mdl-data-table__cell--non-numeric">Имя</th>
+                        <th class="mdl-data-table__cell--non-numeric">Категория</th>
                     </tr>
                     </thead>
 
@@ -136,18 +128,30 @@
                     <%--@elvariable id="pediatricians" type="java.util.List"--%>
                     <c:forEach var="doctor" items="${pediatricians}">
                         <tr>
-                            <td>${doctor.login}</td>
-                            <td>${doctor.password}</td>
-                            <td>${doctor.name}</td>
-                            <td>${doctor.category.name}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.login}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.password}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
 
-                            <td><a href="controller?command=patients&id=${doctor.id}">Список пациентов
-                                (${doctor.patients.size()})</a>
+
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <a href="controller?command=patients&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">group</i>
+                                    <a class="mdl-badge mdl-badge--overlap"
+                                       data-badge="${doctor.patients.size()}"></a>
+                                </a>
                             </td>
-                            <td><a href="controller?command=getDoctorOnUpdate&id=${doctor.id}">Edit</a>
-                            <td><a href="controller?command=getDoctorOnDelete&?id=${doctor.id}">Delete</a></td>
+
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </td>
                         </tr>
                     </c:forEach>
+
                     </tbody>
                 </table>
 
@@ -157,14 +161,13 @@
             <div class="page-content">
 
 
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
                     <thead>
                     <tr>
-                        <th>Логин</th>
-                        <th>Пароль</th>
-                        <th>Имя</th>
-                        <th>Категория</th>
-                        <th>Пациенты</th>
+                        <th class="mdl-data-table__cell--non-numeric">Логин</th>
+                        <th class="mdl-data-table__cell--non-numeric">Пароль</th>
+                        <th class="mdl-data-table__cell--non-numeric">Имя</th>
+                        <th class="mdl-data-table__cell--non-numeric">Категория</th>
                     </tr>
                     </thead>
 
@@ -173,18 +176,30 @@
                     <%--@elvariable id="traumatologists" type="java.util.List"--%>
                     <c:forEach var="doctor" items="${traumatologists}">
                         <tr>
-                            <td>${doctor.login}</td>
-                            <td>${doctor.password}</td>
-                            <td>${doctor.name}</td>
-                            <td>${doctor.category.name}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.login}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.password}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
 
-                            <td><a href="controller?command=patients&id=${doctor.id}">Список пациентов
-                                (${doctor.patients.size()})</a>
+
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <a href="controller?command=patients&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">group</i>
+                                    <a class="mdl-badge mdl-badge--overlap"
+                                       data-badge="${doctor.patients.size()}"></a>
+                                </a>
                             </td>
-                            <td><a href="controller?command=getDoctorOnUpdate&id=${doctor.id}">Edit</a>
-                            <td><a href="controller?command=getDoctorOnDelete&?id=${doctor.id}">Delete</a></td>
+
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </td>
                         </tr>
                     </c:forEach>
+
                     </tbody>
                 </table>
 
@@ -195,14 +210,13 @@
             <div class="page-content">
 
 
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
                     <thead>
                     <tr>
-                        <th>Логин</th>
-                        <th>Пароль</th>
-                        <th>Имя</th>
-                        <th>Категория</th>
-                        <th>Пациенты</th>
+                        <th class="mdl-data-table__cell--non-numeric">Логин</th>
+                        <th class="mdl-data-table__cell--non-numeric">Пароль</th>
+                        <th class="mdl-data-table__cell--non-numeric">Имя</th>
+                        <th class="mdl-data-table__cell--non-numeric">Категория</th>
                     </tr>
                     </thead>
 
@@ -211,18 +225,30 @@
                     <%--@elvariable id="surgeons" type="java.util.List"--%>
                     <c:forEach var="doctor" items="${surgeons}">
                         <tr>
-                            <td>${doctor.login}</td>
-                            <td>${doctor.password}</td>
-                            <td>${doctor.name}</td>
-                            <td>${doctor.category.name}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.login}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.password}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
 
-                            <td><a href="controller?command=patients&id=${doctor.id}">Список пациентов
-                                (${doctor.patients.size()})</a>
+
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <a href="controller?command=patients&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">group</i>
+                                    <a class="mdl-badge mdl-badge--overlap"
+                                       data-badge="${doctor.patients.size()}"></a>
+                                </a>
                             </td>
-                            <td><a href="controller?command=getDoctorOnUpdate&id=${doctor.id}">Edit</a>
-                            <td><a href="controller?command=getDoctorOnDelete&?id=${doctor.id}">Delete</a></td>
+
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </td>
                         </tr>
                     </c:forEach>
+
                     </tbody>
                 </table>
 
@@ -233,14 +259,13 @@
             <div class="page-content">
 
 
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
                     <thead>
                     <tr>
-                        <th>Логин</th>
-                        <th>Пароль</th>
-                        <th>Имя</th>
-                        <th>Категория</th>
-                        <th>Пациенты</th>
+                        <th class="mdl-data-table__cell--non-numeric">Логин</th>
+                        <th class="mdl-data-table__cell--non-numeric">Пароль</th>
+                        <th class="mdl-data-table__cell--non-numeric">Имя</th>
+                        <th class="mdl-data-table__cell--non-numeric">Категория</th>
                     </tr>
                     </thead>
 
@@ -249,47 +274,146 @@
                     <%--@elvariable id="nurses" type="java.util.List"--%>
                     <c:forEach var="doctor" items="${nurses}">
                         <tr>
-                            <td>${doctor.login}</td>
-                            <td>${doctor.password}</td>
-                            <td>${doctor.name}</td>
-                            <td>${doctor.category.name}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.login}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.password}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
+                            <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
 
-                            <td><a href="controller?command=patients&id=${doctor.id}">Список пациентов
-                                (${doctor.patients.size()})</a>
+
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <a href="controller?command=patients&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">group</i>
+                                    <a class="mdl-badge mdl-badge--overlap"
+                                       data-badge="${doctor.patients.size()}"></a>
+                                </a>
                             </td>
-                            <td><a href="controller?command=getDoctorOnUpdate&id=${doctor.id}">Edit</a>
-                            <td><a href="controller?command=getDoctorOnDelete&?id=${doctor.id}">Delete</a></td>
+
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </td>
                         </tr>
                     </c:forEach>
+
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
-
 </div>
 
 
-<%--<ul>--%>
-    <%--<li>Сортировка--%>
-        <%--<ul>--%>
-            <%--<li><a href="controller?command=sortDoctors&sort=alphabetically">По алфавиту</a></li>--%>
-            <%--<li><a href="controller?command=sortDoctors&sort=category">По категории</a></li>--%>
-            <%--<li><a href="controller?command=sortDoctors&sort=numberOfPatients">По количеству пациентов</a></li>--%>
-        <%--</ul>--%>
-    <%--</li>--%>
-
-    <%--<li><a href="controller?command=forward&page=<%=Path.INSERT_DOCTOR_PAGE%>">Добавить</a></li>--%>
-
-<%--</ul>--%>
+<ul>
+    <li>Сортировка
+        <ul>
+            <li><a href="controller?command=sortDoctors&sort=alphabetically">По алфавиту</a></li>
+            <li><a href="controller?command=sortDoctors&sort=category">По категории</a></li>
+            <li><a href="controller?command=sortDoctors&sort=numberOfPatients">По количеству пациентов</a></li>
+        </ul>
+    </li>
 
 
-<a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/dashboard/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+</ul>
 
 
+<%--<a href="controller?command=forward&page=<%=Path.INSERT_DOCTOR_PAGE%>" id="add-doctor"--%>
+<%--class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">--%>
+<%--<i class="material-icons">add</i>--%>
+<%--</a>--%>
+
+<a id="add-doctor"
+   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
     <i class="material-icons">add</i>
-
 </a>
+
+
+<dialog class="mdl-dialog">
+
+
+    <style>
+        .mdl-layout2 {
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mdl-layout__content2 {
+            padding: 24px;
+            flex: none;
+        }
+    </style>
+
+
+    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+        <h2 class="mdl-card__title-text">Добавить доктора</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="username"/>
+                <label class="mdl-textfield__label" for="username">Username</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="password" id="userpass"/>
+                <label class="mdl-textfield__label" for="userpass">Password</label>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Отмена</button>
+        <%--<button type="button" class="mdl-button">Добавить</button>--%>
+
+
+        <!-- Colored raised button -->
+        <button id="demo-show-toast" class="mdl-button close mdl-js-button mdl-button--raised mdl-button--colored ">
+            Добавить
+        </button>
+
+
+
+        <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+        </div>
+        <script>
+            (function() {
+                'use strict';
+                window['counter'] = 0;
+                var snackbarContainer = document.querySelector('#demo-toast-example');
+                var showToastButton = document.querySelector('#demo-show-toast');
+                showToastButton.addEventListener('click', function() {
+                    'use strict';
+                    var data = {message: 'Example Message # ' + ++counter};
+                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                });
+            }());
+        </script>
+
+
+
+
+
+    </div>
+
+</dialog>
+<script>
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#add-doctor');
+    if (!dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function () {
+        dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function () {
+        dialog.close();
+    });
+</script>
+
 
 </body>
 </html>
