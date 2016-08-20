@@ -333,71 +333,17 @@
 <dialog class="mdl-dialog">
 
 
-    <style>
-        .mdl-layout2 {
-            align-items: center;
-            justify-content: center;
-        }
 
-        .mdl-layout__content2 {
-            padding: 24px;
-            flex: none;
-        }
-    </style>
+    <%@ include file="insert_doctor.jsp"%>
 
 
-    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-        <h2 class="mdl-card__title-text">Добавить доктора</h2>
-    </div>
-    <div class="mdl-card__supporting-text">
-        <form action="#">
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="username"/>
-                <label class="mdl-textfield__label" for="username">Username</label>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" id="userpass"/>
-                <label class="mdl-textfield__label" for="userpass">Password</label>
-            </div>
-        </form>
-    </div>
 
-
-    <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button close">Отмена</button>
+    <%--<div class="mdl-dialog__actions">--%>
+        <%--<button type="button" class="mdl-button close">Отмена</button>--%>
         <%--<button type="button" class="mdl-button">Добавить</button>--%>
 
 
-        <!-- Colored raised button -->
-        <button id="demo-show-toast" class="mdl-button close mdl-js-button mdl-button--raised mdl-button--colored ">
-            Добавить
-        </button>
-
-
-
-        <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-            <div class="mdl-snackbar__text"></div>
-            <button class="mdl-snackbar__action" type="button"></button>
-        </div>
-        <script>
-            (function() {
-                'use strict';
-                window['counter'] = 0;
-                var snackbarContainer = document.querySelector('#demo-toast-example');
-                var showToastButton = document.querySelector('#demo-show-toast');
-                showToastButton.addEventListener('click', function() {
-                    'use strict';
-                    var data = {message: 'Example Message # ' + ++counter};
-                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                });
-            }());
-        </script>
-
-
-
-
-
-    </div>
+    <%--</div>--%>
 
 </dialog>
 <script>

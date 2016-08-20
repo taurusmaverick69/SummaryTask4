@@ -28,32 +28,55 @@
     </c:out>
 </c:if>
 
-${param.result}
+
+<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+    <h2 class="mdl-card__title-text">Добавить доктора</h2>
+</div>
+<div class="mdl-card__supporting-text">
+
+    <form action="controller?command=insertDoctor" method="post">
 
 
-<form action="controller" method="post">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="login" required minlength="5" maxlength="45">
+            <label class="mdl-textfield__label" for="login">Login</label>
+        </div>
 
-    <input type="hidden" name="command" value="insertDoctor"/>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="password" id="password1" required minlength="5" maxlength="45">
+            <label class="mdl-textfield__label" for="password1">Password</label>
+        </div>
 
-    Login: <input name="login" required minlength="5" maxlength="45"/>
-    <hr>
-    Password: <input type="password" name="password" id="password1" required minlength="5" maxlength="45"/>
-    <hr>
-    Confirm Password:<input type="password" id="password2" required minlength="5" maxlength="45"/>
-    <hr>
-    Name:<input name="name" required minlength="5" maxlength="45"/>
-    <hr>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="password" id="password2" required minlength="5" maxlength="45">
+            <label class="mdl-textfield__label" for="password2">Confirm password</label>
+        </div>
 
-    Category:
-    <select name="category">
-        <%--@elvariable id="categories" type="java.util.List"--%>
-        <c:forEach var="category" items="${categories}">
-            <option>${category.name}</option>
-        </c:forEach>
-    </select>
-    <hr>
-    <input type="submit" value="submit"/>
-</form>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="password" id="name" required minlength="5" maxlength="45">
+            <label class="mdl-textfield__label" for="name">Name</label>
+        </div>
+
+        Category:
+        <select name="category">
+            <%--@elvariable id="categories" type="java.util.List"--%>
+            <c:forEach var="category" items="${categories}">
+                <option>${category.name}</option>
+            </c:forEach>
+        </select>
+
+        <!-- Colored raised button -->
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
+            Button
+        </button>
+
+
+    </form>
+</div>
+
+
+
+
 
 
 </body>
