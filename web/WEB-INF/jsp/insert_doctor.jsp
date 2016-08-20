@@ -3,6 +3,11 @@
 <html>
 
 <head>
+
+
+    <link rel="stylesheet" href="mdl-selectfield-master/mdl-selectfield.min.css">
+    <script src="mdl-selectfield-master/mdl-selectfield.min.js"></script>
+
     <title>Title</title>
     <script type="text/javascript">
         window.onload = function () {
@@ -34,11 +39,19 @@
 </div>
 <div class="mdl-card__supporting-text">
 
-    <form action="controller?command=insertDoctor" method="post">
-
+        <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+            <select id="category_id" name="category" class="mdl-selectfield__select" required>
+                <%--@elvariable id="categories" type="java.util.List"--%>
+                <c:forEach var="category" items="${categories}">
+                    <option value="${category.id}">${category.name}</option>
+                </c:forEach>
+            </select>
+            <label for="category_id" class="mdl-selectfield__label">Category</label>
+            <span class="mdl-selectfield__error">Category not null</span>
+        </div>
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="login" required minlength="5" maxlength="45">
+            <input class="mdl-textfield__input" id="login" name="login" required minlength="5" maxlength="45">
             <label class="mdl-textfield__label" for="login">Login</label>
         </div>
 
@@ -56,28 +69,7 @@
             <input class="mdl-textfield__input" type="password" id="name" required minlength="5" maxlength="45">
             <label class="mdl-textfield__label" for="name">Name</label>
         </div>
-
-        Category:
-        <select name="category">
-            <%--@elvariable id="categories" type="java.util.List"--%>
-            <c:forEach var="category" items="${categories}">
-                <option>${category.name}</option>
-            </c:forEach>
-        </select>
-
-        <!-- Colored raised button -->
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
-            Button
-        </button>
-
-
-    </form>
 </div>
-
-
-
-
-
 
 </body>
 </html>

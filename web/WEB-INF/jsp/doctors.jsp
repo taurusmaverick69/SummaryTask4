@@ -318,12 +318,6 @@
 
 </ul>
 
-
-<%--<a href="controller?command=forward&page=<%=Path.INSERT_DOCTOR_PAGE%>" id="add-doctor"--%>
-<%--class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">--%>
-<%--<i class="material-icons">add</i>--%>
-<%--</a>--%>
-
 <a id="add-doctor"
    class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
     <i class="material-icons">add</i>
@@ -332,18 +326,15 @@
 
 <dialog class="mdl-dialog">
 
-
-
-    <%@ include file="insert_doctor.jsp"%>
-
-
-
-    <%--<div class="mdl-dialog__actions">--%>
-        <%--<button type="button" class="mdl-button close">Отмена</button>--%>
-        <%--<button type="button" class="mdl-button">Добавить</button>--%>
-
-
-    <%--</div>--%>
+    <form action="controller?command=insertDoctor" method="post">
+        <%@ include file="insert_doctor.jsp" %>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button close">Отмена</button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
+                Добавить
+            </button>
+        </div>
+    </form>
 
 </dialog>
 <script>

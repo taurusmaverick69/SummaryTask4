@@ -2,30 +2,47 @@
 <html>
 <head>
 
-
     <script src="js/sortable.js"></script>
     <link rel="stylesheet" href="mdl/material.min.css">
     <script src="mdl/material.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
-    <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css">
-
-    <!--getmdl-select-->
-    <script src="getmdl-select-master/getmdl-select.min.js"></script>
-    <link rel="stylesheet" href="getmdl-select-master/getmdl-select.min.css">
+    <link rel="stylesheet" href="mdl-selectfield-master/mdl-selectfield.min.css">
+    <script src="mdl-selectfield-master/mdl-selectfield.min.js"></script>
 
 </head>
 <body>
 
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-    <input class="mdl-textfield__input" value="Belarus" type="text" id="country" readonly tabIndex="-1" data-val="BLR"/>
-    <label class="mdl-textfield__label" for="country">Country</label>
-    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="country">
-        <li class="mdl-menu__item" data-val="BLR">Belarus</li>
-        <li class="mdl-menu__item" data-val="RUS">Russia</li>
-    </ul>
-</div>
 
+<div class="mdl-layout__container">
+    <div class="mdl-layout mdl-js-layoutmdl-layout--fixed-drawermdl-layout--fixed-header">
+        <main class="mdl-layout__content mdl-color--grey-100">
+            <div class="mdl-grid">
+                <div class="mdl-color--whitemdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <!-- Simple Textfield -->
+                        <form action="#">
+                            <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+                                <select id="profile_information_form_country_id" name="profile_information_form_country" class="mdl-selectfield__select" required>
+                                    <option value=""></option>
+                                    <option value="192">Abkhazia</option>
+                                    <option value="1">Afghanistan</option>
+                                    <option value="255">Aland</option>
+                                    <option value="2">Albania</option>
+                                    <option value="3">Algeria</option>
+                                    <option value="235">American Samoa</option>
+
+                                </select>
+                                <label for="profile_information_form_country_id" class="mdl-selectfield__label">Country</label>
+                                <span class="mdl-selectfield__error">Input is not a empty!</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
 </body>
 </html>

@@ -1,43 +1,28 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <script src="js/sortable.js"></script>
+    <link rel="stylesheet" href="mdl/material.min.css">
+    <script src="mdl/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 </head>
 <body>
 
-<button id="show-dialog" type="button" class="mdl-button">Show Dialog</button>
-<dialog class="mdl-dialog">
-
-<%@ include file="/test.jsp" %>
-
-
-
-<div class="mdl-dialog__actions">
-<button type="button" class="mdl-button">Agree</button>
-<button type="button" class="mdl-button close">Disagree</button>
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
 </div>
-</dialog>
-
-
-
 
 <script>
-    var dialog = document.querySelector('dialog');
-    var showDialogButton = document.querySelector('#show-dialog');
-    if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    showDialogButton.addEventListener('click', function() {
-        dialog.showModal();
-
+    r(function(){
+        var snackbarContainer = document.querySelector('#demo-toast-example');
+        var data = { message: 'Example Message.'};
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
     });
-    dialog.querySelector('.close').addEventListener('click', function() {
-        dialog.close();
-    });
+    function r(f){ /in/.test(document.readyState)?setTimeout('r('+f+')', 9):f()}
 </script>
-
-
-
 
 
 </body>

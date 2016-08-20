@@ -16,9 +16,10 @@ public class Demo extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        req.setAttribute("userRole", Role.ADMIN);
+        String b = req.getParameter("56");
 
-        req.getRequestDispatcher(Path.INDEX).forward(req, resp);
+        System.out.println(b);
+
 
     }
 

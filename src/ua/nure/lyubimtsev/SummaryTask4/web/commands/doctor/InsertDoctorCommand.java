@@ -26,14 +26,16 @@ public class InsertDoctorCommand extends Command {
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+
         HttpSession session = request.getSession();
         List<Category> categories = (List<Category>) session.getAttribute("categories");
 
-        String categoryStr = request.getParameter("category");
+
+        int categoryId = Integer.parseInt(request.getParameter("category"));
 
         Category myCategory = categories
                 .stream()
-                .filter(category -> category.getName().equals(categoryStr))
+                .filter(category -> category.getId() == categoryId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
         Admin admin = (Admin) session.getAttribute("user");
