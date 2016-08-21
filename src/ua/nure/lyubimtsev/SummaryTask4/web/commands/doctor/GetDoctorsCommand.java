@@ -29,7 +29,6 @@ public class GetDoctorsCommand extends Command {
         HttpSession session = request.getSession();
 
         List<Doctor> allDoctors = ((Admin) session.getAttribute("user")).getDoctors();
-        List<Patient> allPatients = ((Admin) session.getAttribute("user")).getPatients();
 
         List<Doctor> pediatricians = allDoctors
                 .stream()

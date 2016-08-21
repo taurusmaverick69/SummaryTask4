@@ -3,6 +3,7 @@ package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
+import ua.nure.lyubimtsev.SummaryTask4.Role;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
@@ -28,17 +29,20 @@ public class GetPatientsCommand extends Command {
         HttpSession session = request.getSession();
         List<Patient> patients = new ArrayList<>();
 
+        Role role = (Role) session.getAttribute("role");
         Object user = session.getAttribute("user");
 
-        if (user instanceof Admin) {
-            patients = ((Admin) user).getPatients();
-        }
-
-        if (user instanceof Doctor) {
-            patients = ((Doctor) user).getPatients();
+        switch (role){
+            case ADMIN:
+                patients = ((Admin) user).getPatients();
+                break;
+            case DOCTOR:
+                patients = ((Doctor) user).getPatients();
+                break;
         }
 
         session.setAttribute("patients", patients);
         return new Redirect(Path.PATIENTS_PAGE, ForwardingType.FORWARD);
+
     }
 }

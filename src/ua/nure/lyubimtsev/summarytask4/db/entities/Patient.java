@@ -59,6 +59,10 @@ public class Patient {
         return birthDate;
     }
 
+    public String formatBirthDate() {
+        return new SimpleDateFormat("dd.MM.yyyy").format(birthDate);
+    }
+
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }

@@ -15,7 +15,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/materializecss/js/materialize.min.js"></script>
 
-
     <title>Title</title>
     <script type="text/javascript">
         window.onload = function () {
@@ -37,11 +36,8 @@
 
 
 <div class="container center-align">
-
-
     <div class="row">
         <div class="col s6 offset-s3">
-
             <form action="controller?command=insertDoctor" method="post">
                 <div class="card white">
                     <div class="card-content blue">

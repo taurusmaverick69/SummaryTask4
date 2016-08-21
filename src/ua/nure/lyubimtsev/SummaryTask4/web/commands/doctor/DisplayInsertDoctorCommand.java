@@ -19,7 +19,7 @@ public class DisplayInsertDoctorCommand extends Command {
 
         boolean success = Boolean.parseBoolean(request.getParameter("success"));
         request.setAttribute("result", success ? "Doctor Successfully Inserted" : "Doctor Not Inserted");
-        return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.GET_DOCTORS_COMMAND, ForwardingType.FORWARD);
 
     }
 }

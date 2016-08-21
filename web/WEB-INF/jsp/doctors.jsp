@@ -1,327 +1,327 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
-<%--@elvariable id="category" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Category"--%>
-<%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
-<%--@elvariable id="doctorsByCategory" type="java.util.List"--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materializecss/css/materialize.min.css" media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="materializecss/js/materialize.min.js"></script>
 
-    <script src="js/sortable.js"></script>
-    <link rel="stylesheet" href="mdl/material.min.css">
-    <script src="mdl/material.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <style>
-        #add-doctor {
-            position: fixed;
-            display: block;
-            right: 0;
-            bottom: 0;
-            margin-right: 40px;
-            margin-bottom: 40px;
-            z-index: 900;
+
+        .mdl-badge {
+            position: relative;
+            white-space: nowrap;
+            margin-right: 24px;
+            z-index: 1;
         }
+
+        .mdl-badge[data-badge]:after {
+            content: attr(data-badge);
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-align-content: center;
+            -ms-flex-line-pack: center;
+            align-content: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            position: absolute;
+            top: -11px;
+            right: -24px;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ff4081;
+            color: #fff
+        }
+
+        .mdl-badge.mdl-badge--overlap {
+            margin-right: 10px
+        }
+
+        .mdl-badge.mdl-badge--overlap:after {
+            right: -10px
+        }
+
     </style>
 
 </head>
 <body>
 
+<nav>
+    <div class="nav-wrapper deep-purple darken-3">
+        <a href="#" class="brand-logo center">Доктора</a>
+        <ul id="nav-mobile">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">JavaScript</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="row">
 
-<!-- Simple header with fixed tabs. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
-    <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-            <!-- Title -->
-            <span class="mdl-layout-title">Доктора</span>
+    <ul class="tabs deep-purple darken-3">
+        <li class="tab col s3"><a class="white-text" href="#all">Все</a></li>
+        <li class="tab col s3"><a class="white-text" href="#pediatricians">Педиатры</a></li>
+        <li class="tab col s3"><a class="white-text" href="#traumatologists">Травматологи</a></li>
+        <li class="tab col s3"><a class="white-text" href="#surgeons">Хирурги</a></li>
+        <li class="tab col s3"><a class="white-text" href="#nurses">Медсёстры</a></li>
+    </ul>
+
+    <div id="all">
+        <table class="striped centered">
+            <thead>
+            <tr>
+                <th data-field="id">Логин</th>
+                <th data-field="name">Пароль</th>
+                <th data-field="price">Имя</th>
+                <th data-field="price">Категория</th>
+                <th data-field="price">Пациенты</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <%--@elvariable id="allDoctors" type="java.util.List"--%>
+            <c:forEach var="doctor" items="${allDoctors}">
+                <tr>
+                    <td>${doctor.login}</td>
+                    <td>${doctor.password}</td>
+                    <td>${doctor.name}</td>
+                    <td>${doctor.category.name}</td>
+
+                    <td>
+                        <a href="controller?command=patients&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">group</i>
+                            <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
 
 
-            <!-- Add spacer, to align navigation to the right -->
-            <div class="mdl-layout-spacer"></div>
-            <nav class="mdl-navigation mdl-layout--large-screen-only">
-                <a class="mdl-navigation__link" href="">Доктора</a>
-                <a class="mdl-navigation__link" href="">Пациенты</a>
-                <a class="mdl-navigation__link" href="">Выход</a>
-            </nav>
-        </div>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
-
-        <!-- Tabs -->
-        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-            <a href="#allDoctors" class="mdl-layout__tab is-active">Все</a>
-            <a href="#pediatricians" class="mdl-layout__tab">Педиатры</a>
-            <a href="#traumatologists" class="mdl-layout__tab">Травматологи</a>
-            <a href="#surgeons" class="mdl-layout__tab">Хирурги</a>
-            <a href="#nurses" class="mdl-layout__tab">Медсёстры</a>
-        </div>
-    </header>
-
-    <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
     </div>
 
-    <main class="mdl-layout__content">
-        <section class="mdl-layout__tab-panel is-active" id="allDoctors">
-            <div class="page-content">
+    <div id="pediatricians">
+        <table class="striped centered">
+            <thead>
+            <tr>
+                <th data-field="id">Логин</th>
+                <th data-field="name">Пароль</th>
+                <th data-field="price">Имя</th>
+                <th data-field="price">Категория</th>
+                <th data-field="price">Пациенты</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%--@elvariable id="pediatricians" type="java.util.List"--%>
+            <c:forEach var="doctor" items="${pediatricians}">
+                <tr>
+                    <td>${doctor.login}</td>
+                    <td>${doctor.password}</td>
+                    <td>${doctor.name}</td>
+                    <td>${doctor.category.name}</td>
 
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
-                    <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">Логин</th>
-                        <th class="mdl-data-table__cell--non-numeric">Пароль</th>
-                        <th class="mdl-data-table__cell--non-numeric">Имя</th>
-                        <th class="mdl-data-table__cell--non-numeric">Категория</th>
-                    </tr>
-                    </thead>
+                    <td>
+                        <a href="controller?command=patients&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">group</i>
+                            <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
+                        </a>
+                    </td>
 
+                    <td>
+                        <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
-                    <tbody>
-                    <%--@elvariable id="allDoctors" type="java.util.List"--%>
-                    <c:forEach var="doctor" items="${allDoctors}">
-                        <tr>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.login}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.password}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
+    <div id="traumatologists">
+        <table class="striped centered">
+            <thead>
+            <tr>
+                <th data-field="id">Логин</th>
+                <th data-field="name">Пароль</th>
+                <th data-field="price">Имя</th>
+                <th data-field="price">Категория</th>
+                <th data-field="price">Пациенты</th>
+            </tr>
+            </thead>
 
+            <tbody>
+            <%--@elvariable id="traumatologists" type="java.util.List"--%>
+            <c:forEach var="doctor" items="${traumatologists}">
+                <tr>
+                    <td>${doctor.login}</td>
+                    <td>${doctor.password}</td>
+                    <td>${doctor.name}</td>
+                    <td>${doctor.category.name}</td>
 
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=patients&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">group</i>
-                                    <a class="mdl-badge mdl-badge--overlap"
-                                       data-badge="${doctor.patients.size()}"></a>
-                                </a>
-                            </td>
+                    <td>
+                        <a href="controller?command=patients&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">group</i>
+                            <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
+                        </a>
+                    </td>
 
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">edit</i>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-
-                    </tbody>
-                </table>
-
-            </div>
-        </section>
-
-
-        <section class="mdl-layout__tab-panel" id="pediatricians">
-            <div class="page-content">
-
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
-                    <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">Логин</th>
-                        <th class="mdl-data-table__cell--non-numeric">Пароль</th>
-                        <th class="mdl-data-table__cell--non-numeric">Имя</th>
-                        <th class="mdl-data-table__cell--non-numeric">Категория</th>
-                    </tr>
-                    </thead>
-
-
-                    <tbody>
-                    <%--@elvariable id="pediatricians" type="java.util.List"--%>
-                    <c:forEach var="doctor" items="${pediatricians}">
-                        <tr>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.login}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.password}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
-
-
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=patients&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">group</i>
-                                    <a class="mdl-badge mdl-badge--overlap"
-                                       data-badge="${doctor.patients.size()}"></a>
-                                </a>
-                            </td>
-
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">edit</i>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-
-                    </tbody>
-                </table>
-
-            </div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="traumatologists">
-            <div class="page-content">
+                    <td>
+                        <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
 
 
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
-                    <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">Логин</th>
-                        <th class="mdl-data-table__cell--non-numeric">Пароль</th>
-                        <th class="mdl-data-table__cell--non-numeric">Имя</th>
-                        <th class="mdl-data-table__cell--non-numeric">Категория</th>
-                    </tr>
-                    </thead>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="surgeons">
+        <table class="striped centered">
+            <thead>
+            <tr>
+                <th data-field="id">Логин</th>
+                <th data-field="name">Пароль</th>
+                <th data-field="price">Имя</th>
+                <th data-field="price">Категория</th>
+                <th data-field="price">Пациенты</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <%--@elvariable id="surgeons" type="java.util.List"--%>
+            <c:forEach var="doctor" items="${surgeons}">
+                <tr>
+                    <td>${doctor.login}</td>
+                    <td>${doctor.password}</td>
+                    <td>${doctor.name}</td>
+                    <td>${doctor.category.name}</td>
+
+                    <td>
+                        <a href="controller?command=patients&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">group</i>
+                            <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
 
 
-                    <tbody>
-                    <%--@elvariable id="traumatologists" type="java.util.List"--%>
-                    <c:forEach var="doctor" items="${traumatologists}">
-                        <tr>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.login}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.password}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
+            </tbody>
+        </table>
+    </div>
 
+    <div id="nurses">
+        <table class="striped centered">
+            <thead>
+            <tr>
+                <th data-field="id">Логин</th>
+                <th data-field="name">Пароль</th>
+                <th data-field="price">Имя</th>
+                <th data-field="price">Категория</th>
+                <th data-field="price">Пациенты</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%--@elvariable id="nurses" type="java.util.List"--%>
+            <c:forEach var="doctor" items="${nurses}">
+                <tr>
+                    <td>${doctor.login}</td>
+                    <td>${doctor.password}</td>
+                    <td>${doctor.name}</td>
+                    <td>${doctor.category.name}</td>
+                    <td>
+                        <a href="controller?command=patients&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">group</i>
+                            <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=patients&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">group</i>
-                                    <a class="mdl-badge mdl-badge--overlap"
-                                       data-badge="${doctor.patients.size()}"></a>
-                                </a>
-                            </td>
+</div>
 
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">edit</i>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-
-                    </tbody>
-                </table>
-
-
-            </div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="surgeons">
-            <div class="page-content">
-
-
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
-                    <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">Логин</th>
-                        <th class="mdl-data-table__cell--non-numeric">Пароль</th>
-                        <th class="mdl-data-table__cell--non-numeric">Имя</th>
-                        <th class="mdl-data-table__cell--non-numeric">Категория</th>
-                    </tr>
-                    </thead>
-
-
-                    <tbody>
-                    <%--@elvariable id="surgeons" type="java.util.List"--%>
-                    <c:forEach var="doctor" items="${surgeons}">
-                        <tr>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.login}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.password}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
-
-
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=patients&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">group</i>
-                                    <a class="mdl-badge mdl-badge--overlap"
-                                       data-badge="${doctor.patients.size()}"></a>
-                                </a>
-                            </td>
-
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">edit</i>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-
-                    </tbody>
-                </table>
-
-
-            </div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="nurses">
-            <div class="page-content">
-
-
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp sortable" width="100%">
-                    <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">Логин</th>
-                        <th class="mdl-data-table__cell--non-numeric">Пароль</th>
-                        <th class="mdl-data-table__cell--non-numeric">Имя</th>
-                        <th class="mdl-data-table__cell--non-numeric">Категория</th>
-                    </tr>
-                    </thead>
-
-
-                    <tbody>
-                    <%--@elvariable id="nurses" type="java.util.List"--%>
-                    <c:forEach var="doctor" items="${nurses}">
-                        <tr>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.login}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.password}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.name}</td>
-                            <td class="mdl-data-table__cell--non-numeric">${doctor.category.name}</td>
-
-
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=patients&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">group</i>
-                                    <a class="mdl-badge mdl-badge--overlap"
-                                       data-badge="${doctor.patients.size()}"></a>
-                                </a>
-                            </td>
-
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
-                                   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab">
-                                    <i class="material-icons">edit</i>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
+<div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
+    <a href="controller?command=forward&page=<%=Path.INSERT_DOCTOR_PAGE%>"
+       class="btn-floating btn-large pink">
+        <i class="material-icons">add</i>
+    </a>
 </div>
 
 
-<ul>
-    <li>Сортировка
-        <ul>
-            <li><a href="controller?command=sortDoctors&sort=alphabetically">По алфавиту</a></li>
-            <li><a href="controller?command=sortDoctors&sort=category">По категории</a></li>
-            <li><a href="controller?command=sortDoctors&sort=numberOfPatients">По количеству пациентов</a></li>
-        </ul>
-    </li>
+<%--@elvariable id="result" type="java.lang.String"--%>
+<c:if test="${not empty result}">
+    <style>
+        #toast-container {
+            top: auto !important;
+            right: auto !important;
+            left: 36.5%;
+        }
+    </style>
 
-
-</ul>
-
-<a href="controller?command=forward&page=<%=Path.INSERT_DOCTOR_PAGE%>" id="add-doctor"
-   class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-    <i class="material-icons">add</i>
-</a>
+    <script>
+        var $toastContent = $('<span>${result}</span>');
+        Materialize.toast($toastContent, 3000, 'rounded');
+    </script>
+</c:if>
 
 
 </body>

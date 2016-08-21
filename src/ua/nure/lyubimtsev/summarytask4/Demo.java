@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-
 @WebServlet(name = "Demo", urlPatterns = "/demo")
 public class Demo extends HttpServlet {
 
@@ -16,9 +15,6 @@ public class Demo extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        String b = req.getParameter("56");
-
-        System.out.println(b);
 
 
     }

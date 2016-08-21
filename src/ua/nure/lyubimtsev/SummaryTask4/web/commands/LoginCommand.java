@@ -1,9 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
-import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
-import ua.nure.lyubimtsev.SummaryTask4.Hash;
-import ua.nure.lyubimtsev.SummaryTask4.Path;
-import ua.nure.lyubimtsev.SummaryTask4.Redirect;
+import ua.nure.lyubimtsev.SummaryTask4.*;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.DoctorDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.PatientDAO;
@@ -48,8 +45,8 @@ public class LoginCommand extends Command {
             } else {
                 doctor.setPatients(patientDAO.getPatientsByDoctorId(doctor.getId()));
                 session.setAttribute("user", doctor);
-                redirect.setURL(Path.GET_PATIENTS_COMMAND);
-            }
+                session.setAttribute("role", Role.DOCTOR);
+                redirect.setURL(Path.GET_PATIENTS_COMMAND);}
 
         } else {
             admin.setDoctors(doctorDAO.getAllDoctors());
@@ -58,6 +55,7 @@ public class LoginCommand extends Command {
             }
             admin.setPatients(patientDAO.getAllPatients());
             session.setAttribute("user", admin);
+            session.setAttribute("role", Role.ADMIN);
             redirect.setURL(Path.GET_DOCTORS_COMMAND);
         }
 

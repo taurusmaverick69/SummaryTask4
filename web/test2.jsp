@@ -1,5 +1,10 @@
+<%--@elvariable id="user" type="java.lang.Object"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+
+
 <html>
 <head>
     <!--Import Google Icon Font-->
@@ -17,26 +22,18 @@
 </head>
 <body>
 
-tyjty
-
-<div class="input-field col s6">
-    <select>
-        <option value="" disabled selected>Choose your option</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-    </select>
-    <label>Materialize Select</label>
-</div>
-
-<script>
-    $(document).ready(function() {
-        $('select').material_select();
-    });
+<%--@elvariable id="role" type="ua.nure.lyubimtsev.SummaryTask4.Role"--%>
+<c:if test = "${role.name eq 'admin'}">
+    ADMIN
+</c:if>
 
 
-    $('select').material_select('destroy');
-</script>
+
+
+
+<%--<c:if test = "${user.getClass().getSimpleName() eq 'Admin'}">--%>
+<%--ADMIN--%>
+<%--</c:if>--%>
 
 </body>
 </html>
