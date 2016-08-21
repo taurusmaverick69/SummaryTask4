@@ -31,11 +31,6 @@ public class GetDoctorsCommand extends Command {
         List<Doctor> allDoctors = ((Admin) session.getAttribute("user")).getDoctors();
         List<Patient> allPatients = ((Admin) session.getAttribute("user")).getPatients();
 
-
-        for (Doctor doctor : allDoctors) {
-            System.err.println(doctor.getPatients().size());
-        }
-
         List<Doctor> pediatricians = allDoctors
                 .stream()
                 .filter(doctor -> doctor.getCategory().getName().equals("pediatrician"))

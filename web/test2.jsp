@@ -2,28 +2,41 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <script src="js/sortable.js"></script>
-    <link rel="stylesheet" href="mdl/material.min.css">
-    <script src="mdl/material.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materializecss/css/materialize.min.css" media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="materializecss/js/materialize.min.js"></script>
 
 </head>
 <body>
 
-<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button class="mdl-snackbar__action" type="button"></button>
+tyjty
+
+<div class="input-field col s6">
+    <select>
+        <option value="" disabled selected>Choose your option</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+    <label>Materialize Select</label>
 </div>
 
 <script>
-    r(function(){
-        var snackbarContainer = document.querySelector('#demo-toast-example');
-        var data = { message: 'Example Message.'};
-        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    $(document).ready(function() {
+        $('select').material_select();
     });
-    function r(f){ /in/.test(document.readyState)?setTimeout('r('+f+')', 9):f()}
-</script>
 
+
+    $('select').material_select('destroy');
+</script>
 
 </body>
 </html>

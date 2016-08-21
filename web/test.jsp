@@ -2,47 +2,35 @@
 <html>
 <head>
 
-    <script src="js/sortable.js"></script>
-    <link rel="stylesheet" href="mdl/material.min.css">
-    <script src="mdl/material.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materializecss/css/materialize.min.css" media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 
-    <link rel="stylesheet" href="mdl-selectfield-master/mdl-selectfield.min.css">
-    <script src="mdl-selectfield-master/mdl-selectfield.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="materializecss/js/materialize.min.js"></script>
+
+
+    <title>The Materialize Example</title>
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1">--%>
+    <%--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--%>
+    <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">--%>
+    <%--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>--%>
+    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>--%>
+
 
 </head>
 <body>
 
 
-<div class="mdl-layout__container">
-    <div class="mdl-layout mdl-js-layoutmdl-layout--fixed-drawermdl-layout--fixed-header">
-        <main class="mdl-layout__content mdl-color--grey-100">
-            <div class="mdl-grid">
-                <div class="mdl-color--whitemdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-                    <div class="mdl-cell mdl-cell--12-col">
-                        <!-- Simple Textfield -->
-                        <form action="#">
-                            <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                                <select id="profile_information_form_country_id" name="profile_information_form_country" class="mdl-selectfield__select" required>
-                                    <option value=""></option>
-                                    <option value="192">Abkhazia</option>
-                                    <option value="1">Afghanistan</option>
-                                    <option value="255">Aland</option>
-                                    <option value="2">Albania</option>
-                                    <option value="3">Algeria</option>
-                                    <option value="235">American Samoa</option>
 
-                                </select>
-                                <label for="profile_information_form_country_id" class="mdl-selectfield__label">Country</label>
-                                <span class="mdl-selectfield__error">Input is not a empty!</span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-</div>
+
+
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 <%@ page isErrorPage="true" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%--<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>--%>
+<%--<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>--%>
 
 <html>
 
