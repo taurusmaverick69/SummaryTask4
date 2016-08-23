@@ -1,7 +1,7 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
-import ua.nure.lyubimtsev.SummaryTask4.Hash;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +40,7 @@ public class InsertDoctorCommand extends Command {
 
         Doctor doctor = new Doctor(
                 request.getParameter("login"),
-                Hash.md5Custom(request.getParameter("password")),
+                DigestUtils.md5Hex(request.getParameter("password")),
                 request.getParameter("name"),
                 myCategory,
                 admin.getId()
@@ -52,11 +51,11 @@ public class InsertDoctorCommand extends Command {
         if (doctorDAO.isLoginExists(doctor.getLogin())) {
             return new Redirect(Path.INSERT_DOCTOR_PAGE + "?result=" + "Пользователь с таким именем уже существует", ForwardingType.FORWARD);
         } else {
-            boolean success = doctorDAO.insertDoctor(doctor) > 0;
-            if (success) {
+            boolean success;
+            if (success = doctorDAO.insertDoctor(doctor) > 0) {
                 admin.getDoctors().add(doctor);
             }
-            return new Redirect("controller?command=displayInsertDoctor&success=" + success, ForwardingType.SEND_REDIRECT);
+            return new Redirect(Path.PRG_COMMAND + "&entity=Doctor&action=insert&success=" + success, ForwardingType.SEND_REDIRECT);
         }
     }
 

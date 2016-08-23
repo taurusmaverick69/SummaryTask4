@@ -7,10 +7,7 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Type;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             " FROM appointment a, type t , doctor d, category c\n" +
             " WHERE a.type_id = t.id \n" +
             " AND a.doctor_id = d.id\n" +
-            " and d.category_id = c.id\n" +
+            " AND d.category_id = c.id\n" +
             " AND medicalCard_id = ?";
 
     @Override
@@ -56,5 +53,25 @@ public class AppointmentDAOImpl implements AppointmentDAO {
         }
 
         return appointments;
+    }
+
+    @Override
+    public int insertAppointment(Appointment appointment) {
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO appointment VALUES (DEFAULT,?,?,?,?,?,?)")) {
+
+            preparedStatement.setString(1, appointment.getDiagnose());
+            preparedStatement.setInt(2, appointment.getType().getId());
+            preparedStatement.setString(3, appointment.getInfo());
+            preparedStatement.setDate(4, new Date(appointment.getDate().getTime()));
+            preparedStatement.setInt(5, appointment.getMedicalCardId());
+            preparedStatement.setInt(6, appointment.getDoctor().getId());
+
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

@@ -85,7 +85,7 @@ public class PatientDAOImpl implements PatientDAO {
 
             int patientId = 0;
             ResultSet generatedKeys = patientPreparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()){
+            if (generatedKeys.next()) {
                 patientId = generatedKeys.getInt(1);
             }
 
@@ -97,6 +97,27 @@ public class PatientDAOImpl implements PatientDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
+    }
+
+    @Override
+    public int updatePatient(Patient patient) {
+
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE patient SET name = ?, address = ?, birthDate = ?, state_id = ? WHERE id = ?")) {
+
+            preparedStatement.setString(1, patient.getName());
+            preparedStatement.setString(2, patient.getAddress());
+            preparedStatement.setDate(3, new Date(patient.getBirthDate().getTime()));
+            preparedStatement.setInt(4, patient.getState().getId());
+            preparedStatement.setInt(5, patient.getId());
+
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return 0;
     }
 }

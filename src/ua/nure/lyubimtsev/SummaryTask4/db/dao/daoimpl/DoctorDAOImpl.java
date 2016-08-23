@@ -3,7 +3,6 @@ package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 import ua.nure.lyubimtsev.SummaryTask4.Role;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.DoctorDAO;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 
@@ -96,9 +95,9 @@ public class DoctorDAOImpl implements DoctorDAO {
 
     @Override
     public int updateDoctor(Doctor doctor, Role role) {
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection()) {
 
-            PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection()) {
 
             switch (role) {
                 case ADMIN:
@@ -107,7 +106,6 @@ public class DoctorDAOImpl implements DoctorDAO {
                     preparedStatement.setInt(2, doctor.getCategory().getId());
                     preparedStatement.setInt(3, doctor.getId());
                     break;
-
 
                 case DOCTOR:
                     preparedStatement = connection.prepareStatement("UPDATE doctor SET login = ?, password = ?, name = ?, category_id = ? WHERE id = ?");
@@ -125,8 +123,15 @@ public class DoctorDAOImpl implements DoctorDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-
         return 0;
     }
 

@@ -33,25 +33,25 @@
                         <span class="card-title white-text">Редактировать доктора</span>
                     </div>
                     <div class="section"></div>
-                    <div class='row'>
-                        <div class='input-field col s8 offset-s2 '>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1 ">
                             <i class="material-icons prefix">perm_identity</i>
                             <input value="${doctor.name}" id="name" name="name" type="text" class="validate" required
                                    minlength="5" maxlength="45">
                             <label for="name">Full Name</label>
                         </div>
                     </div>
-                    <div class='row'>
-                        <div class='input-field col s8 offset-s2'>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1">
                             <select id="category" name="category">
                                 <%--@elvariable id="categories" type="java.util.List"--%>
-                                <c:forEach var="category" items="${categories}">
+                                <c:forEach var="state" items="${categories}">
                                     <c:choose>
-                                        <c:when test="${category.id eq doctor.category.id}">
-                                            <option selected value=${category.id}>${category.name}</option>
+                                        <c:when test="${state.id eq doctor.category.id}">
+                                            <option selected value=${state.id}>${state.name}</option>
                                         </c:when>
                                         <c:otherwise>
-                                            <option value=${category.id}>${category.name}</option>
+                                            <option value=${state.id}>${state.name}</option>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
@@ -61,7 +61,7 @@
                     </div>
                     <script>
                         $(document).ready(function () {
-                            $('select').material_select();
+                            $("select").material_select();
                         });
 
                     </script>

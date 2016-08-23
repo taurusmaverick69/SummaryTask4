@@ -25,9 +25,9 @@
 				</h2>
 			
 				<%-- this way we obtain an information about an exception (if it has been occurred) --%>
-				<c:set var="code" value="${requestScope['javax.servlet.error.status_code']}"/>
-				<c:set var="message" value="${requestScope['javax.servlet.error.message']}"/>
-				<c:set var="exception" value="${requestScope['javax.servlet.error.exception']}"/>
+				<c:set var="code" value="${requestScope["javax.servlet.error.status_code"]}"/>
+				<c:set var="message" value="${requestScope["javax.servlet.error.message"]}"/>
+				<c:set var="exception" value="${requestScope["javax.servlet.error.exception"]}"/>
 				
 				<c:if test="${not empty code}">
 					<h3>Error code: ${code}</h3>

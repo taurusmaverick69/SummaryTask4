@@ -1,12 +1,8 @@
+<%--@elvariable id="role" type="Role"--%>
 <%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--@elvariable id="result" type="java.lang.String"--%>
-<c:if test="${not empty result}">
-    <c:out value="${result}">
-    </c:out>
-</c:if>
 
 <%--<li>Сортировка--%>
 <%--<ul>--%>
@@ -64,14 +60,19 @@
                 <td>${patient.formatBirthDate()}</td>
                 <td>${patient.state.name}</td>
                 <td>
-                    <a href="controller?command=getMedicalCard&id=${patient.id}&name=${patient.name}"
-                       class="btn-floating waves-effect">
-                        <i class="material-icons">assignment</i>
-                    </a>
+                    <c:if test="${role.name == 'Admin'}">
+                        <a class="btn-floating disabled"> <i class="material-icons">assignment</i></a>
+                    </c:if>
+                    <c:if test="${role.name == 'Doctor'}">
+                        <a href="controller?command=getMedicalCard&id=${patient.id}&name=${patient.name}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">assignment</i>
+                        </a>
+                    </c:if>
                 </td>
 
                 <td>
-                    <a href="getPatientOnEditServlet?id=${patient.id}"
+                    <a href="controller?command=getPatientOnUpdate&id=${patient.id}"
                        class="btn-floating waves-effect">
                         <i class="material-icons">edit</i>
                     </a>
@@ -83,11 +84,29 @@
 </div>
 
 <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
-    <a href="controller?command=forward&page=<%=Path.INSERT_DOCTOR_PAGE%>"
+    <a href="controller?command=forward&page=<%=Path.INSERT_PATIENT_PAGE%>"
        class="btn-floating btn-large pink">
         <i class="material-icons">add</i>
     </a>
 </div>
+
+
+<%--@elvariable id="result" type="java.lang.String"--%>
+<c:if test="${not empty result}">
+    <style>
+        #toast-container {
+            top: auto !important;
+            right: auto !important;
+            left: 36.5%;
+        }
+    </style>
+
+    <script>
+        var $toastContent = $("<span>${result}</span>");
+        Materialize.toast($toastContent, 3000, "rounded");
+    </script>
+</c:if>
+
 
 </body>
 </html>

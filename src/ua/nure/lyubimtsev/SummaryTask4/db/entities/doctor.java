@@ -109,6 +109,11 @@ public class Doctor {
 
     public class Builder {
 
+        public Builder setId(int id) {
+            Doctor.this.id = id;
+            return this;
+        }
+
         public Builder setName(String name) {
             Doctor.this.name = name;
             return this;

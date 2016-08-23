@@ -3,6 +3,7 @@ package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
+import ua.nure.lyubimtsev.SummaryTask4.Role;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.*;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
@@ -25,47 +26,42 @@ public class InsertPatientCommand extends Command {
 
         HttpSession session = request.getSession();
 
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+
+        Date birthDate = null;
+        try {
+            birthDate = new SimpleDateFormat("dd.MM.yyyy").parse(request.getParameter("birthDate"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         List<State> states = (List<State>) session.getAttribute("states");
         int stateId = Integer.parseInt(request.getParameter("state"));
-        State myState = states
+        State stateById = states
                 .stream()
                 .filter(state -> state.getId() == stateId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
 
-        Date date = null;
-        try {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("date"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        int doctorId = Integer.parseInt(request.getParameter("doctor"));
+        Patient patient = new Patient(name, address, birthDate, stateById, doctorId);
 
 
+        boolean success;
         Object user = session.getAttribute("user");
-        int doctorId = user instanceof Admin ? Integer.parseInt(request.getParameter("doctor")) : ((Doctor) user).getId();
-
-        Patient patient = new Patient(
-                request.getParameter("name"),
-                request.getParameter("address"),
-                date,
-                myState,
-                doctorId
-        );
-
-        boolean success = DAOFactory.getMySQLDAOFactory().getPatientDAO().insertPatient(patient) > 0;
-        if (success) {
-
-
-
-
-            if (user instanceof Admin) {
-                ((Admin) user).getPatients().add(patient);
-            }
-
-            if (user instanceof Doctor) {
-                ((Doctor) user).getPatients().add(patient);
+        if (success = DAOFactory.getMySQLDAOFactory().getPatientDAO().insertPatient(patient) > 0) {
+            Role role = (Role) session.getAttribute("role");
+            switch (role) {
+                case ADMIN:
+                    ((Admin) user).getPatients().add(patient);
+                    break;
+                case DOCTOR:
+                    ((Doctor) user).getPatients().add(patient);
+                    break;
             }
         }
-        return new Redirect(Path.DISPLAY_INSERT_PATIENT_COMMAND + "&success=" + success, ForwardingType.SEND_REDIRECT);
+
+        return new Redirect(Path.PRG_COMMAND + "&entity=Patient&action=insert&doctorId=" + doctorId + "&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

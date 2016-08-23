@@ -27,7 +27,7 @@
             if (pass1 != pass2)
                 document.getElementById("password2").setCustomValidity("Пароли не совпадают");
             else
-                document.getElementById("password2").setCustomValidity('');
+                document.getElementById("password2").setCustomValidity("");
         }
     </script>
 </head>
@@ -45,32 +45,32 @@
                     </div>
 
                     <div class="section"></div>
-                    <div class='row'>
-                        <div class='input-field col s8 offset-s2 '>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1 ">
                             <i class="material-icons prefix">perm_identity</i>
                             <input id="name" name="name" type="text" class="validate" required minlength="5" maxlength="45">
                             <label for="name">Full Name</label>
                         </div>
                     </div>
 
-                    <div class='row'>
-                        <div class='input-field col s8 offset-s2 '>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1 ">
                             <i class="material-icons prefix">account_circle</i>
                             <input id="login" name="login" type="text" class="validate" required minlength="5" maxlength="45">
                             <label for="login">Login</label>
                         </div>
                     </div>
 
-                    <div class='row'>
-                        <div class='input-field col s8 offset-s2 '>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1 ">
                             <i class="material-icons prefix">vpn_key</i>
                             <input id="password1" name="password" type="password" class="validate" required minlength="5" maxlength="45">
                             <label for="password1">Password</label>
                         </div>
                     </div>
 
-                    <div class='row'>
-                        <div class='input-field col s8 offset-s2 '>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1 ">
                             <i class="material-icons prefix">vpn_key</i>
                             <input id="password2" type="password" class="validate" required minlength="5" maxlength="45">
                             <label for="password2">Confirm Password</label>
@@ -78,12 +78,12 @@
                     </div>
 
 
-                    <div class='row'>
-                        <div class='input-field col s8 offset-s2'>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1">
                             <select id="category" name="category">
                                 <%--@elvariable id="categories" type="java.util.List"--%>
-                                <c:forEach var="category" items="${categories}">
-                                    <option value="${category.id}">${category.name}</option>
+                                <c:forEach var="state" items="${categories}">
+                                    <option value="${state.id}">${state.name}</option>
                                 </c:forEach>
                             </select>
                             <label for="category">Category</label>
@@ -92,7 +92,7 @@
 
                     <script>
                         $(document).ready(function () {
-                            $('select').material_select();
+                            $("select").material_select();
                         });
 
                     </script>

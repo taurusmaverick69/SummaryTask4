@@ -48,29 +48,27 @@ public class UpdateDoctorCommand extends Command {
         String password = request.getParameter("password");
 
         Role role = (Role) session.getAttribute("role");
-        Doctor doctor;
         DoctorDAO doctorDAO = DAOFactory.getMySQLDAOFactory().getDoctorDAO();
 
+        boolean success;
         switch (role) {
             case ADMIN:
-                doctor = Doctor.newBuilder().setId(doctorId).setName(name).setCategory(categoryById).build();
-                if (doctorDAO.updateDoctor(doctor, role) > 0) {
-                    doctorById.setName(name);
-                    doctorById.setCategory(categoryById);
-                }
+                doctorById.setName(name);
+                doctorById.setCategory(categoryById);
                 break;
 
             case DOCTOR:
-                doctor = new Doctor(doctorId, login, password, name, categoryById);
-                if (doctorDAO.updateDoctor(doctor, role) > 0) {
-                    doctorById.setLogin(login);
-                    doctorById.setPassword(password);
-                    doctorById.setName(name);
-                    doctorById.setCategory(categoryById);
-                }
+                doctorById.setLogin(login);
+                doctorById.setPassword(password);
+                doctorById.setName(name);
+                doctorById.setCategory(categoryById);
                 break;
         }
-        doctors.set(doctors.indexOf(doctorById), doctorById);
-        return new Redirect(Path.GET_DOCTORS_COMMAND, ForwardingType.FORWARD);
+
+        if (success = doctorDAO.updateDoctor(doctorById, role) > 0) {
+            doctors.set(doctors.indexOf(doctorById), doctorById);
+        }
+
+        return new Redirect(Path.PRG_COMMAND + "&entity=Doctor&action=update&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

@@ -20,29 +20,25 @@ public class CommandContainer {
 //        commands.put("viewSettings", new ViewSettingsCommand());
         commands.put("noCommand", new NoCommand());
         commands.put("forward", new ForwardCommand());
+        commands.put("PRG", new PRGCommand());
 
         // doctor commands
         commands.put("doctors", new GetDoctorsCommand());
         commands.put("insertDoctor", new InsertDoctorCommand());
-        commands.put("displayInsertDoctor", new DisplayInsertDoctorCommand());
         commands.put("getDoctorOnUpdate", new GetDoctorOnUpdateCommand());
         commands.put("updateDoctor", new UpdateDoctorCommand());
         commands.put("sortDoctors", new SortDoctorsCommand());
 
+        // patient commands
         commands.put("patients", new GetPatientsCommand());
         commands.put("insertPatient", new InsertPatientCommand());
-        commands.put("displayInsertPatient", new DisplayInsertPatientCommand());
         commands.put("getPatientOnUpdate", new GetPatientOnUpdateCommand());
         commands.put("updatePatient", new UpdatePatientCommand());
         commands.put("sortPatients", new SortPatientsCommand());
 
 
         commands.put("getMedicalCard", new GetMedicalCardCommand());
-
-
         commands.put("insertAppointment", new InsertAppointmentCommand());
-
-
 
         LOG.debug("Command container was successfully initialized");
         LOG.trace("Number of commands --> " + commands.size());
@@ -51,8 +47,7 @@ public class CommandContainer {
     /**
      * Returns commands object with the given name.
      *
-     * @param commandName
-     *            Name of the commands.
+     * @param commandName Name of the commands.
      * @return Command object.
      */
     public static Command get(String commandName) {

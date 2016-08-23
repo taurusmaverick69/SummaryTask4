@@ -64,7 +64,6 @@ public class Controller extends HttpServlet {
         // go to forward
         switch (redirect.getForwardingType()) {
             case SEND_REDIRECT:
-                System.err.println("redirect.getURL() = " + redirect.getURL());
                 response.sendRedirect(redirect.getURL());
                 break;
             case FORWARD:

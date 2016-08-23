@@ -93,11 +93,11 @@
         <table class="striped centered">
             <thead>
             <tr>
-                <th data-field="id">Логин</th>
-                <th data-field="name">Пароль</th>
-                <th data-field="price">Имя</th>
-                <th data-field="price">Категория</th>
-                <th data-field="price">Пациенты</th>
+                <th>Логин</th>
+                <th>Пароль</th>
+                <th>Имя</th>
+                <th>Категория</th>
+                <th>Пациенты</th>
             </tr>
             </thead>
 
@@ -111,7 +111,7 @@
                     <td>${doctor.category.name}</td>
 
                     <td>
-                        <a href="controller?command=patients&id=${doctor.id}"
+                        <a href="controller?command=patients&doctorId=${doctor.id}"
                            class="btn-floating waves-effect">
                             <i class="material-icons">group</i>
                             <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
@@ -154,7 +154,7 @@
                     <td>${doctor.category.name}</td>
 
                     <td>
-                        <a href="controller?command=patients&id=${doctor.id}"
+                        <a href="controller?command=patients&doctorId=${doctor.id}"
                            class="btn-floating waves-effect">
                             <i class="material-icons">group</i>
                             <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
@@ -195,7 +195,7 @@
                     <td>${doctor.category.name}</td>
 
                     <td>
-                        <a href="controller?command=patients&id=${doctor.id}"
+                        <a href="controller?command=patients&doctorId=${doctor.id}"
                            class="btn-floating waves-effect">
                             <i class="material-icons">group</i>
                             <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
@@ -238,7 +238,7 @@
                     <td>${doctor.category.name}</td>
 
                     <td>
-                        <a href="controller?command=patients&id=${doctor.id}"
+                        <a href="controller?command=patients&doctorId=${doctor.id}"
                            class="btn-floating waves-effect">
                             <i class="material-icons">group</i>
                             <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
@@ -279,7 +279,7 @@
                     <td>${doctor.name}</td>
                     <td>${doctor.category.name}</td>
                     <td>
-                        <a href="controller?command=patients&id=${doctor.id}"
+                        <a href="controller?command=patients&doctorId=${doctor.id}"
                            class="btn-floating waves-effect">
                             <i class="material-icons">group</i>
                             <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
@@ -318,8 +318,8 @@
     </style>
 
     <script>
-        var $toastContent = $('<span>${result}</span>');
-        Materialize.toast($toastContent, 3000, 'rounded');
+        var $toastContent = $("<span>${result}</span>");
+        Materialize.toast($toastContent, 3000, "rounded");
     </script>
 </c:if>
 

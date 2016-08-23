@@ -1,5 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import ua.nure.lyubimtsev.SummaryTask4.*;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.DoctorDAO;
@@ -33,12 +34,14 @@ public class LoginCommand extends Command {
         session.setAttribute("states", factory.getStateDAO().getStates());
         session.setAttribute("categories", factory.getCategoryDAO().getCategories());
 
-        Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, Hash.md5Custom(password));
+
+
+        Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, DigestUtils.md5Hex(password));
         PatientDAO patientDAO = factory.getPatientDAO();
         DoctorDAO doctorDAO = factory.getDoctorDAO();
         if (admin == null) {
 
-            Doctor doctor = doctorDAO.getDoctorByLoginAndPassword(login, Hash.md5Custom(password));
+            Doctor doctor = doctorDAO.getDoctorByLoginAndPassword(login, DigestUtils.md5Hex(password));
             if (doctor == null) {
                 request.setAttribute("loginResult", "Invalid username or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);

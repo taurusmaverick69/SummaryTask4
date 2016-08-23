@@ -1,76 +1,118 @@
 <%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--@elvariable id="medicalCard" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard"--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
-    <title>Title</title>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet"
+          href="${pageContext.request.contextPath}/materializecss/css/materialize.min.css" media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/materializecss/js/materialize.min.js"></script>
 </head>
+
 <body>
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">Мед. карта</a>
+        <ul id="nav-mobile">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">JavaScript</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="row">
 
-<h3>
-    Медицинская карта
-</h3>
+    <table class="striped centered">
 
-<p>
-    ФИО пациента: ${param.name}
-</p>
-
-<p>
-    Дата создания: ${medicalCard.registrationDate}
-</p>
-
-<table cellpadding="10">
-    <caption>История болезней</caption>
-    <tr>
-        <th>№</th>
-        <th>Диагноз</th>
-        <th>Назначение</th>
-        <th>Доп. информация</th>
-        <th>Дата</th>
-        <th>Доктор</th>
-    </tr>
-
-    <%--@elvariable id="patients" type="java.util.List"--%>
-    <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
-    <c:forEach var="appointment" items="${medicalCard.appointments}">
+        <thead>
         <tr>
-            <td>${appointment.id}</td>
-            <td title="${appointment.diagnose}">
-                <c:choose>
-                    <c:when test="${appointment.diagnose.length() > 25}">
-                        ${appointment.diagnose.substring(0, 25).concat('...')}
-                    </c:when>
-
-                    <c:otherwise>
-                        ${appointment.diagnose}
-                    </c:otherwise>
-                </c:choose>
-            </td>
-            <td>${appointment.type.name}</td>
-            <td title=${appointment.info}>
-                <c:choose>
-                    <c:when test="${appointment.info.length() > 25}">
-                        ${appointment.info.substring(0, 25).concat('...')}
-                    </c:when>
-
-                    <c:otherwise>
-                        ${appointment.info}
-                    </c:otherwise>
-                </c:choose>
-            </td>
-            <td>${appointment.date}</td>
-            <td>${appointment.doctor.category.name} ${appointment.doctor.name}</td>
-            </td>
+            <th>№</th>
+            <th>Диагноз</th>
+            <th>Назначение</th>
+            <th>Доп. информация</th>
+            <th>Дата</th>
+            <th>Доктор</th>
         </tr>
-    </c:forEach>
-</table>
+        </thead>
+
+        <%--@elvariable id="medicalCard" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard"--%>
+        <c:forEach var="appointment" items="${medicalCard.appointments}">
+            <tr>
+                <td>${appointment.id}</td>
+                <td title="${appointment.diagnose}">
+                    <c:choose>
+                        <c:when test="${appointment.diagnose.length() > 25}">
+                            ${appointment.diagnose.substring(0, 25).concat("...")}
+                        </c:when>
+
+                        <c:otherwise>
+                            ${appointment.diagnose}
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>${appointment.type.name}</td>
+                <td title=${appointment.info}>
+                    <c:choose>
+                        <c:when test="${appointment.info.length() > 25}">
+                            ${appointment.info.substring(0, 25).concat("...")}
+                        </c:when>
+
+                        <c:otherwise>
+                            ${appointment.info}
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>${appointment.date}</td>
+                <td>${appointment.doctor.category.name} ${appointment.doctor.name}</td>
 
 
-<p>
-    <a href="controller?command=forward&page=<%=Path.INSERT_APPOINTMENT_PAGE%>">Добавить назначение</a>
-</p>
+                <td>
 
+                    <a href="controller?command=getAppointmentOnUpdate&id=${appointment.id}"
+                       class="btn-floating waves-effect">
+                        <i class="material-icons">edit</i>
+                    </a>
+
+                </td>
+
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
+<div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
+    <a href="controller?command=forward&page=<%=Path.INSERT_APPOINTMENT_PAGE%>"
+       class="btn-floating btn-large pink">
+        <i class="material-icons">add</i>
+    </a>
+</div>
+
+
+<%--@elvariable id="result" type="java.lang.String"--%>
+<c:if test="${not empty result}">
+    <style>
+        #toast-container {
+            top: auto !important;
+            right: auto !important;
+            left: 36.5%;
+        }
+    </style>
+
+    <script>
+        var $toastContent = $("<span>${result}</span>");
+        Materialize.toast($toastContent, 3000, "rounded");
+    </script>
+</c:if>
 
 </body>
 </html>
+
+
