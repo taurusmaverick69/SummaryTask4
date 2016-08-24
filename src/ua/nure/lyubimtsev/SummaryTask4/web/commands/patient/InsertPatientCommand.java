@@ -43,8 +43,6 @@ public class InsertPatientCommand extends Command {
                 .filter(state -> state.getId() == stateId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-
-        System.out.println(request.getParameter("doctor"));
         int doctorId = Integer.parseInt(request.getParameter("doctor"));
         Patient patient = new Patient(name, address, birthDate, stateById, doctorId);
 

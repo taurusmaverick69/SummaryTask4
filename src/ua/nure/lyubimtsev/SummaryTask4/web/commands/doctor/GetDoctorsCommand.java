@@ -24,11 +24,16 @@ public class GetDoctorsCommand extends Command {
         Admin admin = (Admin) session.getAttribute("user");
         List<Category> categories = (List<Category>) session.getAttribute("categories");
 
-        session.setAttribute("allDoctors", admin.getDoctors());
         for (Category category : categories) {
-            session.setAttribute(category.getName() + "s", admin.getDoctorsByCategory(category));
+            session.setAttribute(category.getName(), admin.getDoctorsByCategory(category));
         }
 
+        Category all = new Category(0, "all");
+        if (!categories.contains(all)) {
+            categories.add(0, all);
+        }
+
+        session.setAttribute("all", admin.getDoctors());
         return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }
 }

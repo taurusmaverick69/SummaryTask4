@@ -6,13 +6,6 @@
         ${title}
     </title>
 
-    <%--MATERIAL DESIGN LITE--%>
-    <link rel="stylesheet" href="mdl/material.min.css">
-    <script src="mdl/material.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-
-
     <%--MATERIALIZECSS--%>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

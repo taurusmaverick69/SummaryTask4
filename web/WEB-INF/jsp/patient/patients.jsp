@@ -1,32 +1,12 @@
 <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="role" type="Role"--%>
 <%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-
-<%--<li>Сортировка--%>
-<%--<ul>--%>
-<%--<li><a href="controller?command=sortPatients&sort=alphabetically">По алфавиту</a></li>--%>
-<%--<li><a href="controller?command=sortPatients&sort=birthDate">По дате рождения</a></li>--%>
-<%--</ul>--%>
-
-<%--<li><a href="controller?command=forward&page=<%=Path.INSERT_PATIENT_PAGE%>">Добавить</a></li>--%>
-<%--</li>--%>
+<%@include file="/WEB-INF/jspf/head.jspf"%>
 
 <html>
 <head>
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet"
-          href="${pageContext.request.contextPath}/materializecss/css/materialize.min.css" media="screen,projection"/>
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript"
-            src="${pageContext.request.contextPath}/materializecss/js/materialize.min.js"></script>
+    <script src="${pageContext.request.contextPath}/addons/sorttable.js"></script>
 </head>
 
 <body>
@@ -41,7 +21,7 @@
     </div>
 </nav>
 <div class="row">
-    <table class="striped centered">
+    <table class="striped centered sortable">
         <thead>
         <tr>
             <th>ФИО</th>
@@ -49,8 +29,6 @@
             <th>Дата рождения</th>
             <th>Состояние</th>
             <th>Мед. карта</th>
-            <th> ${doctor.id}</th>
-
         </tr>
         </thead>
 
@@ -126,7 +104,8 @@
         #toast-container {
             top: auto !important;
             right: auto !important;
-            left: 36.5%;
+            bottom: 10%;
+            left:7%;
         }
     </style>
 

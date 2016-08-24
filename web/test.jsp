@@ -14,27 +14,57 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="materializecss/js/materialize.min.js"></script>
 
+
+    <script src="js/sorttable.js"></script>
 </head>
 <body>
 
 
 <style>
-    #toast-container {
-        top: auto !important;
-        right: auto !important;
-        bottom: 10%;
-        left:45%;
+    table.sortable thead {
+        /*background-color:#eee;*/
+        /*color:#666666;*/
+        /*font-weight: bold;*/
+        cursor: hand;
     }
 </style>
 
-<script>
+<table class="striped sortable">
+
+    <tr><th>Number (spelled)</th><th>Person</th></tr>
+    <tr><td sorttable_customkey="3">two</td><td>Jan</td></tr>
+    <tr><td sorttable_customkey="2">three</td><td>Bruce</td></tr>
+    <tr><td sorttable_customkey="1">one</td><td>Steve</td></tr>
+    <thead>
+    <tr>
+        <th data-field="id">Name</th>
+        <th data-field="name">Item Name</th>
+        <th data-field="price">Item Price</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <td>Вася</td>
+        <td>Eclair</td>
+        <td>$0.87</td>
+    </tr>
+    <tr>
+        <td>Alan</td>
+        <td>Jellybean</td>
+        <td>$3.76</td>
+    </tr>
+    <tr>
+        <td>Игорь</td>
+        <td>Lollipop</td>
+        <td>$7.00</td>
+    </tr>
+    </tbody>
+</table>
 
 
 
-    var $toastContent = $('<center>I am toast content</center>');
-    Materialize.toast($toastContent, 5000);
 
-</script>
 
 </body>
 </html>

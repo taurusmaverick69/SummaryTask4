@@ -27,55 +27,36 @@ public class UpdatePatientCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
-
         HttpSession session = request.getSession();
 
-        int stateId = Integer.parseInt(request.getParameter("state"));
-        List<State> states = ((List<State>) session.getAttribute("states"));
-        State stateById = states
-                .stream()
-                .filter(state -> state.getId() == stateId)
-                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
 
-        int patientId = Integer.parseInt(request.getParameter("id"));
-
-        Date birthDate = new Date();
+        Date birthDate = null;
         try {
             birthDate = new SimpleDateFormat("dd.MM.yyyy").parse(request.getParameter("birthDate"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        String name = request.getParameter("name");
-        String address = request.getParameter("address");
-
-
-        List<Patient> patients = new ArrayList<>();
-        Role role = (Role) session.getAttribute("role");
-//        switch (role) {
-//            case ADMIN:
-//                patients = ((Admin) session.getAttribute("user")).getPatients();
-//                break;
-//            case DOCTOR:
-//                patients = ((Doctor) session.getAttribute("user")).getPatients();
-//                break;
-//        }
-
-        Patient patientById = patients
+        List<State> states = ((List<State>) session.getAttribute("states"));
+        int stateId = Integer.parseInt(request.getParameter("state"));
+        State stateById = states
                 .stream()
-                .filter(patient -> patient.getId() == patientId)
+                .filter(state -> state.getId() == stateId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        PatientDAO patientDAO = DAOFactory.getMySQLDAOFactory().getPatientDAO();
-        patientById.setName(name);
-        patientById.setAddress(address);
-        patientById.setBirthDate(birthDate);
-        patientById.setState(stateById);
+        int doctorId = Integer.parseInt(request.getParameter("doctor"));
 
+        Patient patientById = (Patient) session.getAttribute("patientById");
+        Patient tempPatient = new Patient(patientById.getId(), name, address, birthDate, stateById);
         boolean success;
-        if (success = patientDAO.updatePatient(patientById) > 0) {
-            patients.set(patients.indexOf(patientById), patientById);
+        if (success = DAOFactory.getMySQLDAOFactory().getPatientDAO().updatePatient(tempPatient) > 0) {
+            patientById.setName(name);
+            patientById.setAddress(address);
+            patientById.setBirthDate(birthDate);
+            patientById.setState(stateById);
         }
-        return new Redirect(Path.PRG_COMMAND + "&entity=Patient&action=update&success=" + success, ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.PRG_COMMAND + "&entity=Patient&action=update&doctorId=" + doctorId + "&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

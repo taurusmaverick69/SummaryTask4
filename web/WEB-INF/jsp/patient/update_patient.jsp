@@ -1,56 +1,42 @@
-<%--@elvariable id="patient" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient"--%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--@elvariable id="patientById" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient"--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="/WEB-INF/jspf/head.jspf"%>
 <html>
-<head>
-    <title>Title</title>
-
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet"
-          href="${pageContext.request.contextPath}/materializecss/css/materialize.min.css" media="screen,projection"/>
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript"
-            src="${pageContext.request.contextPath}/materializecss/js/materialize.min.js"></script>
-
-</head>
 <body>
 
 <div class="container center-align">
     <div class="row">
         <div class="col s6 offset-s3">
-            <form action="controller?command=insertPatient" method="post">
+
+            <form action="controller?command=updatePatient" method="post">
                 <div class="card white">
                     <div class="card-content blue">
-                        <span class="card-title white-text">Добавить пациента</span>
+                        <span class="card-title white-text">Редактировать пациента</span>
                     </div>
                     <div class="section"></div>
 
                     <div class="row">
                         <div class="input-field col s10 offset-s1 ">
                             <i class="material-icons prefix">perm_identity</i>
-                            <input id="name" name="name" type="text" class="validate" required maxlength="45">
+                            <input value="${patientById.name}" id="name" name="name" type="text" class="validate" required
+                                   maxlength="45">
                             <label for="name">Full Name</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s10 offset-s1 ">
-                            <i class="material-icons prefix">home</i>
-                            <input id="address" name="address" type="text" class="validate" required maxlength="255">
+                            <i class="material-icons prefix">perm_identity</i>
+                            <input value="${patientById.address}" id="address" name="address" type="text" class="validate"
+                                   required maxlength="255">
                             <label for="address">Address</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s10 offset-s1 ">
-                            <i class="material-icons prefix">date_range</i>
-                            <input id="birthDate" name="birthDate" type="date" class="datepicker validate" required>
+                            <i class="material-icons prefix">perm_identity</i>
+                            <input value="${patientById.formatBirthDate()}" id="birthDate" name="birthDate" type="date" class="datepicker validate" required>
                             <label for="birthDate">Birth Date</label>
                         </div>
                     </div>
@@ -61,7 +47,6 @@
                             selectYears: 15, // Creates a dropdown of 15 years to control year
                             format: "dd.mm.yyyy"
                         });
-
                     </script>
 
                     <div class="row">
@@ -70,12 +55,20 @@
 
                                 <%--@elvariable id="states" type="java.util.List"--%>
                                 <c:forEach var="state" items="${states}">
-                                    <option value=${state.id}>${state.name}</option>
+                                    <c:choose>
+                                        <c:when test="${state.id eq patientById.state.id}">
+                                            <option selected value=${state.id}>${state.name}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value=${state.id}>${state.name}</option>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
                             </select>
                             <label for="state">State</label>
                         </div>
                     </div>
+
 
                     <div class="row">
                         <div class="input-field col s10 offset-s1">
@@ -86,30 +79,24 @@
                             <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 
                             <select id="doctor" name="doctor">
-                                <c:if test="${role.name == 'Admin'}">
-                                    <c:forEach var="doctor" items="${user.doctors}">
-                                        <option value=${doctor.id}>${doctor.name}</option>
-                                    </c:forEach>
-                                </c:if>
-
-                                <c:if test="${role.name == 'Doctor'}">
-                                    <option value=${doctor.id}>${doctor.name}</option>
-                                </c:if>
+                                <option value=${doctor.id}>${doctor.name}</option>
                             </select>
                             <label for="doctor">Doctor</label>
                         </div>
 
-                        <script>
-                            $(document).ready(function () {
-                                $("select").material_select();
-                            });
-                        </script>
                     </div>
+
+
+                    <script>
+                        $(document).ready(function () {
+                            $("select").material_select();
+                        });
+                    </script>
 
 
                     <div class="card-action">
                         <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Submit
-                            <i class="material-icons right">add</i>
+                            <i class="material-icons right">edit</i>
                         </button>
                     </div>
                 </div>

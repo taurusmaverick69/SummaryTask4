@@ -21,17 +21,11 @@ public class GetDoctorOnUpdateCommand extends Command {
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
-        int id = Integer.parseInt(request.getParameter("id"));
 
         HttpSession session = request.getSession();
-        List<Doctor> doctors = ((Admin) session.getAttribute("user")).getDoctors();
-
-        Doctor doctorById = doctors
-                .stream()
-                .filter(doctor -> doctor.getId() == id)
-                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
-
-        session.setAttribute("doctor", doctorById);
+        int id = Integer.parseInt(request.getParameter("id"));
+        Admin admin = (Admin) session.getAttribute("user");
+        session.setAttribute("doctorById", admin.getDoctorById(id));
 
         return new Redirect(Path.UPDATE_DOCTOR_PAGE, ForwardingType.FORWARD);
     }

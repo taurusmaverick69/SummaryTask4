@@ -29,14 +29,12 @@ public class CommandContainer {
         commands.put("insertDoctor", new InsertDoctorCommand());
         commands.put("getDoctorOnUpdate", new GetDoctorOnUpdateCommand());
         commands.put("updateDoctor", new UpdateDoctorCommand());
-        commands.put("sortDoctors", new SortDoctorsCommand());
 
         // patient commands
         commands.put("patients", new GetPatientsCommand());
         commands.put("insertPatient", new InsertPatientCommand());
         commands.put("getPatientOnUpdate", new GetPatientOnUpdateCommand());
         commands.put("updatePatient", new UpdatePatientCommand());
-        commands.put("sortPatients", new SortPatientsCommand());
         commands.put("getUnassignedPatients", new GetUnassignedPatientsCommand());
         commands.put("assignPatient", new AssignPatientCommand());
 

@@ -25,32 +25,14 @@ public class GetPatientOnUpdateCommand extends Command {
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
         HttpSession session = request.getSession();
-
         int id = Integer.parseInt(request.getParameter("id"));
-
-
-        Role role = (Role) session.getAttribute("role");
-        List<Patient> patients = new ArrayList<>();
-
-//        switch (role) {
-//            case ADMIN:
-//                patients = ((Admin) session.getAttribute("user")).getPatients();
-//                break;
-//
-//            case DOCTOR:
-//                patients = ((Doctor) session.getAttribute("user")).getPatients();
-//                break;
-//        }
-
+        List<Patient> patients = ((Doctor) session.getAttribute("doctor")).getPatients();
         Patient patientById = patients
                 .stream()
-                .filter(doctor -> doctor.getId() == id)
+                .filter(patient -> patient.getId() == id)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        List<State> states = DAOFactory.getMySQLDAOFactory().getStateDAO().getStates();
-
-        session.setAttribute("patient", patientById);
-        session.setAttribute("states", states);
+        session.setAttribute("patientById", patientById);
 
         return new Redirect(Path.UPDATE_PATIENT_PAGE, ForwardingType.FORWARD);
 

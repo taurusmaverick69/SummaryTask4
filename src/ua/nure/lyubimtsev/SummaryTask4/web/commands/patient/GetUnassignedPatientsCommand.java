@@ -23,6 +23,6 @@ public class GetUnassignedPatientsCommand extends Command {
 
         request.getSession().setAttribute("unassignedPatients", unassignedPatients);
 
-        return new Redirect(Path.UNNASSIGNED_PATIENTS_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.UNASSIGNED_PATIENTS_PAGE, ForwardingType.FORWARD);
     }
 }

@@ -6,16 +6,22 @@ public class Path {
     public static final String LOGIN_PAGE = "/login.jsp";
     public static final String ERROR_PAGE = "/WEB-INF/jsp/error_page.jsp";
 
-    public static final String ADMIN_PAGE = "/WEB-INF/jsp/admin_page.jsp";
 
-    public static final String DOCTORS_PAGE = "/WEB-INF/jsp/doctors.jsp";
-    public static final String INSERT_DOCTOR_PAGE = "/WEB-INF/jsp/insert_doctor.jsp";
-    public static final String UPDATE_DOCTOR_PAGE = "/WEB-INF/jsp/update_doctor.jsp";
 
-    public static final String PATIENTS_PAGE = "/WEB-INF/jsp/patients.jsp";
-    public static final String INSERT_PATIENT_PAGE = "/WEB-INF/jsp/insert_patient.jsp";
-    public static final String UPDATE_PATIENT_PAGE = "/WEB-INF/jsp/update_patient.jsp";
-    public static final String UNNASSIGNED_PATIENTS_PAGE = "/WEB-INF/jsp/unassigned_patients.jsp";
+    //doctors
+    public static final String DOCTORS_PAGE = "/WEB-INF/jsp/doctor/doctors.jsp";
+    public static final String INSERT_DOCTOR_PAGE = "/WEB-INF/jsp/doctor/insert_doctor.jsp";
+    public static final String UPDATE_DOCTOR_PAGE = "/WEB-INF/jsp/doctor/update_doctor.jsp";
+
+
+    //patients
+    public static final String PATIENTS_PAGE = "/WEB-INF/jsp/patient/patients.jsp";
+    public static final String INSERT_PATIENT_PAGE = "/WEB-INF/jsp/patient/insert_patient.jsp";
+    public static final String UPDATE_PATIENT_PAGE = "/WEB-INF/jsp/patient/update_patient.jsp";
+    public static final String UNASSIGNED_PATIENTS_PAGE = "/WEB-INF/jsp/patient/unassigned_patients.jsp";
+
+
+
 
     public static final String MEDICAL_CARD_PAGE = "/WEB-INF/jsp/medical_card.jsp";
 
@@ -32,5 +38,4 @@ public class Path {
 
 
     public static final String PRG_COMMAND = "controller?command=PRG";
-
 }

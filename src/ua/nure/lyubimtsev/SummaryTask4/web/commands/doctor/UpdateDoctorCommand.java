@@ -27,47 +27,37 @@ public class UpdateDoctorCommand extends Command {
 
         HttpSession session = request.getSession();
 
+        String name = request.getParameter("name");
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+
         int categoryId = Integer.parseInt(request.getParameter("category"));
         List<Category> categories = ((List<Category>) session.getAttribute("categories"));
-
         Category categoryById = categories
                 .stream()
                 .filter(category -> category.getId() == categoryId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        int doctorId = Integer.parseInt(request.getParameter("id"));
-
-
-        Admin admin = (Admin) session.getAttribute("user");
-        List<Doctor> doctors = admin.getDoctors();
-        Doctor doctorById = admin.getDoctorById(doctorId);
-
-        String name = request.getParameter("name");
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-
-        Role role = (Role) session.getAttribute("role");
-        DoctorDAO doctorDAO = DAOFactory.getMySQLDAOFactory().getDoctorDAO();
-
+        Doctor doctorById = (Doctor) session.getAttribute("doctorById");
+        Doctor tempDoctor = new Doctor(doctorById.getId(), login, password, name, categoryById);
         boolean success;
-        switch (role) {
-            case ADMIN:
-                doctorById.setName(name);
-                doctorById.setCategory(categoryById);
-                break;
+        Role role = (Role) session.getAttribute("role");
+        if (success = DAOFactory.getMySQLDAOFactory().getDoctorDAO().updateDoctor(tempDoctor, role) > 0) {
+            switch (role) {
+                case ADMIN:
+                    doctorById.setName(name);
+                    doctorById.setCategory(categoryById);
+                    break;
 
-            case DOCTOR:
-                doctorById.setLogin(login);
-                doctorById.setPassword(password);
-                doctorById.setName(name);
-                doctorById.setCategory(categoryById);
-                break;
+                case DOCTOR:
+                    doctorById.setLogin(login);
+                    doctorById.setPassword(password);
+                    doctorById.setName(name);
+                    doctorById.setCategory(categoryById);
+                    break;
+            }
+
         }
-
-        if (success = doctorDAO.updateDoctor(doctorById, role) > 0) {
-            doctors.set(doctors.indexOf(doctorById), doctorById);
-        }
-
         return new Redirect(Path.PRG_COMMAND + "&entity=Doctor&action=update&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }
