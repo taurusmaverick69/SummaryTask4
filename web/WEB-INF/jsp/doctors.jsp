@@ -306,23 +306,19 @@
     </a>
 </div>
 
+<script>
+    var $toastContent = $("ewgfewg");
+    Materialize.toast("toasr", 3000, "rounded");
+</script>
 
-<%--@elvariable id="result" type="java.lang.String"--%>
-<c:if test="${not empty result}">
-    <style>
-        #toast-container {
-            top: auto !important;
-            right: auto !important;
-            left: 36.5%;
-        }
-    </style>
+<%--&lt;%&ndash;@elvariable id="result" type="java.lang.String"&ndash;%&gt;--%>
+<%--<c:if test="${not empty result}">--%>
 
-    <script>
-        var $toastContent = $("<span>${result}</span>");
-        Materialize.toast($toastContent, 3000, "rounded");
-    </script>
-</c:if>
-
+    <%--<script>--%>
+        <%--var $toastContent = $(${result});--%>
+        <%--Materialize.toast($toastContent, 3000, "rounded");--%>
+    <%--</script>--%>
+<%--</c:if>--%>
 
 </body>
 </html>

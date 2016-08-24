@@ -2,6 +2,7 @@ package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Admin {
 
@@ -10,7 +11,6 @@ public class Admin {
     private String password;
     private String name;
     private List<Doctor> doctors;
-    private List<Patient> patients;
 
     public Admin(int id, String login, String password, String name) {
         this.id = id;
@@ -18,7 +18,6 @@ public class Admin {
         this.password = password;
         this.name = name;
         this.doctors = new ArrayList<>();
-        this.patients = new ArrayList<>();
     }
 
     public int getId() {
@@ -61,12 +60,18 @@ public class Admin {
         this.doctors = doctors;
     }
 
-    public List<Patient> getPatients() {
-        return patients;
+    public Doctor getDoctorById(int id) {
+        return doctors
+                .stream()
+                .filter(doctor -> doctor.getId() == id)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
     }
 
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
+    public List<Doctor> getDoctorsByCategory(Category category) {
+        return doctors
+                .stream()
+                .filter(doctor -> doctor.getCategory().getId() == category.getId())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -77,7 +82,6 @@ public class Admin {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", doctors=" + doctors +
-                ", patients=" + patients +
                 '}';
     }
 }

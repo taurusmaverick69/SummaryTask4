@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "GetDoctorOnEditCommand", urlPatterns = "/getDoctorOnEditServlet")
 public class GetDoctorOnUpdateCommand extends Command {
 
     @Override

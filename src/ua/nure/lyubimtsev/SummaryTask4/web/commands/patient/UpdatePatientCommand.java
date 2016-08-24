@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "EditPatientCommand", urlPatterns = "/editPatientServlet")
 public class UpdatePatientCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -53,14 +52,14 @@ public class UpdatePatientCommand extends Command {
 
         List<Patient> patients = new ArrayList<>();
         Role role = (Role) session.getAttribute("role");
-        switch (role) {
-            case ADMIN:
-                patients = ((Admin) session.getAttribute("user")).getPatients();
-                break;
-            case DOCTOR:
-                patients = ((Doctor) session.getAttribute("user")).getPatients();
-                break;
-        }
+//        switch (role) {
+//            case ADMIN:
+//                patients = ((Admin) session.getAttribute("user")).getPatients();
+//                break;
+//            case DOCTOR:
+//                patients = ((Doctor) session.getAttribute("user")).getPatients();
+//                break;
+//        }
 
         Patient patientById = patients
                 .stream()

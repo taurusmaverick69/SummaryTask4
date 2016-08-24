@@ -76,8 +76,10 @@ public class DoctorDAOImpl implements DoctorDAO {
 
     @Override
     public int insertDoctor(Doctor doctor) {
+
+        int rows = 0;
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO doctor VALUES (DEFAULT,?,?,?,?,?)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO doctor VALUES (DEFAULT,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, doctor.getLogin());
             preparedStatement.setString(2, doctor.getPassword());
@@ -85,12 +87,19 @@ public class DoctorDAOImpl implements DoctorDAO {
             preparedStatement.setInt(4, doctor.getAdmin_id());
             preparedStatement.setInt(5, doctor.getCategory().getId());
 
-            return preparedStatement.executeUpdate();
+
+            rows = preparedStatement.executeUpdate();
+            if (rows != 0) {
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    doctor.setId(generatedKeys.getInt(1));
+                }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return rows;
     }
 
     @Override

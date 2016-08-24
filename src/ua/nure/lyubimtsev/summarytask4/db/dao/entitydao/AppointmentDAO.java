@@ -8,4 +8,6 @@ public interface AppointmentDAO {
 
     List<Appointment> getAppointmentsByMedicalCardId(int medicalCardId);
 
+    int insertAppointment(Appointment appointment);
+
 }

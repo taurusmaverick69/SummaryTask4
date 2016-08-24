@@ -2,7 +2,6 @@ package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.PatientDAO;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 
@@ -90,7 +89,7 @@ public class PatientDAOImpl implements PatientDAO {
             }
 
             patient_doctorPreparedStatement.setInt(1, patientId);
-            patient_doctorPreparedStatement.setInt(2, patient.getDoctor_id());
+            patient_doctorPreparedStatement.setInt(2, patient.getDoctorId());
 
             return patient_doctorPreparedStatement.executeUpdate();
 
@@ -111,6 +110,57 @@ public class PatientDAOImpl implements PatientDAO {
             preparedStatement.setDate(3, new Date(patient.getBirthDate().getTime()));
             preparedStatement.setInt(4, patient.getState().getId());
             preparedStatement.setInt(5, patient.getId());
+
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    @Override
+    public List<Patient> getUnassignedPatients(int doctorId) {
+
+        List<Patient> patients = new ArrayList<>();
+
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT *\n" +
+                     "FROM patient, state\n" +
+                     "WHERE  patient.state_id = state.id\n" +
+                     "      AND patient.id NOT IN (SELECT patient_id FROM patient_doctor WHERE doctor_id = ?)")) {
+
+            preparedStatement.setInt(1, doctorId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                patients.add(new Patient(
+                        resultSet.getInt("patient.id"),
+                        resultSet.getString("patient.name"),
+                        resultSet.getString("patient.address"),
+                        resultSet.getDate("patient.birthDate"),
+                        new State(resultSet.getInt("state.id"), resultSet.getString("state.name"))
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return patients;
+    }
+
+    @Override
+    public int assignPatient(int patientId, int doctorId) {
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO patient_doctor VALUES (?,?)")) {
+
+            preparedStatement.setInt(1, patientId);
+            preparedStatement.setInt(2, doctorId);
+
+            System.out.println("preparedStatement = " + preparedStatement);
 
             return preparedStatement.executeUpdate();
 

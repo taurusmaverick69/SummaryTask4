@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginCommand extends Command {
 
     @Override
@@ -34,8 +33,6 @@ public class LoginCommand extends Command {
         session.setAttribute("states", factory.getStateDAO().getStates());
         session.setAttribute("categories", factory.getCategoryDAO().getCategories());
 
-
-
         Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, DigestUtils.md5Hex(password));
         PatientDAO patientDAO = factory.getPatientDAO();
         DoctorDAO doctorDAO = factory.getDoctorDAO();
@@ -49,14 +46,14 @@ public class LoginCommand extends Command {
                 doctor.setPatients(patientDAO.getPatientsByDoctorId(doctor.getId()));
                 session.setAttribute("user", doctor);
                 session.setAttribute("role", Role.DOCTOR);
-                redirect.setURL(Path.GET_PATIENTS_COMMAND);}
+                redirect.setURL(Path.GET_PATIENTS_COMMAND);
+            }
 
         } else {
             admin.setDoctors(doctorDAO.getAllDoctors());
             for (Doctor doctor : admin.getDoctors()) {
                 doctor.setPatients(patientDAO.getPatientsByDoctorId(doctor.getId()));
             }
-            admin.setPatients(patientDAO.getAllPatients());
             session.setAttribute("user", admin);
             session.setAttribute("role", Role.ADMIN);
             redirect.setURL(Path.GET_DOCTORS_COMMAND);

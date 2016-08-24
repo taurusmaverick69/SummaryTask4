@@ -80,39 +80,31 @@
                     <div class="row">
                         <div class="input-field col s10 offset-s1">
 
+
                             <%--@elvariable id="role" type="ua.nure.lyubimtsev.SummaryTask4.Role"--%>
-                            <c:if test="${role.name == 'Admin'}">
-                                <%--@elvariable id="doctors" type="java.util.List"--%>
-                                <select id="doctor" name="doctor">
-                                    <c:if test="${role.name == 'Admin'}">
-                                        <%--@elvariable id="doctors" type="java.util.List"--%>
-                                        <c:forEach var="doctor" items="${doctors}">
-                                            <option value=${doctor.id}>${doctor.name}</option>
-                                        </c:forEach>
-                                    </c:if>
-                                </select>
-                                <label for="doctor">Doctor</label>
-                            </c:if>
+                            <%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin"--%>
+                            <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 
-
-                            <c:if test="${role.name == 'Doctor'}">
-                                <%--@elvariable id="doctors" type="java.util.List"--%>
-                                <select id="doctor" name="doctor" disabled>
-                                        <%--@elvariable id="doctors" type="java.util.List"--%>
-                                    <c:forEach var="doctor" items="${doctors}">
+                            <select id="doctor" name="doctor">
+                                <c:if test="${role.name == 'Admin'}">
+                                    <c:forEach var="doctor" items="${user.doctors}">
                                         <option value=${doctor.id}>${doctor.name}</option>
                                     </c:forEach>
-                                </select>
-                                <label for="doctor">Doctor</label>
-                            </c:if>
-                        </div>
-                    </div>
+                                </c:if>
 
-                    <script>
-                        $(document).ready(function () {
-                            $("select").material_select();
-                        });
-                    </script>
+                                <c:if test="${role.name == 'Doctor'}">
+                                    <option value=${doctor.id}>${doctor.name}</option>
+                                </c:if>
+                            </select>
+                            <label for="doctor">Doctor</label>
+                        </div>
+
+                        <script>
+                            $(document).ready(function () {
+                                $("select").material_select();
+                            });
+                        </script>
+                    </div>
 
 
                     <div class="card-action">

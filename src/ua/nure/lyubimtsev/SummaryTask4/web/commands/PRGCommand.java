@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "PRGCommand", urlPatterns = "/prgCommand")
 public class PRGCommand extends Command {
 
     @Override

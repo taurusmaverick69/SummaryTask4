@@ -10,7 +10,7 @@ public class Patient {
     private String address;
     private Date birthDate;
     private State state;
-    private int doctor_id;
+    private int doctorId;
 
     public Patient() {
     }
@@ -23,12 +23,12 @@ public class Patient {
         this.state = state;
     }
 
-    public Patient(String name, String address, Date birthDate, State state, int doctor_id) {
+    public Patient(String name, String address, Date birthDate, State state, int doctorId) {
         this.name = name;
         this.address = address;
         this.birthDate = birthDate;
         this.state = state;
-        this.doctor_id = doctor_id;
+        this.doctorId = doctorId;
     }
 
     public int getId() {
@@ -75,12 +75,12 @@ public class Patient {
         this.state = state;
     }
 
-    public int getDoctor_id() {
-        return doctor_id;
+    public int getDoctorId() {
+        return doctorId;
     }
 
-    public void setDoctor_id(int doctor_id) {
-        this.doctor_id = doctor_id;
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class Patient {
                 ", address='" + address + '\'' +
                 ", birthDate=" + birthDate +
                 ", state=" + state +
-                ", doctor_id=" + doctor_id +
+                ", doctorId=" + doctorId +
                 '}';
     }
 }

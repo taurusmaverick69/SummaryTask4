@@ -1,26 +1,19 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor;
 
-
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
-import javax.print.Doc;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@WebServlet(name = "DoctorCommand", urlPatterns = "/doctors")
 public class GetDoctorsCommand extends Command {
 
     @Override
@@ -28,34 +21,13 @@ public class GetDoctorsCommand extends Command {
 
         HttpSession session = request.getSession();
 
-        List<Doctor> allDoctors = ((Admin) session.getAttribute("user")).getDoctors();
+        Admin admin = (Admin) session.getAttribute("user");
+        List<Category> categories = (List<Category>) session.getAttribute("categories");
 
-        List<Doctor> pediatricians = allDoctors
-                .stream()
-                .filter(doctor -> doctor.getCategory().getName().equals("pediatrician"))
-                .collect(Collectors.toList());
-
-        List<Doctor> traumatologists = allDoctors
-                .stream()
-                .filter(doctor -> doctor.getCategory().getName().equals("traumatologist"))
-                .collect(Collectors.toList());
-
-        List<Doctor> surgeons = allDoctors
-                .stream()
-                .filter(doctor -> doctor.getCategory().getName().equals("surgeon"))
-                .collect(Collectors.toList());
-
-        List<Doctor> nurses = allDoctors
-                .stream()
-                .filter(doctor -> doctor.getCategory().getName().equals("nurse"))
-                .collect(Collectors.toList());
-
-
-        session.setAttribute("allDoctors", allDoctors);
-        session.setAttribute("pediatricians", pediatricians);
-        session.setAttribute("traumatologists", traumatologists);
-        session.setAttribute("surgeons", surgeons);
-        session.setAttribute("nurses", nurses);
+        session.setAttribute("allDoctors", admin.getDoctors());
+        for (Category category : categories) {
+            session.setAttribute(category.getName() + "s", admin.getDoctorsByCategory(category));
+        }
 
         return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }

@@ -14,4 +14,9 @@ public interface PatientDAO {
     int insertPatient(Patient patient);
 
     int updatePatient(Patient patient);
+
+    List<Patient> getUnassignedPatients(int doctorId);
+
+    int assignPatient(int patientId, int doctorId);
+
 }

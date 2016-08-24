@@ -25,6 +25,15 @@ public class Appointment {
         this.medicalCardId = medicalCardId;
     }
 
+    public Appointment(String diagnose, Type type, String info, Date date, Doctor doctor, int medicalCardId) {
+        this.diagnose = diagnose;
+        this.type = type;
+        this.info = info;
+        this.date = date;
+        this.doctor = doctor;
+        this.medicalCardId = medicalCardId;
+    }
+
     public int getId() {
         return id;
     }

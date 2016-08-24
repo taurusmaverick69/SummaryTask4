@@ -13,7 +13,6 @@ import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,17 +20,17 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "InsertDoctorServlet", urlPatterns = "/insertDoctorServlet")
 public class InsertDoctorCommand extends Command {
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
         HttpSession session = request.getSession();
-        List<Category> categories = (List<Category>) session.getAttribute("categories");
-        int categoryId = Integer.parseInt(request.getParameter("category"));
 
-        Category myCategory = categories
+        int categoryId = Integer.parseInt(request.getParameter("category"));
+        List<Category> categories = (List<Category>) session.getAttribute("categories");
+
+        Category categoryById = categories
                 .stream()
                 .filter(category -> category.getId() == categoryId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
@@ -42,7 +41,7 @@ public class InsertDoctorCommand extends Command {
                 request.getParameter("login"),
                 DigestUtils.md5Hex(request.getParameter("password")),
                 request.getParameter("name"),
-                myCategory,
+                categoryById,
                 admin.getId()
         );
 

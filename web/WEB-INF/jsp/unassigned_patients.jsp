@@ -32,7 +32,7 @@
 <body>
 <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Пациенты: Доктор ${doctor.name}</a>
+        <a href="#" class="brand-logo center">Неназначеные на доктора пациенты</a>
         <ul id="nav-mobile">
             <li><a href="sass.html">Sass</a></li>
             <li><a href="badges.html">Components</a></li>
@@ -49,15 +49,12 @@
             <th>Дата рождения</th>
             <th>Состояние</th>
             <th>Мед. карта</th>
-            <th> ${doctor.id}</th>
-
         </tr>
         </thead>
 
         <tbody>
-        <%--@elvariable id="patients" type="java.util.List"--%>
-        <c:forEach var="patient" items="${doctor.patients}">
-
+        <%--@elvariable id="unassignedPatients" type="java.util.List"--%>
+        <c:forEach var="patient" items="${unassignedPatients}">
             <tr>
                 <td>${patient.name}</td>
                 <td>${patient.address}</td>
@@ -76,9 +73,9 @@
                 </td>
 
                 <td>
-                    <a href="controller?command=getPatientOnUpdate&id=${patient.id}"
+                    <a href="controller?command=assignPatient&patientId=${patient.id}"
                        class="btn-floating waves-effect">
-                        <i class="material-icons">edit</i>
+                        <i class="material-icons">add</i>
                     </a>
                 </td>
             </tr>
@@ -86,56 +83,6 @@
         </tbody>
     </table>
 </div>
-
-
-<style>
-    .modal { width: 75% !important ; max-height: 100% !important }
-</style>
-
-
-<div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
-    <a class="btn-floating btn-large pink modal-trigger" href="#modal">
-        <i class="material-icons">add</i>
-    </a>
-</div>
-
-<!-- Modal Structure -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <h4>Пациент уже в базе?</h4>
-        <p>Возможно пациент, который будет вам назначен, уже существует в базе.</p>
-        <p>Добавить нового пациента или выбрать из существующих?</p>
-    </div>
-    <div class="modal-footer">
-        <a href="controller?command=getUnassignedPatients&doctorId=${doctor.id}" class=" modal-action modal-close waves-effect waves-green btn-flat">Выбрать из существующих</a>
-        <a href="controller?command=forward&page=<%=Path.INSERT_PATIENT_PAGE%>" class=" modal-action modal-close waves-effect waves-green btn-flat">Добавить как нового</a>
-    </div>
-</div>
-
-
-<script>
-    $(document).ready(function(){
-        $('.modal-trigger').leanModal();
-    });
-</script>
-
-
-<%--@elvariable id="result" type="java.lang.String"--%>
-<c:if test="${not empty result}">
-    <style>
-        #toast-container {
-            top: auto !important;
-            right: auto !important;
-            left: 36.5%;
-        }
-    </style>
-
-    <script>
-        var $toastContent = $("<span>${result}</span>");
-        Materialize.toast($toastContent, 3000, "rounded");
-    </script>
-</c:if>
-
 
 </body>
 </html>

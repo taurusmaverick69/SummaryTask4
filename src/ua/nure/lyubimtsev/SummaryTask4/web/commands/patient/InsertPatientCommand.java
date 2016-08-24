@@ -44,9 +44,9 @@ public class InsertPatientCommand extends Command {
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
 
+        System.out.println(request.getParameter("doctor"));
         int doctorId = Integer.parseInt(request.getParameter("doctor"));
         Patient patient = new Patient(name, address, birthDate, stateById, doctorId);
-
 
         boolean success;
         Object user = session.getAttribute("user");
@@ -54,10 +54,12 @@ public class InsertPatientCommand extends Command {
             Role role = (Role) session.getAttribute("role");
             switch (role) {
                 case ADMIN:
-                    ((Admin) user).getPatients().add(patient);
+                    Admin admin = (Admin) user;
+                    admin.getDoctorById(doctorId).getPatients().add(patient);
                     break;
                 case DOCTOR:
-                    ((Doctor) user).getPatients().add(patient);
+                    Doctor doctor = (Doctor) user;
+                    doctor.getPatients().add(patient);
                     break;
             }
         }

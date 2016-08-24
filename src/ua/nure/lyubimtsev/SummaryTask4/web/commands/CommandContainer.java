@@ -1,7 +1,9 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
 import org.apache.log4j.Logger;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.InsertAppointmentCommand;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor.*;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.medicalCard.GetMedicalCardCommand;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.patient.*;
 
 import java.util.Map;
@@ -35,6 +37,8 @@ public class CommandContainer {
         commands.put("getPatientOnUpdate", new GetPatientOnUpdateCommand());
         commands.put("updatePatient", new UpdatePatientCommand());
         commands.put("sortPatients", new SortPatientsCommand());
+        commands.put("getUnassignedPatients", new GetUnassignedPatientsCommand());
+        commands.put("assignPatient", new AssignPatientCommand());
 
 
         commands.put("getMedicalCard", new GetMedicalCardCommand());

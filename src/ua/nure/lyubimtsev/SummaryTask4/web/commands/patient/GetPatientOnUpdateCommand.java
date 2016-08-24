@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "GetPatientOnEditServlet", urlPatterns = "/getPatientOnEditServlet")
 public class GetPatientOnUpdateCommand extends Command {
 
     @Override
@@ -33,15 +32,15 @@ public class GetPatientOnUpdateCommand extends Command {
         Role role = (Role) session.getAttribute("role");
         List<Patient> patients = new ArrayList<>();
 
-        switch (role) {
-            case ADMIN:
-                patients = ((Admin) session.getAttribute("user")).getPatients();
-                break;
-
-            case DOCTOR:
-                patients = ((Doctor) session.getAttribute("user")).getPatients();
-                break;
-        }
+//        switch (role) {
+//            case ADMIN:
+//                patients = ((Admin) session.getAttribute("user")).getPatients();
+//                break;
+//
+//            case DOCTOR:
+//                patients = ((Doctor) session.getAttribute("user")).getPatients();
+//                break;
+//        }
 
         Patient patientById = patients
                 .stream()

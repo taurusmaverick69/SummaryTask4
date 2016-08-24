@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@WebServlet(name = "SortPatientsServlet", urlPatterns = "/sortPatientsServlet")
 public class SortPatientsCommand extends Command {
 
     private static final Comparator<Patient> SORT_PATIENTS_ALPHABETICALLY = new Comparator<Patient>() {

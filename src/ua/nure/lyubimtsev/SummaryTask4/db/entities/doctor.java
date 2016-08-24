@@ -2,6 +2,7 @@ package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Doctor {
 
@@ -90,6 +91,14 @@ public class Doctor {
         this.admin_id = admin_id;
     }
 
+
+    public List<Patient> getPatientsByDoctorId(int doctorId) {
+        return patients
+                .stream()
+                .filter(patient -> patient.getDoctorId() == doctorId)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
         return "Doctor{" +
@@ -128,7 +137,6 @@ public class Doctor {
             return Doctor.this;
         }
     }
-
 
 
 }
