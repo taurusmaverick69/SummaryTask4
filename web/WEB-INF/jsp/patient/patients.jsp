@@ -7,6 +7,14 @@
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/addons/sorttable.js"></script>
+    <style>
+        table.sortable thead {
+            cursor: hand;
+        }
+    </style>
+
+
+
 </head>
 
 <body>

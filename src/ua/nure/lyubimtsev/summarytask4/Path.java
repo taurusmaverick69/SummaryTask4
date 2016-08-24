@@ -25,6 +25,7 @@ public class Path {
 
     public static final String MEDICAL_CARD_PAGE = "/WEB-INF/jsp/medical_card.jsp";
 
+
     public static final String INSERT_APPOINTMENT_PAGE = "/WEB-INF/jsp/insert_appointment.jsp";
 
     public static final String PAGE_LIST_MENU = "/WEB-INF/jsp/client/list_menu.jsp";
@@ -35,6 +36,8 @@ public class Path {
     public static final String GET_DOCTORS_COMMAND = "/controller?command=doctors";
     public static final String GET_PATIENTS_COMMAND = "/controller?command=patients";
     public static final String GET_APPOINTMENTS_COMMAND = "/controller?command=appointments";
+
+    public static final String INSERT_MEDICAL_CARD_COMMAND = "/controller?command=insertMedicalCard";
 
 
     public static final String PRG_COMMAND = "controller?command=PRG";

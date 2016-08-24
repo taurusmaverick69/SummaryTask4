@@ -32,14 +32,15 @@ public class CommandContainer {
 
         // patient commands
         commands.put("patients", new GetPatientsCommand());
-        commands.put("insertPatient", new InsertPatientCommand());
+        commands.put("insertPatientAndMedicalCard", new InsertPatientAndMedicalCardCommand());
         commands.put("getPatientOnUpdate", new GetPatientOnUpdateCommand());
         commands.put("updatePatient", new UpdatePatientCommand());
         commands.put("getUnassignedPatients", new GetUnassignedPatientsCommand());
         commands.put("assignPatient", new AssignPatientCommand());
 
-
         commands.put("getMedicalCard", new GetMedicalCardCommand());
+
+
         commands.put("insertAppointment", new InsertAppointmentCommand());
 
         LOG.debug("Command container was successfully initialized");

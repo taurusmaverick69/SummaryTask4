@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InsertPatientCommand extends Command {
+public class InsertPatientAndMedicalCardCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
@@ -48,7 +48,11 @@ public class InsertPatientCommand extends Command {
 
         boolean success;
         Object user = session.getAttribute("user");
-        if (success = DAOFactory.getMySQLDAOFactory().getPatientDAO().insertPatient(patient) > 0) {
+        DAOFactory factory = DAOFactory.getMySQLDAOFactory();
+        if (success = factory.getPatientDAO().insertPatientAndMedicalCard(patient) > 0) {
+
+            System.out.println("InsertPatientAndMedicalCardCommand.execute");
+
             Role role = (Role) session.getAttribute("role");
             switch (role) {
                 case ADMIN:

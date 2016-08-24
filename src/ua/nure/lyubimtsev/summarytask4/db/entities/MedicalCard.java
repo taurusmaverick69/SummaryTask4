@@ -21,6 +21,12 @@ public class MedicalCard {
         this.appointments = new ArrayList<>();
     }
 
+    public MedicalCard(Date registrationDate, int patientId) {
+        this.registrationDate = registrationDate;
+        this.patientId = patientId;
+        this.appointments = new ArrayList<>();
+    }
+
     public int getId() {
         return id;
     }

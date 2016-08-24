@@ -2,12 +2,13 @@ package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.PatientDAO;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 
 public class PatientDAOImpl implements PatientDAO {
 
@@ -69,29 +70,40 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public int insertPatient(Patient patient) {
+    public int insertPatientAndMedicalCard(Patient patient) {
+
+        int rows;
+
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
              PreparedStatement patientPreparedStatement = connection.prepareStatement("INSERT INTO patient VALUES (DEFAULT, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement patient_doctorPreparedStatement = connection.prepareStatement("INSERT INTO patient_doctor VALUES (?,?)")) {
+             PreparedStatement patient_doctorPreparedStatement = connection.prepareStatement("INSERT INTO patient_doctor VALUES (?,?)");
+             PreparedStatement medicalCardPreparedStatement = connection.prepareStatement("INSERT INTO medicalcard VALUES (DEFAULT, ?,?)")) {
 
             patientPreparedStatement.setString(1, patient.getName());
             patientPreparedStatement.setString(2, patient.getAddress());
             patientPreparedStatement.setDate(3, new Date(patient.getBirthDate().getTime()));
             patientPreparedStatement.setInt(4, patient.getState().getId());
 
-
-            patientPreparedStatement.executeUpdate();
-
             int patientId = 0;
-            ResultSet generatedKeys = patientPreparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                patientId = generatedKeys.getInt(1);
+            rows = patientPreparedStatement.executeUpdate();
+            if (rows != 0) {
+                ResultSet generatedKeys = patientPreparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    patientId = generatedKeys.getInt(1);
+                    patient.setId(patientId);
+                }
             }
 
             patient_doctorPreparedStatement.setInt(1, patientId);
             patient_doctorPreparedStatement.setInt(2, patient.getDoctorId());
 
-            return patient_doctorPreparedStatement.executeUpdate();
+            patient_doctorPreparedStatement.executeUpdate();
+
+            medicalCardPreparedStatement.setDate(1, new Date(new java.util.Date().getTime()));
+            medicalCardPreparedStatement.setInt(2, patientId);
+
+            return medicalCardPreparedStatement.executeUpdate();
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,6 +113,7 @@ public class PatientDAOImpl implements PatientDAO {
 
     @Override
     public int updatePatient(Patient patient) {
+
 
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE patient SET name = ?, address = ?, birthDate = ?, state_id = ? WHERE id = ?")) {
@@ -159,8 +172,6 @@ public class PatientDAOImpl implements PatientDAO {
 
             preparedStatement.setInt(1, patientId);
             preparedStatement.setInt(2, doctorId);
-
-            System.out.println("preparedStatement = " + preparedStatement);
 
             return preparedStatement.executeUpdate();
 

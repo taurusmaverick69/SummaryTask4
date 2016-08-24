@@ -91,14 +91,6 @@ public class Doctor {
         this.admin_id = admin_id;
     }
 
-
-    public List<Patient> getPatientsByDoctorId(int doctorId) {
-        return patients
-                .stream()
-                .filter(patient -> patient.getDoctorId() == doctorId)
-                .collect(Collectors.toList());
-    }
-
     @Override
     public String toString() {
         return "Doctor{" +

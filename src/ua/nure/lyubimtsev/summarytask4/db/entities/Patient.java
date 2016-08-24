@@ -91,7 +91,6 @@ public class Patient {
                 ", address='" + address + '\'' +
                 ", birthDate=" + birthDate +
                 ", state=" + state +
-                ", doctorId=" + doctorId +
                 '}';
     }
 }

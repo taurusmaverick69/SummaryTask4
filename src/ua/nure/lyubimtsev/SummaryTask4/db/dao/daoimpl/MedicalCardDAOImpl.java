@@ -5,26 +5,30 @@ import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.MedicalCardDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 
 public class MedicalCardDAOImpl implements MedicalCardDAO {
     @Override
     public int insertMedicalCard(MedicalCard medicalCard) {
-//        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection()) {
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO medicalcard VALUES (DEFAULT, ?, ?)");
-//            preparedStatement.setDate(1, new Date(new java.util.Date().getTime()));
-//            preparedStatement.setInt(2, medicalCard.getPatient().getId());
-//
-//            return preparedStatement.executeUpdate();
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return 0;
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO medicalcard VALUES (DEFAULT, ?, ?)")) {
 
+            preparedStatement.setDate(1, new Date(medicalCard.getRegistrationDate().getTime()));
+            preparedStatement.setInt(2, medicalCard.getPatientId());
+
+
+
+            System.out.println(preparedStatement);
+
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return 0;
+
+
     }
 
     @Override

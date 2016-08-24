@@ -25,6 +25,8 @@ public class GetMedicalCardCommand extends Command {
 
         int patientId = Integer.parseInt(request.getParameter("id"));
 
+        System.out.println("patientId = " + patientId);
+
         DAOFactory factory = DAOFactory.getMySQLDAOFactory();
         MedicalCard medicalCard = factory.getMedicalCardDAO().getMedicalCardByPatientId(patientId);
         medicalCard.setAppointments(factory.getAppointmentDAO().getAppointmentsByMedicalCardId(medicalCard.getId()));
