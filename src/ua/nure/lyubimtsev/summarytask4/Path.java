@@ -6,13 +6,10 @@ public class Path {
     public static final String LOGIN_PAGE = "/login.jsp";
     public static final String ERROR_PAGE = "/WEB-INF/jsp/error_page.jsp";
 
-
-
     //doctors
     public static final String DOCTORS_PAGE = "/WEB-INF/jsp/doctor/doctors.jsp";
     public static final String INSERT_DOCTOR_PAGE = "/WEB-INF/jsp/doctor/insert_doctor.jsp";
     public static final String UPDATE_DOCTOR_PAGE = "/WEB-INF/jsp/doctor/update_doctor.jsp";
-
 
     //patients
     public static final String PATIENTS_PAGE = "/WEB-INF/jsp/patient/patients.jsp";
@@ -21,24 +18,15 @@ public class Path {
     public static final String UNASSIGNED_PATIENTS_PAGE = "/WEB-INF/jsp/patient/unassigned_patients.jsp";
 
 
-
-
-    public static final String MEDICAL_CARD_PAGE = "/WEB-INF/jsp/medical_card.jsp";
-
-
-    public static final String INSERT_APPOINTMENT_PAGE = "/WEB-INF/jsp/insert_appointment.jsp";
-
-    public static final String PAGE_LIST_MENU = "/WEB-INF/jsp/client/list_menu.jsp";
-    public static final String PAGE_LIST_ORDERS = "/WEB-INF/jsp/admin/list_orders.jsp";
-    public static final String PAGE_SETTINGS = "/WEB-INF/jsp/settings.jsp";
+    public static final String MEDICAL_CARD_PAGE = "/WEB-INF/jsp/appointment/medical_card.jsp";
+    public static final String INSERT_APPOINTMENT_PAGE = "/WEB-INF/jsp/appointment/insert_appointment.jsp";
+    public static final String UPDATE_APPOINTMENT_PAGE = "/WEB-INF/jsp/appointment/update_appointment.jsp";
 
     // commands
     public static final String GET_DOCTORS_COMMAND = "/controller?command=doctors";
     public static final String GET_PATIENTS_COMMAND = "/controller?command=patients";
-    public static final String GET_APPOINTMENTS_COMMAND = "/controller?command=appointments";
-
-    public static final String INSERT_MEDICAL_CARD_COMMAND = "/controller?command=insertMedicalCard";
-
+    public static final String GET_APPOINTMENTS = "/controller?command=appointments";
 
     public static final String PRG_COMMAND = "controller?command=PRG";
+
 }

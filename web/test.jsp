@@ -15,55 +15,56 @@
     <script type="text/javascript" src="materializecss/js/materialize.min.js"></script>
 
 
-    <script src="js/sorttable.js"></script>
 </head>
 <body>
 
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+<!-- Modal Structure -->
+
+
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                <div class="col m12 s6">
+                <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                <span class="card-title">Card Title</span>
+                <p>I am a very simple card. I am good at containing small bits of information.
+                I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                <a href="#">This is a link</a>
+                <a href="#">This is a link</a>
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+
+</div>
+
+
+
 
 <style>
-    table.sortable thead {
-        /*background-color:#eee;*/
-        /*color:#666666;*/
-        /*font-weight: bold;*/
-        cursor: hand;
+    .modal {
+        width: 30% !important;
+        max-height: 100% !important
     }
 </style>
 
-<table class="striped sortable">
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+    });
 
-    <tr><th>Number (spelled)</th><th>Person</th></tr>
-    <tr><td sorttable_customkey="3">two</td><td>Jan</td></tr>
-    <tr><td sorttable_customkey="2">three</td><td>Bruce</td></tr>
-    <tr><td sorttable_customkey="1">one</td><td>Steve</td></tr>
-    <thead>
-    <tr>
-        <th data-field="id">Name</th>
-        <th data-field="name">Item Name</th>
-        <th data-field="price">Item Price</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr>
-        <td>Вася</td>
-        <td>Eclair</td>
-        <td>$0.87</td>
-    </tr>
-    <tr>
-        <td>Alan</td>
-        <td>Jellybean</td>
-        <td>$3.76</td>
-    </tr>
-    <tr>
-        <td>Игорь</td>
-        <td>Lollipop</td>
-        <td>$7.00</td>
-    </tr>
-    </tbody>
-</table>
-
-
-
+</script>
 
 
 </body>

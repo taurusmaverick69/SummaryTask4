@@ -79,6 +79,13 @@ public class Doctor {
         return patients;
     }
 
+    public Patient getPatientById(int id) {
+        return patients
+                .stream()
+                .filter(patient -> patient.getId() == id)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+    }
+
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
     }

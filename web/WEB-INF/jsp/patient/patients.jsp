@@ -12,21 +12,48 @@
             cursor: hand;
         }
     </style>
-
-
 </head>
-
 <body>
-<nav>
-    <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Пациенты: Доктор ${doctor.name}</a>
-        <ul id="nav-mobile">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
+
+
+<c:if test="${role.name == 'Admin'}">
+    <nav>
+        <ul id="adminDropdown" class="dropdown-content">
+            <li><a href="#!">Изменить профиль</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Выход</a></li>
         </ul>
-    </div>
-</nav>
+        <div class="nav-wrapper deep-purple darken-3">
+            <a href="controller?command=doctors" class="breadcrumb">Доктора</a>
+            <a href="controller?command=doctors" class="breadcrumb">Пациенты доктора ${doctor.name}</a>
+            <ul class="right">
+                <li><a class="dropdown-button" data-activates="adminDropdown">Вы вошли как ${user.login}
+                    <i class="material-icons right">arrow_drop_down</i>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+</c:if>
+
+<c:if test="${role.name == 'Doctor'}">
+    <nav>
+        <ul id="doctorDropdown" class="dropdown-content">
+            <li><a href="#!">Изменить профиль</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Выход</a></li>
+        </ul>
+        <div class="nav-wrapper deep-purple darken-3">
+            <a href="controller?command=patients" class="breadcrumb">Пациенты доктора ${doctor.name}</a>
+            <ul class="right">
+                <li><a class="dropdown-button" data-activates="doctorDropdown">Вы вошли как ${user.login}
+                    <i class="material-icons right">arrow_drop_down</i>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+</c:if>
+
+
 <div class="row">
     <table class="striped centered sortable">
         <thead>
@@ -53,7 +80,7 @@
                         <a class="btn-floating disabled"> <i class="material-icons">assignment</i></a>
                     </c:if>
                     <c:if test="${role.name == 'Doctor'}">
-                        <a href="controller?command=getMedicalCard&patientId=${patient.id}"
+                        <a href="controller?command=getMedicalCard&patientId=${patient.id}&patientName=${patient.name}"
                            class="btn-floating waves-effect">
                             <i class="material-icons">assignment</i>
                         </a>

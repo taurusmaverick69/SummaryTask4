@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
 public class GetAppointmentOnUpdateCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -24,14 +25,8 @@ public class GetAppointmentOnUpdateCommand extends Command {
         MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
         Appointment appointmentById = medicalCard.getAppointmentById(id);
 
-
-        System.out.println(appointmentById.getInfo().length());
-
-
         session.setAttribute("appointmentById", appointmentById);
 
         return new Redirect(Path.UPDATE_APPOINTMENT_PAGE, ForwardingType.FORWARD);
-
-
     }
 }

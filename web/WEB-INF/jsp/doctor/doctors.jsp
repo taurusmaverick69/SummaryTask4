@@ -61,67 +61,73 @@
 </head>
 <body>
 
+
+
 <nav>
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a>${user.name}</a></li>
+        <li><a href="#!">Изменить профиль</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">Выход</a></li>
+    </ul>
     <div class="nav-wrapper deep-purple darken-3">
-        <a href="#" class="brand-logo center">Доктора</a>
-        <ul id="nav-mobile">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
+        <a href="controller?command=doctors" class="breadcrumb">Доктора</a>
+        <ul class="right">
+            <li><a class="dropdown-button" data-activates="dropdown1">Вы вошли как ${user.login}
+                <i class="material-icons right">arrow_drop_down</i>
+            </a></li>
         </ul>
     </div>
 </nav>
-<div class="row">
 
-    <ul class="tabs deep-purple darken-3">
-        <%--@elvariable id="categories" type="java.util.List"--%>
-        <c:forEach var="category" items="${categories}">
-            <li class="tab col s3"><a class="white-text" href="#${category.name}">${category.name}</a></li>
-        </c:forEach>
-    </ul>
-
+<ul class="tabs deep-purple darken-3">
+    <%--@elvariable id="categories" type="java.util.List"--%>
     <c:forEach var="category" items="${categories}">
-        <div id=${category.name}>
-            <table class="striped centered sortable">
-                <thead>
-                <tr>
-                    <th>Логин</th>
-                    <th>Пароль</th>
-                    <th>Имя</th>
-                    <th>Категория</th>
-                    <th>Пациенты</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <c:forEach var="doctor" items="${sessionScope.get(category.name)}">
-                    <tr>
-                        <td>${doctor.login}</td>
-                        <td>${doctor.password}</td>
-                        <td>${doctor.name}</td>
-                        <td>${doctor.category.name}</td>
-
-                        <td sorttable_customkey=${doctor.patients.size()}>
-                            <a href="controller?command=patients&doctorId=${doctor.id}"
-                               class="btn-floating waves-effect">
-                                <i class="material-icons">group</i>
-                                <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
-                            </a>
-                        </td>
-
-                        <td>
-                            <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
-                               class="btn-floating waves-effect">
-                                <i class="material-icons">edit</i>
-                            </a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
+        <li class="tab col s3"><a class="white-text" href="#${category.name}">${category.name}</a></li>
     </c:forEach>
-</div>
+</ul>
+
+<c:forEach var="category" items="${categories}">
+    <div id=${category.name}>
+        <table class="striped centered sortable">
+            <thead>
+            <tr>
+                <th>Логин</th>
+                <th>Пароль</th>
+                <th>Имя</th>
+                <th>Категория</th>
+                <th>Пациенты</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <c:forEach var="doctor" items="${sessionScope.get(category.name)}">
+                <tr>
+                    <td>${doctor.login}</td>
+                    <td>${doctor.password}</td>
+                    <td>${doctor.name}</td>
+                    <td>${doctor.category.name}</td>
+
+                    <td sorttable_customkey=${doctor.patients.size()}>
+                        <a href="controller?command=patients&doctorId=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">group</i>
+                            <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                           class="btn-floating waves-effect">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</c:forEach>
 
 <%@include file="/WEB-INF/jspf/result.jspf" %>
 
@@ -131,6 +137,5 @@
         <i class="material-icons">add</i>
     </a>
 </div>
-
 </body>
 </html>
