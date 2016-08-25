@@ -70,14 +70,13 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public int insertPatientAndMedicalCard(Patient patient) {
+    public int insertPatient(Patient patient) {
 
         int rows;
 
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
              PreparedStatement patientPreparedStatement = connection.prepareStatement("INSERT INTO patient VALUES (DEFAULT, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement patient_doctorPreparedStatement = connection.prepareStatement("INSERT INTO patient_doctor VALUES (?,?)");
-             PreparedStatement medicalCardPreparedStatement = connection.prepareStatement("INSERT INTO medicalcard VALUES (DEFAULT, ?,?)")) {
+             PreparedStatement patient_doctorPreparedStatement = connection.prepareStatement("INSERT INTO patient_doctor VALUES (?,?)")) {
 
             patientPreparedStatement.setString(1, patient.getName());
             patientPreparedStatement.setString(2, patient.getAddress());
@@ -97,13 +96,7 @@ public class PatientDAOImpl implements PatientDAO {
             patient_doctorPreparedStatement.setInt(1, patientId);
             patient_doctorPreparedStatement.setInt(2, patient.getDoctorId());
 
-            patient_doctorPreparedStatement.executeUpdate();
-
-            medicalCardPreparedStatement.setDate(1, new Date(new java.util.Date().getTime()));
-            medicalCardPreparedStatement.setInt(2, patientId);
-
-            return medicalCardPreparedStatement.executeUpdate();
-
+            return patient_doctorPreparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

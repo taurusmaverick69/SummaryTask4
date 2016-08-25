@@ -1,10 +1,10 @@
 <%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
-<%@include file="/WEB-INF/jspf/head.jspf"%>
+<%@include file="/WEB-INF/jspf/head.jspf" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/addons/sorttable.js"></script>
-
     <style>
         .mdl-badge {
             position: relative;
@@ -58,7 +58,6 @@
             cursor: hand;
         }
     </style>
-
 </head>
 <body>
 
@@ -82,47 +81,49 @@
     </ul>
 
     <c:forEach var="category" items="${categories}">
-    <div id=${category.name}>
-        <table class="striped centered sortable">
-            <thead>
-            <tr>
-                <th>Логин</th>
-                <th>Пароль</th>
-                <th>Имя</th>
-                <th>Категория</th>
-                <th>Пациенты</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <c:forEach var="doctor" items="${sessionScope.get(category.name)}">
+        <div id=${category.name}>
+            <table class="striped centered sortable">
+                <thead>
                 <tr>
-                    <td>${doctor.login}</td>
-                    <td>${doctor.password}</td>
-                    <td>${doctor.name}</td>
-                    <td>${doctor.category.name}</td>
-
-                    <td sorttable_customkey=${doctor.patients.size()}>
-                        <a href="controller?command=patients&doctorId=${doctor.id}"
-                           class="btn-floating waves-effect">
-                            <i class="material-icons">group</i>
-                            <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
-                        </a>
-                    </td>
-
-                    <td>
-                        <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
-                           class="btn-floating waves-effect">
-                            <i class="material-icons">edit</i>
-                        </a>
-                    </td>
+                    <th>Логин</th>
+                    <th>Пароль</th>
+                    <th>Имя</th>
+                    <th>Категория</th>
+                    <th>Пациенты</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+
+                <tbody>
+                <c:forEach var="doctor" items="${sessionScope.get(category.name)}">
+                    <tr>
+                        <td>${doctor.login}</td>
+                        <td>${doctor.password}</td>
+                        <td>${doctor.name}</td>
+                        <td>${doctor.category.name}</td>
+
+                        <td sorttable_customkey=${doctor.patients.size()}>
+                            <a href="controller?command=patients&doctorId=${doctor.id}"
+                               class="btn-floating waves-effect">
+                                <i class="material-icons">group</i>
+                                <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                               class="btn-floating waves-effect">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </c:forEach>
 </div>
+
+<%@include file="/WEB-INF/jspf/result.jspf" %>
 
 <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
     <a href="controller?command=forward&page=<%=Path.INSERT_DOCTOR_PAGE%>"
@@ -130,13 +131,6 @@
         <i class="material-icons">add</i>
     </a>
 </div>
-
-<%--@elvariable id="result" type="java.lang.String"--%>
-<c:if test="${not empty result}">
-    <script>
-        Materialize.toast("<span>${result}</span>", 3000, "rounded");
-    </script>
-</c:if>
 
 </body>
 </html>

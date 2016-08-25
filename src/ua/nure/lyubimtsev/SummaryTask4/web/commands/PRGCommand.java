@@ -38,7 +38,7 @@ public class PRGCommand extends Command {
                 redirect.setURL(Path.GET_PATIENTS_COMMAND + "&doctorId=" + doctorId);
                 break;
             case "Appointment":
-                redirect.setURL(Path.GET_APPOINTMENTS_COMMAND);
+                redirect.setURL(Path.GET_APPOINTMENTS);
                 break;
         }
         return redirect;

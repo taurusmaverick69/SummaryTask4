@@ -13,20 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InsertAppointmentCommand extends Command {
+public class UpdateAppointmentCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+
 
         HttpSession session = request.getSession();
 
         String diagnose = request.getParameter("diagnose");
 
         int typeId = Integer.parseInt(request.getParameter("type"));
-        List<Type> types = (List<Type>) session.getAttribute("types");
+        List<Type> types = ((List<Type>) session.getAttribute("types"));
         Type typeById = types
                 .stream()
                 .filter(type -> type.getId() == typeId)
@@ -34,19 +34,21 @@ public class InsertAppointmentCommand extends Command {
 
         String info = request.getParameter("info");
 
+        Appointment appointmentById = (Appointment) session.getAttribute("appointmentById");
+        Appointment tempAppointment = new Appointment();
 
-        Doctor doctor = (Doctor) session.getAttribute("doctor");
-        MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
-
-
-        Appointment appointment = new Appointment(diagnose, typeById, info, new Date(), doctor, medicalCard.getId());
+        tempAppointment.setId(appointmentById.getId());
+        tempAppointment.setDiagnose(diagnose);
+        tempAppointment.setType(typeById);
+        tempAppointment.setInfo(info);
 
         boolean success;
-        if (success = DAOFactory.getMySQLDAOFactory().getAppointmentDAO().insertAppointment(appointment) > 0) {
-            medicalCard.getAppointments().add(appointment);
+        if (success = DAOFactory.getMySQLDAOFactory().getAppointmentDAO().updateAppointment(tempAppointment) > 0){
+            appointmentById.setDiagnose(diagnose);
+            appointmentById.setType(typeById);
+            appointmentById.setInfo(info);
         }
 
-        return new Redirect(Path.PRG_COMMAND + "&entity=Appointment&action=insert&success=" + success, ForwardingType.SEND_REDIRECT);
-
+        return new Redirect(Path.PRG_COMMAND + "&entity=Appointment&action=update&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

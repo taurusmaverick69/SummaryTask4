@@ -56,12 +56,11 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td>${appointment.date}</td>
+                <td>${appointment.formatDate()}</td>
                 <td>${appointment.doctor.category.name} ${appointment.doctor.name}</td>
 
 
                 <td>
-
                     <a href="controller?command=getAppointmentOnUpdate&id=${appointment.id}"
                        class="btn-floating waves-effect">
                         <i class="material-icons">edit</i>
@@ -82,21 +81,7 @@
 </div>
 
 
-<%--@elvariable id="result" type="java.lang.String"--%>
-<c:if test="${not empty result}">
-    <style>
-        #toast-container {
-            top: auto !important;
-            right: auto !important;
-            left: 36.5%;
-        }
-    </style>
-
-    <script>
-        var $toastContent = $("<span>${result}</span>");
-        Materialize.toast($toastContent, 3000, "rounded");
-    </script>
-</c:if>
+<%@include file="/WEB-INF/jspf/result.jspf" %>
 
 </body>
 </html>

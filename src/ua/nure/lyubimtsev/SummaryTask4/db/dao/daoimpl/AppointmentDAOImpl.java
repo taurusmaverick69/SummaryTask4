@@ -74,4 +74,22 @@ public class AppointmentDAOImpl implements AppointmentDAO {
         }
         return 0;
     }
+
+    @Override
+    public int updateAppointment(Appointment appointment) {
+        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE  appointment SET diagnose = ?, type_id = ?, info = ? WHERE id = ?")) {
+
+            preparedStatement.setString(1, appointment.getDiagnose());
+            preparedStatement.setInt(2, appointment.getType().getId());
+            preparedStatement.setString(3, appointment.getInfo());
+            preparedStatement.setInt(4, appointment.getId());
+
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

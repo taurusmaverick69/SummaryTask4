@@ -27,7 +27,6 @@
             <th>Адрес</th>
             <th>Дата рождения</th>
             <th>Состояние</th>
-            <th>Мед. карта</th>
         </tr>
         </thead>
 
@@ -39,17 +38,6 @@
                 <td>${patient.address}</td>
                 <td>${patient.formatBirthDate()}</td>
                 <td>${patient.state.name}</td>
-                <td>
-                    <c:if test="${role.name == 'Admin'}">
-                        <a class="btn-floating disabled"> <i class="material-icons">assignment</i></a>
-                    </c:if>
-                    <c:if test="${role.name == 'Doctor'}">
-                        <a href="controller?command=getMedicalCard&id=${patient.id}&name=${patient.name}"
-                           class="btn-floating waves-effect">
-                            <i class="material-icons">assignment</i>
-                        </a>
-                    </c:if>
-                </td>
 
                 <td>
                     <a href="controller?command=assignPatient&patientId=${patient.id}"

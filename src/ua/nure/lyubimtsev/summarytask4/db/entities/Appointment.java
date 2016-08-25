@@ -1,5 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Appointment {
@@ -68,6 +69,10 @@ public class Appointment {
 
     public Date getDate() {
         return date;
+    }
+
+    public String formatDate() {
+        return new SimpleDateFormat("dd.MM.yyyy").format(date);
     }
 
     public void setDate(Date date) {

@@ -2,7 +2,7 @@
 <%--@elvariable id="role" type="Role"--%>
 <%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/WEB-INF/jspf/head.jspf"%>
+<%@include file="/WEB-INF/jspf/head.jspf" %>
 
 <html>
 <head>
@@ -12,7 +12,6 @@
             cursor: hand;
         }
     </style>
-
 
 
 </head>
@@ -36,7 +35,7 @@
             <th>Адрес</th>
             <th>Дата рождения</th>
             <th>Состояние</th>
-            <th>Мед. карта</th>
+            <th class="sorttable_nosort">Мед. карта</th>
         </tr>
         </thead>
 
@@ -54,13 +53,12 @@
                         <a class="btn-floating disabled"> <i class="material-icons">assignment</i></a>
                     </c:if>
                     <c:if test="${role.name == 'Doctor'}">
-                        <a href="controller?command=getMedicalCard&id=${patient.id}&name=${patient.name}"
+                        <a href="controller?command=getMedicalCard&patientId=${patient.id}"
                            class="btn-floating waves-effect">
                             <i class="material-icons">assignment</i>
                         </a>
                     </c:if>
                 </td>
-
                 <td>
                     <a href="controller?command=getPatientOnUpdate&id=${patient.id}"
                        class="btn-floating waves-effect">
@@ -75,7 +73,10 @@
 
 
 <style>
-    .modal { width: 75% !important ; max-height: 100% !important }
+    .modal {
+        width: 75% !important;
+        max-height: 100% !important
+    }
 </style>
 
 
@@ -93,36 +94,20 @@
         <p>Добавить нового пациента или выбрать из существующих?</p>
     </div>
     <div class="modal-footer">
-        <a href="controller?command=getUnassignedPatients&doctorId=${doctor.id}" class=" modal-action modal-close waves-effect waves-green btn-flat">Выбрать из существующих</a>
-        <a href="controller?command=forward&page=<%=Path.INSERT_PATIENT_PAGE%>" class=" modal-action modal-close waves-effect waves-green btn-flat">Добавить как нового</a>
+        <a href="controller?command=getUnassignedPatients&doctorId=${doctor.id}"
+           class=" modal-action modal-close waves-effect waves-green btn-flat">Выбрать из существующих</a>
+        <a href="controller?command=forward&page=<%=Path.INSERT_PATIENT_PAGE%>"
+           class=" modal-action modal-close waves-effect waves-green btn-flat">Добавить как нового</a>
     </div>
 </div>
 
-
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.modal-trigger').leanModal();
     });
 </script>
 
-
-<%--@elvariable id="result" type="java.lang.String"--%>
-<c:if test="${not empty result}">
-    <style>
-        #toast-container {
-            top: auto !important;
-            right: auto !important;
-            bottom: 10%;
-            left:7%;
-        }
-    </style>
-
-    <script>
-        var $toastContent = $("<span>${result}</span>");
-        Materialize.toast($toastContent, 3000, "rounded");
-    </script>
-</c:if>
-
+<%@include file="/WEB-INF/jspf/result.jspf" %>
 
 </body>
 </html>

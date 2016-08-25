@@ -1,7 +1,10 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
 import org.apache.log4j.Logger;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOnUpdateCommand;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentsCommand;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.InsertAppointmentCommand;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.UpdateAppointmentCommand;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor.*;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.medicalCard.GetMedicalCardCommand;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.patient.*;
@@ -32,7 +35,7 @@ public class CommandContainer {
 
         // patient commands
         commands.put("patients", new GetPatientsCommand());
-        commands.put("insertPatientAndMedicalCard", new InsertPatientAndMedicalCardCommand());
+        commands.put("insertPatient", new InsertPatientCommand());
         commands.put("getPatientOnUpdate", new GetPatientOnUpdateCommand());
         commands.put("updatePatient", new UpdatePatientCommand());
         commands.put("getUnassignedPatients", new GetUnassignedPatientsCommand());
@@ -40,8 +43,12 @@ public class CommandContainer {
 
         commands.put("getMedicalCard", new GetMedicalCardCommand());
 
-
+        commands.put("appointments", new GetAppointmentsCommand());
         commands.put("insertAppointment", new InsertAppointmentCommand());
+        commands.put("getAppointmentOnUpdate", new GetAppointmentOnUpdateCommand());
+        commands.put("updateAppointment", new UpdateAppointmentCommand());
+
+
 
         LOG.debug("Command container was successfully initialized");
         LOG.trace("Number of commands --> " + commands.size());

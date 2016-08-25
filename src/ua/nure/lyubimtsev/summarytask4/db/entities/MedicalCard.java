@@ -3,6 +3,7 @@ package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MedicalCard {
 
@@ -55,9 +56,19 @@ public class MedicalCard {
         return appointments;
     }
 
+
+    public Appointment getAppointmentById(int id) {
+        return appointments
+                .stream()
+                .filter(appointment -> appointment.getId() == id)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+    }
+
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
+
+
 
     @Override
     public String toString() {

@@ -17,18 +17,12 @@ public class MedicalCardDAOImpl implements MedicalCardDAO {
             preparedStatement.setDate(1, new Date(medicalCard.getRegistrationDate().getTime()));
             preparedStatement.setInt(2, medicalCard.getPatientId());
 
-
-
-            System.out.println(preparedStatement);
-
             return preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
-
-
     }
 
     @Override

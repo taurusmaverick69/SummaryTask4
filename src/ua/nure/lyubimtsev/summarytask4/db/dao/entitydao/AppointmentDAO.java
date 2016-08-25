@@ -10,4 +10,5 @@ public interface AppointmentDAO {
 
     int insertAppointment(Appointment appointment);
 
+    int updateAppointment(Appointment appointment);
 }

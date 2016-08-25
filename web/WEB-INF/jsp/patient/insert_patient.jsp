@@ -8,7 +8,7 @@
 <div class="container center-align">
     <div class="row">
         <div class="col s6 offset-s3">
-            <form action="controller?command=insertPatientAndMedicalCard" method="post">
+            <form action="controller?command=insertPatient" method="post">
                 <div class="card white">
                     <div class="card-content blue">
                         <span class="card-title white-text">Добавить пациента</span>
