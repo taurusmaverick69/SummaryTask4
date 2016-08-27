@@ -1,6 +1,7 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.*;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
@@ -11,6 +12,8 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public abstract class Command implements Serializable {
+
+    protected DAOFactory factory = DAOFactory.getMySQLDAOFactory();
 
     /**
      * Execution method for commands.

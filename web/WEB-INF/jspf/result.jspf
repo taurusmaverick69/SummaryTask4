@@ -1,4 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+    #toast-container {
+        top: auto !important;
+        right: auto !important;
+        bottom: 10%;
+        left:7%;
+    }
+</style>
 
 <%--@elvariable id="result" type="java.lang.String"--%>
 <c:if test="${not empty result}">
@@ -6,4 +13,3 @@
         Materialize.toast("<span>${result}</span>", 3000, "rounded");
     </script>
 </c:if>
-

@@ -1,29 +1,15 @@
 <%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/jspf/head.jspf" %>
 <html>
 <body>
 
-<nav>
-    <ul id="doctorDropdown" class="dropdown-content">
-        <li><a href="#!">Изменить профиль</a></li>
-        <li class="divider"></li>
-        <li><a href="#!">Выход</a></li>
-    </ul>
-    <div class="nav-wrapper deep-purple darken-3">
-        <a href="controller?command=patients" class="breadcrumb">Пациенты доктора ${user.name}</a>
-        <a href="controller?command=getMedicalCard" class="breadcrumb">Мед.карта: ${param.patientName}</a>
-        <ul class="right">
-            <li><a class="dropdown-button" data-activates="doctorDropdown">Вы вошли как ${user.login}
-                <i class="material-icons right">arrow_drop_down</i>
-            </a></li>
-        </ul>
-    </div>
-</nav>
-
-
 <div class="row">
+
+    <jsp:include page='/WEB-INF/jspf/header.jspf'>
+        <jsp:param name="end" value="1"/>
+    </jsp:include>
+
     <table class="striped centered">
         <thead>
         <tr>
@@ -33,35 +19,52 @@
             <th>Дата</th>
             <th>Доктор</th>
         </tr>
-        </thead>
 
+        </thead>
         <%--@elvariable id="medicalCard" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard"--%>
         <c:forEach var="appointment" items="${medicalCard.appointments}">
             <tr>
+                    <%--<td>${appointment.doctor}</td>--%>
+
                 <td>${appointment.diagnose}</td>
                 <td>${appointment.type.name}</td>
-
                 <td>
-                    <a class="btn-floating waves-effect tooltipped" data-position="right" data-delay="50"
-                       data-tooltip=${appointment.info}>
+                    <a class="btn-floating waves-effect modal-trigger" href="#${appointment.id}">
                         <i class="material-icons">info_outline</i>
                     </a>
+                    <div id="${appointment.id}" class="modal left-align">
+                        <div class="modal-content">
+                            <h4>Дополнительная информация</h4>
+                            <p>${appointment.info}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="modal-action modal-close waves-effect waves-green btn-flat">Закрыть</a>
+                        </div>
+                    </div>
                 </td>
-
-                <td>${appointment.formatDate()}</td>
+                <td> ${appointment.formatDate()}</td>
                 <td>${appointment.doctor.category.name} ${appointment.doctor.name}</td>
-
-
                 <td>
-                    <a href="controller?command=getAppointmentOnUpdate&id=${appointment.id}"
-                       class="btn-floating waves-effect">
-                        <i class="material-icons">edit</i>
-                    </a>
 
+                    <c:choose>
+                        <c:when test="${appointment.doctor.id == user.id}">
+                            <a href="controller?command=getAppointmentOnUpdate&id=${appointment.id}"
+                               class="btn-floating waves-effect"><i class="material-icons">edit</i></a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="btn-floating disabled"><i class="material-icons">edit</i></a>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
-
             </tr>
         </c:forEach>
+
+        <script>
+            $(document).ready(function () {
+                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                $('.modal-trigger').leanModal();
+            });
+        </script>
     </table>
 </div>
 
@@ -71,7 +74,6 @@
         <i class="material-icons">add</i>
     </a>
 </div>
-
 
 <%@include file="/WEB-INF/jspf/result.jspf" %>
 

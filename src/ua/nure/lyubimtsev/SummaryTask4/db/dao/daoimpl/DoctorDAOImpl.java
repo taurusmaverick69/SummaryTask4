@@ -144,6 +144,7 @@ public class DoctorDAOImpl implements DoctorDAO {
         return 0;
     }
 
+
     @Override
     public boolean isLoginExists(String login) {
         try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();

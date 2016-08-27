@@ -1,7 +1,6 @@
 <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="role" type="Role"--%>
 <%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/jspf/head.jspf" %>
 
 <html>
@@ -16,45 +15,12 @@
 <body>
 
 
-<c:if test="${role.name == 'Admin'}">
-    <nav>
-        <ul id="adminDropdown" class="dropdown-content">
-            <li><a href="#!">Изменить профиль</a></li>
-            <li class="divider"></li>
-            <li><a href="#!">Выход</a></li>
-        </ul>
-        <div class="nav-wrapper deep-purple darken-3">
-            <a href="controller?command=doctors" class="breadcrumb">Доктора</a>
-            <a href="controller?command=doctors" class="breadcrumb">Пациенты доктора ${doctor.name}</a>
-            <ul class="right">
-                <li><a class="dropdown-button" data-activates="adminDropdown">Вы вошли как ${user.login}
-                    <i class="material-icons right">arrow_drop_down</i>
-                </a></li>
-            </ul>
-        </div>
-    </nav>
-</c:if>
-
-<c:if test="${role.name == 'Doctor'}">
-    <nav>
-        <ul id="doctorDropdown" class="dropdown-content">
-            <li><a href="#!">Изменить профиль</a></li>
-            <li class="divider"></li>
-            <li><a href="#!">Выход</a></li>
-        </ul>
-        <div class="nav-wrapper deep-purple darken-3">
-            <a href="controller?command=patients" class="breadcrumb">Пациенты доктора ${doctor.name}</a>
-            <ul class="right">
-                <li><a class="dropdown-button" data-activates="doctorDropdown">Вы вошли как ${user.login}
-                    <i class="material-icons right">arrow_drop_down</i>
-                </a></li>
-            </ul>
-        </div>
-    </nav>
-</c:if>
-
-
 <div class="row">
+
+    <jsp:include page='/WEB-INF/jspf/header.jspf'>
+        <jsp:param name="end" value="${role.ordinal()}"/>
+    </jsp:include>
+
     <table class="striped centered sortable">
         <thead>
         <tr>
@@ -96,15 +62,8 @@
         </c:forEach>
         </tbody>
     </table>
+
 </div>
-
-
-<style>
-    .modal {
-        width: 75% !important;
-        max-height: 100% !important
-    }
-</style>
 
 
 <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">

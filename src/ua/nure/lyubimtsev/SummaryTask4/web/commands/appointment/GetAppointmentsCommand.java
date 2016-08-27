@@ -26,7 +26,6 @@ public class GetAppointmentsCommand extends Command {
 
         MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
 
-        DAOFactory factory = DAOFactory.getMySQLDAOFactory();
         List<Appointment> appointments =
                 factory.getAppointmentDAO().getAppointmentsByMedicalCardId(medicalCard.getId());
 

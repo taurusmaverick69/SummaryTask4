@@ -1,6 +1,5 @@
 <%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
-<%@include file="/WEB-INF/jspf/head.jspf" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="/WEB-INF/jspf/head.jspf"%>
 
 <html>
 <head>
@@ -62,30 +61,19 @@
 <body>
 
 
+<div class="row">
+    <jsp:include page='/WEB-INF/jspf/header.jspf'>
+        <jsp:param name="end" value="0"/>
+    </jsp:include>
 
-<nav>
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a>${user.name}</a></li>
-        <li><a href="#!">Изменить профиль</a></li>
-        <li class="divider"></li>
-        <li><a href="#!">Выход</a></li>
+    <ul class="tabs deep-purple darken-3">
+        <%--@elvariable id="categories" type="java.util.List"--%>
+        <c:forEach var="category" items="${categories}">
+            <li class="tab col s3"><a class="white-text" href="#${category.name}">${category.name}</a></li>
+        </c:forEach>
     </ul>
-    <div class="nav-wrapper deep-purple darken-3">
-        <a href="controller?command=doctors" class="breadcrumb">Доктора</a>
-        <ul class="right">
-            <li><a class="dropdown-button" data-activates="dropdown1">Вы вошли как ${user.login}
-                <i class="material-icons right">arrow_drop_down</i>
-            </a></li>
-        </ul>
-    </div>
-</nav>
+</div>
 
-<ul class="tabs deep-purple darken-3">
-    <%--@elvariable id="categories" type="java.util.List"--%>
-    <c:forEach var="category" items="${categories}">
-        <li class="tab col s3"><a class="white-text" href="#${category.name}">${category.name}</a></li>
-    </c:forEach>
-</ul>
 
 <c:forEach var="category" items="${categories}">
     <div id=${category.name}>
@@ -94,7 +82,7 @@
             <tr>
                 <th>Логин</th>
                 <th>Пароль</th>
-                <th>Имя</th>
+                <th>ФИО</th>
                 <th>Категория</th>
                 <th>Пациенты</th>
             </tr>

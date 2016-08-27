@@ -1,8 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/jspf/head.jspf" %>
 <html>
 <body>
-
 <div class="container center-align">
     <div class="row">
         <div class="col s6 offset-s3">

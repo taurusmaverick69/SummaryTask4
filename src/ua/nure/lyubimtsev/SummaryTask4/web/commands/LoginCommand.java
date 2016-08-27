@@ -26,39 +26,29 @@ public class LoginCommand extends Command {
         HttpSession session = request.getSession();
 
         Redirect redirect = new Redirect();
-        redirect.setForwardingType(ForwardingType.FORWARD);
+        redirect.setForwardingType(ForwardingType.SEND_REDIRECT);
 
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        DAOFactory factory = DAOFactory.getMySQLDAOFactory();
-        session.setAttribute("states", factory.getStateDAO().getStates());
-        session.setAttribute("categories", factory.getCategoryDAO().getCategories());
-
         Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, DigestUtils.md5Hex(password));
-        PatientDAO patientDAO = factory.getPatientDAO();
-        DoctorDAO doctorDAO = factory.getDoctorDAO();
-        if (admin == null) {
 
-            Doctor doctor = doctorDAO.getDoctorByLoginAndPassword(login, DigestUtils.md5Hex(password));
+        String contextPath = request.getContextPath();
+        if (admin == null) {
+            Doctor doctor = factory.getDoctorDAO().getDoctorByLoginAndPassword(login, DigestUtils.md5Hex(password));
             if (doctor == null) {
-                request.setAttribute("loginResult", "Invalid username or password");
+                request.setAttribute("loginFailed", "Invalid username or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
-                doctor.setPatients(patientDAO.getPatientsByDoctorId(doctor.getId()));
                 session.setAttribute("user", doctor);
                 session.setAttribute("role", Role.DOCTOR);
-                redirect.setURL(Path.GET_PATIENTS_COMMAND);
+                redirect.setURL(contextPath + Path.GET_PATIENTS_COMMAND);
             }
 
         } else {
-            admin.setDoctors(doctorDAO.getAllDoctors());
-            for (Doctor doctor : admin.getDoctors()) {
-                doctor.setPatients(patientDAO.getPatientsByDoctorId(doctor.getId()));
-            }
             session.setAttribute("user", admin);
             session.setAttribute("role", Role.ADMIN);
-            redirect.setURL(Path.GET_DOCTORS_COMMAND);
+            redirect.setURL(contextPath + Path.GET_DOCTORS_COMMAND);
         }
 
         return redirect;

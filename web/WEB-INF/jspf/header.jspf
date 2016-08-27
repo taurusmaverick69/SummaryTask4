@@ -1,78 +1,56 @@
-<%--=========================================================================== 
-Header (top area). 
-===========================================================================--%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<nav>
+    <div class="nav-wrapper deep-purple darken-3">
+        <div class="col s12">
+            <%--@elvariable id="role" type="ua.nure.lyubimtsev.SummaryTask4.Role"--%>
+            <%--@elvariable id="end" type="java.lang.String"--%>
 
-<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+            <c:if test="${role.name == 'Admin'}">
+                <%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin"--%>
+                <%--@elvariable id="adminBreadCrumbs" type="java.util.Map"--%>
+                <c:forEach var="adminBreadCrumb" items="${adminBreadCrumbs}" end="${param.end}">
+                    <a href="${pageContext.servletContext.contextPath}${adminBreadCrumb.key}"
+                       class="breadcrumb">${adminBreadCrumb.value}</a>
+                </c:forEach>
 
-<tr>
-<td id="header">
+                <ul class="right">
+                    <li>
+                        <a class="dropdown-button" data-activates="dropdown1">Вы вошли как администратор ${user.login}
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                </ul>
 
-	<%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.User"--%>
-<c:if test="${not empty user}">
-<%--=========================================================================== 
-This is the user menu. 
-===========================================================================--%> 
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a>${user.name}</a></li>
+                    <li><a href="#!">Изменить профиль</a></li>
+                    <li class="divider"></li>
+                    <li><a href=controller?command=logout>Выход</a></li>
+                </ul>
+            </c:if>
 
-<div id="leftHeader">
+            <c:if test="${role.name == 'Doctor'}">
+                <%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
+                <%--@elvariable id="doctorBreadCrumbs" type="java.util.Map"--%>
+                <c:forEach var="doctorBreadCrumb" items="${doctorBreadCrumbs}" end="${param.end}">
+                    <a href="${pageContext.servletContext.contextPath}${doctorBreadCrumb.key}"
+                       class="breadcrumb">${doctorBreadCrumb.value}</a>
+                </c:forEach>
 
-	<c:choose>
-
-<%--=========================================================================== 
-This way we define the ADMIN MENU. 
-===========================================================================--%> 
-		<c:when test="${userRole.name == 'admin' }">
-			<a href="controller?command=listOrders">All orders</a> &nbsp;
-		</c:when>
-
-		
-<%--=========================================================================== 
-This way we define the USER MENU.
-===========================================================================--%> 
-		<c:when test="${userRole.name == 'client'}">
-			<a href="controller?command=listMenu">Menu</a> &nbsp;
-		</c:when>
-	</c:choose>
-	
-<%--=========================================================================== 
-This way we define the settings anchor.
-===========================================================================--%> 
-	<a href="controller?command=viewSettings">Settings</a> &nbsp;
-
-</div>
-
-<%--=========================================================================== 
-This way we define the menu located at the right of header. 
-===========================================================================--%> 
-<div id="rightHeader" >
-
-<%--=========================================================================== 
-Type user name if the user object is presented in the current session.  
-===========================================================================--%> 
-	<c:out value="${user.name}"/>
-	
-<%--=========================================================================== 
-Type user role name if the user object is presented in the current session.  
-===========================================================================--%> 
-	<c:if test="${not empty userRole}">
-		<c:out value="(${userRole.name})"/>
-	</c:if>
-
-<%--=========================================================================== 
-Type link to logout  
-===========================================================================--%> 
-	<a href="controller?command=logout">
-		Logout
-	</a> 	
-
-</div>
-</c:if>
-
-<c:if test="${empty user and title ne 'Login'}">
-	<div id="rightHeader">
-		<a href="login.jsp">Login</a>
-	</div>
-</c:if>
-	</td>
-</tr>
-
+                <ul class="right">
+                    <li>
+                        <a class="dropdown-button" data-activates="dropdown1">Вы вошли как врач ${user.login}
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                </ul>
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a>${user.name}</a></li>
+                    <li><a href="#!">Изменить профиль</a></li>
+                    <li class="divider"></li>
+                    <li><a href="controller?command=logout">Выход</a></li>
+                </ul>
+            </c:if>
+        </div>
+    </div>
+</nav>

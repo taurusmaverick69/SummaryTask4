@@ -4,6 +4,7 @@ import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.Role;
+import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
@@ -30,6 +31,8 @@ public class GetPatientsCommand extends Command {
         Role role = (Role) session.getAttribute("role");
         Object user = session.getAttribute("user");
 
+        session.setAttribute("states", factory.getStateDAO().getStates());
+
         Doctor doctor = null;
         switch (role) {
             case ADMIN:
@@ -39,6 +42,7 @@ public class GetPatientsCommand extends Command {
                 break;
             case DOCTOR:
                 doctor = (Doctor) user;
+                doctor.setPatients(factory.getPatientDAO().getPatientsByDoctorId(doctor.getId()));
                 break;
         }
 

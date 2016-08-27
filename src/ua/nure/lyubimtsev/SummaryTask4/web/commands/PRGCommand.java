@@ -3,7 +3,6 @@ package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 import ua.nure.lyubimtsev.SummaryTask4.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -38,7 +37,7 @@ public class PRGCommand extends Command {
                 redirect.setURL(Path.GET_PATIENTS_COMMAND + "&doctorId=" + doctorId);
                 break;
             case "Appointment":
-                redirect.setURL(Path.GET_APPOINTMENTS);
+                redirect.setURL(Path.GET_APPOINTMENTS_COMMAND);
                 break;
         }
         return redirect;

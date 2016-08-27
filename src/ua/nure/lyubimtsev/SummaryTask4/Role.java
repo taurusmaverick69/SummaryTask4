@@ -2,7 +2,7 @@ package ua.nure.lyubimtsev.SummaryTask4;
 
 public enum Role {
 
-    ADMIN("Admin"), DOCTOR("Doctor"), PATIENT("Patient");
+    DOCTOR("Doctor"), ADMIN("Admin");
 
     private String name;
 

@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/jspf/head.jspf"%>
 <html>
 <body>
@@ -7,7 +6,7 @@
     <div style="text-align: center;">
         <div class="section"></div>
 
-        <h5 class="indigo-text">Hello, guest!</h5>
+        <h5 class="indigo-text">Hello, куку!</h5>
         <h5 class="indigo-text">Please, login into your account</h5>
         <div class="section"></div>
 
@@ -55,22 +54,28 @@
     </div>
 
 
-    <%--@elvariable id="loginResult" type="java.lang.String"--%>
-    <c:if test="${not empty loginResult}">
-        <style>
-            #toast-container {
-                top: auto !important;
-                right: auto !important;
-                bottom: 35%;
-                left: 36.5%;
-            }
-        </style>
-
+    <%--@elvariable id="loginFailed" type="java.lang.String"--%>
+    <c:if test="${not empty loginFailed}">
         <script>
-            var $toastContent = $('<span>${loginResult}</span>');
-            Materialize.toast($toastContent, 3000, 'rounded');
+            Materialize.toast("<span>${loginFailed}</span>", 3000, "rounded");
         </script>
     </c:if>
+
+    <%--@elvariable id="endSession" type="java.lang.String"--%>
+    <c:if test="${not empty endSession}">
+        <script>
+            Materialize.toast("<span>${endSession}</span>", 3000, "rounded");
+        </script>
+    </c:if>
+
+    <style>
+        #toast-container {
+            top: auto !important;
+            right: auto !important;
+            bottom: 10%;
+            left:7%;
+        }
+    </style>
 
 </main>
 </body>

@@ -5,9 +5,7 @@ import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.MedicalCardDAO;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Type;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
@@ -17,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
 
 public class GetMedicalCardCommand extends Command {
     @Override
@@ -39,6 +35,6 @@ public class GetMedicalCardCommand extends Command {
 
         session.setAttribute("medicalCard", medicalCard);
 
-        return new Redirect(Path.GET_APPOINTMENTS, ForwardingType.FORWARD);
+        return new Redirect(Path.GET_APPOINTMENTS_COMMAND, ForwardingType.FORWARD);
     }
 }

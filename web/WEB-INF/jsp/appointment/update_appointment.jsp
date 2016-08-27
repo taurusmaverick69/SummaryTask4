@@ -1,5 +1,4 @@
 <%--@elvariable id="appointmentById" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Appointment"--%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/jspf/head.jspf" %>
 
 <html>

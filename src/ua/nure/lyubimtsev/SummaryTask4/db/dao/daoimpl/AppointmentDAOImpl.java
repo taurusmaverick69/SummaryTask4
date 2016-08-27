@@ -7,6 +7,7 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Type;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 
+import javax.print.Doc;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +15,11 @@ import java.util.List;
 public class AppointmentDAOImpl implements AppointmentDAO {
 
 
-    private static final String GET_APPOINTMENTS_BY_MEDICAL_CARD = "SELECT a.id, a.diagnose, t.id, t.name, a.info, a.date,  a.medicalCard_id, d.name, c.name\n" +
-            " FROM appointment a, type t , doctor d, category c\n" +
-            " WHERE a.type_id = t.id \n" +
-            " AND a.doctor_id = d.id\n" +
-            " AND d.category_id = c.id\n" +
-            " AND medicalCard_id = ?";
+    private static final String GET_APPOINTMENTS_BY_MEDICAL_CARD = "SELECT *\n" +
+            "FROM appointment, type, doctor\n" +
+            "WHERE appointment.type_id = type.id\n" +
+            "      AND appointment.doctor_id = doctor.id\n" +
+            "      AND medicalCard_id = ?";
 
     @Override
     public List<Appointment> getAppointmentsByMedicalCardId(int medicalCardId) {
@@ -35,17 +35,15 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-
                 appointments.add(new Appointment(
-                        resultSet.getInt("a.id"),
-                        resultSet.getString("a.diagnose"),
-                        new Type(resultSet.getInt("t.id"), resultSet.getString("t.name")),
-                        resultSet.getString("a.info"),
-                        resultSet.getDate("a.date"),
-                        Doctor.newBuilder().setName(resultSet.getString("d.name")).setCategory(new Category(resultSet.getString("c.name"))).build(),
+                        resultSet.getInt("appointment.id"),
+                        resultSet.getString("appointment.diagnose"),
+                        new Type(resultSet.getInt("type.id"), resultSet.getString("type.name")),
+                        resultSet.getString("appointment.info"),
+                        resultSet.getDate("appointment.date"),
+                        Doctor.newBuilder().setId(resultSet.getInt("doctor.id")).setName(resultSet.getString("doctor.name")).build(),
                         medicalCardId
                 ));
-
             }
 
         } catch (SQLException e) {
