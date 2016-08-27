@@ -29,7 +29,7 @@ public class AssignPatientCommand extends Command {
         int doctorId = ((Doctor) request.getSession().getAttribute("doctor")).getId();
 
         boolean success;
-        if (success = DAOFactory.getMySQLDAOFactory().getPatientDAO().assignPatient(patientId, doctorId) > 0) {
+        if (success = factory.getPatientDAO().assignPatient(patientId, doctorId) > 0) {
 
             List<Patient> unassignedPatients = (List<Patient>) session.getAttribute("unassignedPatients");
             Patient patientById = unassignedPatients

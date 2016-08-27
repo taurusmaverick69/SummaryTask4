@@ -48,7 +48,6 @@ public class InsertPatientCommand extends Command {
 
         boolean success;
         Object user = session.getAttribute("user");
-        DAOFactory factory = DAOFactory.getMySQLDAOFactory();
         if (success = factory.getPatientDAO().insertPatient(patient) > 0) {
             Role role = (Role) session.getAttribute("role");
             switch (role) {

@@ -51,7 +51,7 @@ public class UpdatePatientCommand extends Command {
         Patient patientById = (Patient) session.getAttribute("patientById");
         Patient tempPatient = new Patient(patientById.getId(), name, address, birthDate, stateById);
         boolean success;
-        if (success = DAOFactory.getMySQLDAOFactory().getPatientDAO().updatePatient(tempPatient) > 0) {
+        if (success = factory.getPatientDAO().updatePatient(tempPatient) > 0) {
             patientById.setName(name);
             patientById.setAddress(address);
             patientById.setBirthDate(birthDate);

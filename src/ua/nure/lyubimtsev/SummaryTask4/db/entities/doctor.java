@@ -17,6 +17,11 @@ public class Doctor {
     public Doctor() {
     }
 
+
+    public Doctor(int id) {
+        this.id = id;
+    }
+
     public Doctor(int id, String login, String password, String name, Category category) {
         this.id = id;
         this.login = login;

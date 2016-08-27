@@ -24,7 +24,7 @@ public class GetMedicalCardCommand extends Command {
 
         int patientId = Integer.parseInt(request.getParameter("patientId"));
 
-        DAOFactory factory = DAOFactory.getMySQLDAOFactory();
+
         MedicalCardDAO medicalCardDAO = factory.getMedicalCardDAO();
         MedicalCard medicalCard = medicalCardDAO.getMedicalCardByPatientId(patientId);
 

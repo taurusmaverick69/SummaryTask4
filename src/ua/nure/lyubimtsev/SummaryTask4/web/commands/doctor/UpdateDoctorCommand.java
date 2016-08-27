@@ -42,7 +42,7 @@ public class UpdateDoctorCommand extends Command {
         Doctor tempDoctor = new Doctor(doctorById.getId(), login, password, name, categoryById);
         boolean success;
         Role role = (Role) session.getAttribute("role");
-        if (success = DAOFactory.getMySQLDAOFactory().getDoctorDAO().updateDoctor(tempDoctor, role) > 0) {
+        if (success = factory.getDoctorDAO().updateDoctor(tempDoctor, role) > 0) {
             switch (role) {
                 case ADMIN:
                     doctorById.setName(name);

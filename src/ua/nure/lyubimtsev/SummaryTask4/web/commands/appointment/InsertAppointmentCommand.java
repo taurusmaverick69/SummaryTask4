@@ -42,7 +42,7 @@ public class InsertAppointmentCommand extends Command {
         Appointment appointment = new Appointment(diagnose, typeById, info, new Date(), doctor, medicalCard.getId());
 
         boolean success;
-        if (success = DAOFactory.getMySQLDAOFactory().getAppointmentDAO().insertAppointment(appointment) > 0) {
+        if (success = factory.getAppointmentDAO().insertAppointment(appointment) > 0) {
             medicalCard.getAppointments().add(appointment);
         }
 

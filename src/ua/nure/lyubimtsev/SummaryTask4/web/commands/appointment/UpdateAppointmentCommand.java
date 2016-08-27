@@ -43,7 +43,7 @@ public class UpdateAppointmentCommand extends Command {
         tempAppointment.setInfo(info);
 
         boolean success;
-        if (success = DAOFactory.getMySQLDAOFactory().getAppointmentDAO().updateAppointment(tempAppointment) > 0){
+        if (success = factory.getAppointmentDAO().updateAppointment(tempAppointment) > 0){
             appointmentById.setDiagnose(diagnose);
             appointmentById.setType(typeById);
             appointmentById.setInfo(info);

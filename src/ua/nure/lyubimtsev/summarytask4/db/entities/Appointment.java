@@ -94,6 +94,19 @@ public class Appointment {
     public void setMedicalCardId(int medicalCardId) {
         this.medicalCardId = medicalCardId;
     }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", diagnose='" + diagnose + '\'' +
+                ", type=" + type +
+                ", info='" + info + '\'' +
+                ", date=" + date +
+                ", doctor=" + doctor +
+                ", medicalCardId=" + medicalCardId +
+                '}';
+    }
 }
 
 

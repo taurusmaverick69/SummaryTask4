@@ -45,7 +45,7 @@ public class InsertDoctorCommand extends Command {
                 admin.getId()
         );
 
-        DoctorDAO doctorDAO = DAOFactory.getMySQLDAOFactory().getDoctorDAO();
+        DoctorDAO doctorDAO = factory.getDoctorDAO();
 
         if (doctorDAO.isLoginExists(doctor.getLogin())) {
             return new Redirect(Path.INSERT_DOCTOR_PAGE + "?result=" + "Пользователь с таким именем уже существует", ForwardingType.FORWARD);
