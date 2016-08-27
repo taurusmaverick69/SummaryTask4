@@ -25,8 +25,8 @@ public class GetDoctorOnUpdateCommand extends Command {
         HttpSession session = request.getSession();
         int id = Integer.parseInt(request.getParameter("id"));
         Admin admin = (Admin) session.getAttribute("user");
-        session.setAttribute("doctorById", admin.getDoctorById(id));
+        request.setAttribute("doctorById", admin.getDoctorById(id));
 
-        return new Redirect(Path.UPDATE_DOCTOR_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }
 }

@@ -32,9 +32,9 @@ public class GetPatientOnUpdateCommand extends Command {
                 .filter(patient -> patient.getId() == id)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        session.setAttribute("patientById", patientById);
+        request.setAttribute("patientById", patientById);
 
-        return new Redirect(Path.UPDATE_PATIENT_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.PATIENTS_PAGE, ForwardingType.FORWARD);
 
     }
 }

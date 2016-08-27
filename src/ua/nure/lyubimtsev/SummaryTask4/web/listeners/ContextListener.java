@@ -29,16 +29,6 @@ public class ContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent event) {
 
-        Map<String, String> adminBreadCrumbs = new LinkedHashMap<>();
-        adminBreadCrumbs.put(Path.GET_DOCTORS_COMMAND, "Доктора");
-        adminBreadCrumbs.put(Path.GET_PATIENTS_COMMAND, "Пациенты");
-
-
-        Map<String, String> doctorBreadCrumbs = new LinkedHashMap<>();
-        doctorBreadCrumbs.put(Path.GET_PATIENTS_COMMAND, "Пациенты");
-        doctorBreadCrumbs.put(Path.GET_APPOINTMENTS_COMMAND, "Мед карта пациента");
-
-
         log("Servlet context initialization starts");
 
         ServletContext servletContext = event.getServletContext();
@@ -46,9 +36,6 @@ public class ContextListener implements ServletContextListener {
         initCommandContainer();
 
         log("Servlet context initialization finished");
-
-        servletContext.setAttribute("adminBreadCrumbs", adminBreadCrumbs);
-        servletContext.setAttribute("doctorBreadCrumbs", doctorBreadCrumbs);
     }
 
     /**

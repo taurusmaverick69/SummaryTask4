@@ -1,7 +1,8 @@
-<%@include file="/WEB-INF/jspf/head.jspf"%>
+<%@include file="/WEB-INF/jspf/head.jspf" %>
 <html>
 <body>
 <div class="section"></div>
+
 <main>
     <div style="text-align: center;">
         <div class="section"></div>
@@ -9,6 +10,8 @@
         <h5 class="indigo-text">Hello, куку!</h5>
         <h5 class="indigo-text">Please, login into your account</h5>
         <div class="section"></div>
+
+
 
         <div class="container">
             <div class="z-depth-1 grey lighten-4 row"
@@ -25,16 +28,15 @@
                         <div class="input-field col s12">
                             <i class="material-icons prefix">account_circle</i>
                             <input name="login" id="icon_prefix" type="text" class="validate" required>
-                            <label for="icon_prefix">Login</label>
+                            <label for="icon_prefix"><fmt:message key="login.label.username"/></label>
                         </div>
-
                     </div>
                     <div class="row">
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">vpn_key</i>
                             <input name="password" id="icon_key" type="password" class="validate" required>
-                            <label for="icon_key">Password</label>
+                            <label for="icon_key"><fmt:message key="login.label.password"/></label>
                         </div>
                     </div>
 
@@ -44,7 +46,7 @@
                         <div class='row'>
                             <button id="login_button" type='submit' name='btn_login'
                                     class='col s12 btn btn-large waves-effect indigo'>
-                                Login
+                                <fmt:message key="login.button.submit"/>
                             </button>
                         </div>
                     </div>
@@ -73,10 +75,15 @@
             top: auto !important;
             right: auto !important;
             bottom: 10%;
-            left:7%;
+            left: 7%;
         }
     </style>
-
 </main>
+
+<footer class="page-footer center">
+    <%@include file="/WEB-INF/jspf/footer.jspf" %>
+</footer>
+
+
 </body>
 </html>

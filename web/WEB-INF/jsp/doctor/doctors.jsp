@@ -1,9 +1,9 @@
-<%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
-<%@include file="/WEB-INF/jspf/head.jspf"%>
+<%@include file="/WEB-INF/jspf/head.jspf" %>
 
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/addons/sorttable.js"></script>
+
     <style>
         .mdl-badge {
             position: relative;
@@ -56,74 +56,118 @@
         table.sortable thead {
             cursor: hand;
         }
+
+        .modal {
+            width: 40% !important;
+            max-height: 100% !important
+        }
     </style>
 </head>
 <body>
 
 
-<div class="row">
-    <jsp:include page='/WEB-INF/jspf/header.jspf'>
-        <jsp:param name="end" value="0"/>
-    </jsp:include>
+<header>
+    <div class="row">
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
 
-    <ul class="tabs deep-purple darken-3">
-        <%--@elvariable id="categories" type="java.util.List"--%>
-        <c:forEach var="category" items="${categories}">
-            <li class="tab col s3"><a class="white-text" href="#${category.name}">${category.name}</a></li>
-        </c:forEach>
-    </ul>
+        <%--<jsp:include page='/WEB-INF/jspf/header.jspf'>--%>
+        <%--<jsp:param name="end" value="0"/>--%>
+        <%--</jsp:include>--%>
+
+        <ul class="tabs deep-purple darken-3">
+            <%--@elvariable id="categories" type="java.util.List"--%>
+            <c:forEach var="category" items="${categories}">
+                <li class="tab col s3"><a class="white-text" href="#${category.name}">${category.name}</a></li>
+            </c:forEach>
+        </ul>
+    </div>
+</header>
+
+
+<main>
+    <c:forEach var="category" items="${categories}">
+        <div id=${category.name}>
+            <table class="striped centered sortable">
+                <thead>
+                <tr>
+                    <th><fmt:message key="doctors.field.login"/></th>
+                    <th><fmt:message key="doctors.field.password"/></th>
+                    <th><fmt:message key="doctors.field.fullName"/></th>
+                    <th><fmt:message key="doctors.field.category"/></th>
+                    <th><fmt:message key="doctors.field.patients"/></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <c:forEach var="doctor" items="${sessionScope.get(category.name)}">
+                    <tr>
+                        <td>${doctor.login}</td>
+                        <td>${doctor.password}</td>
+                        <td>${doctor.name}</td>
+                        <td>${doctor.category.name}</td>
+
+                        <td sorttable_customkey=${doctor.patients.size()}>
+                            <a href="controller?command=patients&doctorId=${doctor.id}"
+                               class="btn-floating waves-effect">
+                                <i class="material-icons">group</i>
+                                <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
+                            </a>
+                        </td>
+
+
+                        <td>
+                            <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
+                               class="btn-floating waves-effect">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
+
+
+                    <%--@elvariable id="doctorById" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
+                <c:if test="${not empty doctorById}">
+
+                    <div id="edit-doctor" class="modal">
+                        <%@include file="/WEB-INF/jsp/doctor/update_doctor.jsp" %>
+                    </div>
+
+                    <script>
+                        $('#edit-doctor').openModal();
+                    </script>
+
+                </c:if>
+
+                </tbody>
+            </table>
+        </div>
+    </c:forEach>
+</main>
+
+
+
+
+<div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
+    <a href="#insert-doctor"
+       class="btn-floating btn-large pink modal-trigger"><i class="material-icons">add</i>
+    </a>
 </div>
 
+<div id="insert-doctor" class="modal">
+    <%@include file="/WEB-INF/jsp/doctor/insert_doctor.jsp" %>
+</div>
 
-<c:forEach var="category" items="${categories}">
-    <div id=${category.name}>
-        <table class="striped centered sortable">
-            <thead>
-            <tr>
-                <th>Логин</th>
-                <th>Пароль</th>
-                <th>ФИО</th>
-                <th>Категория</th>
-                <th>Пациенты</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <c:forEach var="doctor" items="${sessionScope.get(category.name)}">
-                <tr>
-                    <td>${doctor.login}</td>
-                    <td>${doctor.password}</td>
-                    <td>${doctor.name}</td>
-                    <td>${doctor.category.name}</td>
-
-                    <td sorttable_customkey=${doctor.patients.size()}>
-                        <a href="controller?command=patients&doctorId=${doctor.id}"
-                           class="btn-floating waves-effect">
-                            <i class="material-icons">group</i>
-                            <a class="mdl-badge mdl-badge--overlap" data-badge=${doctor.patients.size()}></a>
-                        </a>
-                    </td>
-
-                    <td>
-                        <a href="controller?command=getDoctorOnUpdate&id=${doctor.id}"
-                           class="btn-floating waves-effect">
-                            <i class="material-icons">edit</i>
-                        </a>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</c:forEach>
+<script>
+    $(document).ready(function () {
+        $('.modal-trigger').leanModal();
+    });
+</script>
 
 <%@include file="/WEB-INF/jspf/result.jspf" %>
 
-<div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
-    <a href="controller?command=forward&page=<%=Path.INSERT_DOCTOR_PAGE%>"
-       class="btn-floating btn-large pink">
-        <i class="material-icons">add</i>
-    </a>
-</div>
+<footer class="page-footer center">
+    <%@include file="/WEB-INF/jspf/footer.jspf" %>
+</footer>
+
 </body>
 </html>

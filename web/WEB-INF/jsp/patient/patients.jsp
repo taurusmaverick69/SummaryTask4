@@ -10,25 +10,35 @@
         table.sortable thead {
             cursor: hand;
         }
+
+        .modal {
+            width: 40% !important;
+            max-height: 100% !important
+        }
     </style>
 </head>
 <body>
 
+<header>
+    <div class="row">
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
+    </div>
+</header>
 
-<div class="row">
 
-    <jsp:include page='/WEB-INF/jspf/header.jspf'>
-        <jsp:param name="end" value="${role.ordinal()}"/>
-    </jsp:include>
+    <%--<jsp:include page='/WEB-INF/jspf/header.jspf'>--%>
+        <%--<jsp:param name="end" value="${role.ordinal()}"/>--%>
+    <%--</jsp:include>--%>
 
+<main>
     <table class="striped centered sortable">
         <thead>
         <tr>
-            <th>ФИО</th>
-            <th>Адрес</th>
-            <th>Дата рождения</th>
-            <th>Состояние</th>
-            <th class="sorttable_nosort">Мед. карта</th>
+            <th><fmt:message key="patients.field.fullName"/></th>
+            <th><fmt:message key="patients.field.address"/></th>
+            <th><fmt:message key="patients.field.birthDate"/></th>
+            <th><fmt:message key="patients.field.state"/></th>
+            <th class="sorttable_nosort"><fmt:message key="patients.field.medicalCard"/></th>
         </tr>
         </thead>
 
@@ -60,10 +70,27 @@
                 </td>
             </tr>
         </c:forEach>
+
+
+        <%--@elvariable id="patientById" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
+        <c:if test="${not empty patientById}">
+
+            <div id="edit-patient" class="modal">
+                <%@include file="/WEB-INF/jsp/patient/update_patient.jsp" %>
+            </div>
+
+            <script>
+                $('#edit-patient').openModal();
+            </script>
+
+        </c:if>
+
+
+
+
         </tbody>
     </table>
-
-</div>
+</main>
 
 
 <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
@@ -82,9 +109,13 @@
     <div class="modal-footer">
         <a href="controller?command=getUnassignedPatients&doctorId=${doctor.id}"
            class=" modal-action modal-close waves-effect waves-green btn-flat">Выбрать из существующих</a>
-        <a href="controller?command=forward&page=<%=Path.INSERT_PATIENT_PAGE%>"
-           class=" modal-action modal-close waves-effect waves-green btn-flat">Добавить как нового</a>
+        <a href="#insert-patient"
+           class=" modal-action modal-close waves-effect waves-green btn-flat modal-trigger">Добавить как нового</a>
     </div>
+</div>
+
+<div id="insert-patient" class="modal">
+    <%@include file="/WEB-INF/jsp/patient/insert_patient.jsp"%>
 </div>
 
 <script>
@@ -94,6 +125,10 @@
 </script>
 
 <%@include file="/WEB-INF/jspf/result.jspf" %>
+
+<footer class="page-footer center">
+    <%@include file="/WEB-INF/jspf/footer.jspf" %>
+</footer>
 
 </body>
 </html>
