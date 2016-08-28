@@ -31,6 +31,11 @@ public class InsertDoctorCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(InsertDoctorCommand.class);
 
+    private static final String INSERT = "Insert";
+    private static final String DOCTOR = "Doctor";
+
+
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
@@ -73,8 +78,12 @@ public class InsertDoctorCommand extends Command {
                 admin.getDoctors().add(doctor);
             }
 
+
+            request.setAttribute("entity", DOCTOR);
+            request.setAttribute("action", INSERT);
+
             LOG.debug("Commands finished");
-            return new Redirect(Path.PRG_COMMAND + "&entity=Doctor&action=insert&success=" + success, ForwardingType.SEND_REDIRECT);
+            return new Redirect(Path.PRG_COMMAND + "&success=" + success, ForwardingType.SEND_REDIRECT);
         }
     }
 

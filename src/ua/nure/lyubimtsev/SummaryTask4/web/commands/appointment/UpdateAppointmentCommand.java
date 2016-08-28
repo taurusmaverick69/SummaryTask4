@@ -26,6 +26,9 @@ public class UpdateAppointmentCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(UpdateAppointmentCommand.class);
 
+    private static final String UPDATE = "Update";
+    private static final String APPOINTMENT = "Appointment";
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 

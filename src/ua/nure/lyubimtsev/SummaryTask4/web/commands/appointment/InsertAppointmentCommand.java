@@ -28,6 +28,11 @@ public class InsertAppointmentCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(InsertAppointmentCommand.class);
 
+    private static final String INSERT = "Insert";
+    private static final String APPOINTMENT = "Appointment";
+
+
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 

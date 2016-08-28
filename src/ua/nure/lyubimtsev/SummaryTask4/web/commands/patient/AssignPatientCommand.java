@@ -28,6 +28,9 @@ import java.util.stream.Collectors;
  */
 public class AssignPatientCommand extends Command {
 
+    private static final String ASSIGN = "Assign";
+    private static final String PATIENT = "Patient";
+
     private static final Logger LOG = Logger.getLogger(AssignPatientCommand.class);
 
     @Override

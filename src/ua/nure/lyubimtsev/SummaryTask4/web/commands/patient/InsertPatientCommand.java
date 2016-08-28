@@ -32,6 +32,9 @@ import java.util.stream.Collectors;
  */
 public class InsertPatientCommand extends Command {
 
+    private static final String INSERT = "Insert";
+    private static final String PATIENT = "Patient";
+
     private static final Logger LOG = Logger.getLogger(InsertPatientCommand.class);
 
     @Override

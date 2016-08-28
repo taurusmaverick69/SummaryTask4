@@ -31,6 +31,9 @@ public class UpdateDoctorCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(UpdateDoctorCommand.class);
 
+    private static final String UPDATE = "Update";
+    private static final String DOCTOR = "Doctor";
+
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
