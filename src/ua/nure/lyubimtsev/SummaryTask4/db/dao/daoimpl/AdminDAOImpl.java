@@ -9,10 +9,7 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.exception.DBException;
 import ua.nure.lyubimtsev.SummaryTask4.exception.Messages;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AdminDAOImpl implements AdminDAO {
 
@@ -25,35 +22,38 @@ public class AdminDAOImpl implements AdminDAO {
 
         Admin admin = null;
 
-        try (Connection connection = MySQLDAOFactory.createConnection()) {
-            try (PreparedStatement prepareStatement = connection.prepareStatement(GET_ADMIN_BY_LOGIN_AND_PASSWORD)) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-                connection.setAutoCommit(false);
-                connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+        try {
+            connection = MySQLDAOFactory.createConnection();
+            preparedStatement = connection.prepareStatement(GET_ADMIN_BY_LOGIN_AND_PASSWORD);
 
-                prepareStatement.setString(1, login);
-                prepareStatement.setString(2, password);
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
-                ResultSet resultSet = prepareStatement.executeQuery();
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, password);
 
-                if (resultSet.next()) {
+            resultSet = preparedStatement.executeQuery();
 
-                    admin = new Admin(
-                            resultSet.getInt(Fields.ENTITY_ID),
-                            resultSet.getString(Fields.USER_LOGIN),
-                            resultSet.getString(Fields.USER_PASSWORD),
-                            resultSet.getString(Fields.NAME)
-                    );
-                }
+            if (resultSet.next()) {
 
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
-                throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+                admin = new Admin(
+                        resultSet.getInt(Fields.ENTITY_ID),
+                        resultSet.getString(Fields.USER_LOGIN),
+                        resultSet.getString(Fields.USER_PASSWORD),
+                        resultSet.getString(Fields.NAME)
+                );
             }
+            connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+        } finally {
+            MySQLDAOFactory.close(connection, preparedStatement, resultSet);
         }
 
         return admin;

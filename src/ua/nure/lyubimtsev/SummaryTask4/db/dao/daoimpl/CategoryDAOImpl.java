@@ -8,10 +8,7 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.exception.DBException;
 import ua.nure.lyubimtsev.SummaryTask4.exception.Messages;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,33 +22,36 @@ public class CategoryDAOImpl implements CategoryDAO {
     public List<Category> getAllCategories() throws DBException {
 
         List<Category> categories = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
 
-        try (Connection connection = MySQLDAOFactory.createConnection()) {
-            try (Statement statement = connection.createStatement()) {
+        try {
+            connection = MySQLDAOFactory.createConnection();
+            statement = connection.createStatement();
 
-                connection.setAutoCommit(false);
-                connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
-                ResultSet resultSet = statement.executeQuery(GET_ALL_CATEGORIES);
+            resultSet = statement.executeQuery(GET_ALL_CATEGORIES);
 
-                while (resultSet.next()) {
-                    categories.add(new Category(
-                            resultSet.getInt(Fields.ENTITY_ID),
-                            resultSet.getString(Fields.NAME)
-                    ));
-                }
-
-                connection.commit();
-
-            } catch (SQLException e) {
-                connection.rollback();
-                LOG.error(Messages.ERR_CANNOT_OBTAIN_CATEGORIES, e);
-                throw new DBException(Messages.ERR_CANNOT_OBTAIN_CATEGORIES, e);
+            while (resultSet.next()) {
+                categories.add(new Category(
+                        resultSet.getInt(Fields.ENTITY_ID),
+                        resultSet.getString(Fields.NAME)
+                ));
             }
 
+            connection.commit();
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_CATEGORIES, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_CATEGORIES, e);
+        } finally {
+            MySQLDAOFactory.close(connection, statement, resultSet);
         }
+
 
         return categories;
 

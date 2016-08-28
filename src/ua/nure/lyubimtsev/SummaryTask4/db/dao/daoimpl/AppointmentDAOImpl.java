@@ -25,104 +25,108 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     public List<Appointment> getAppointmentsByMedicalCardId(int medicalCardId) throws DBException {
 
         List<Appointment> appointments = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-        try (Connection connection = MySQLDAOFactory.createConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(GET_APPOINTMENTS_BY_MEDICAL_CARD)) {
+        try {
+            connection = MySQLDAOFactory.createConnection();
+            preparedStatement = connection.prepareStatement(GET_APPOINTMENTS_BY_MEDICAL_CARD);
 
-                connection.setAutoCommit(false);
-                connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
-                preparedStatement.setInt(1, medicalCardId);
+            preparedStatement.setInt(1, medicalCardId);
 
-                ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
 
-                while (resultSet.next()) {
-                    appointments.add(new Appointment(
-                            resultSet.getInt("appointment.id"),
-                            resultSet.getString("appointment.diagnose"),
-                            new Type(resultSet.getInt("type.id"), resultSet.getString("type.name")),
-                            resultSet.getString("appointment.info"),
-                            resultSet.getDate("appointment.date"),
-                            Doctor.newBuilder().setId(resultSet.getInt("doctor.id")).setName(resultSet.getString("doctor.name")).build(),
-                            medicalCardId
-                    ));
-                }
-
-                connection.commit();
-
-            } catch (SQLException e) {
-                connection.rollback();
-                LOG.error(Messages.ERR_CANNOT_OBTAIN_APPOINTMENTS, e);
-                throw new DBException(Messages.ERR_CANNOT_OBTAIN_APPOINTMENTS, e);
+            while (resultSet.next()) {
+                appointments.add(new Appointment(
+                        resultSet.getInt("appointment.id"),
+                        resultSet.getString("appointment.diagnose"),
+                        new Type(resultSet.getInt("type.id"), resultSet.getString("type.name")),
+                        resultSet.getString("appointment.info"),
+                        resultSet.getDate("appointment.date"),
+                        Doctor.newBuilder().setId(resultSet.getInt("doctor.id")).setName(resultSet.getString("doctor.name")).build(),
+                        medicalCardId
+                ));
             }
 
+            connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_APPOINTMENTS, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_APPOINTMENTS, e);
+        } finally {
+            MySQLDAOFactory.close(connection, preparedStatement, resultSet);
         }
-
         return appointments;
-
     }
 
     @Override
     public int insertAppointment(Appointment appointment) throws DBException {
 
-        try (Connection connection = MySQLDAOFactory.createConnection()) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT_APPOINTMENT)) {
+        try {
+            connection = MySQLDAOFactory.createConnection();
+            preparedStatement = connection.prepareStatement(SQL_INSERT_APPOINTMENT);
 
-                connection.setAutoCommit(false);
-                connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
-                preparedStatement.setString(1, appointment.getDiagnose());
-                preparedStatement.setInt(2, appointment.getType().getId());
-                preparedStatement.setString(3, appointment.getInfo());
-                preparedStatement.setDate(4, new Date(appointment.getDate().getTime()));
-                preparedStatement.setInt(5, appointment.getMedicalCardId());
-                preparedStatement.setInt(6, appointment.getDoctor().getId());
+            preparedStatement.setString(1, appointment.getDiagnose());
+            preparedStatement.setInt(2, appointment.getType().getId());
+            preparedStatement.setString(3, appointment.getInfo());
+            preparedStatement.setDate(4, new Date(appointment.getDate().getTime()));
+            preparedStatement.setInt(5, appointment.getMedicalCardId());
+            preparedStatement.setInt(6, appointment.getDoctor().getId());
 
-                connection.commit();
-                return preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                connection.rollback();
-                LOG.error(Messages.ERR_CANNOT_INSERT_APPOINTMENT, e);
-                throw new DBException(Messages.ERR_CANNOT_INSERT_APPOINTMENT, e);
-            }
+            connection.commit();
+            return preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return 0;
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_INSERT_APPOINTMENT, e);
+            throw new DBException(Messages.ERR_CANNOT_INSERT_APPOINTMENT, e);
+
+        } finally {
+            MySQLDAOFactory.close(connection);
+            MySQLDAOFactory.close(preparedStatement);
+        }
     }
 
     @Override
     public int updateAppointment(Appointment appointment) throws DBException {
 
-        try (Connection connection = MySQLDAOFactory.createConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_APPOINTMENT)) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
-                connection.setAutoCommit(false);
-                connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+        try {
 
+            connection = MySQLDAOFactory.createConnection();
+            preparedStatement = connection.prepareStatement(SQL_UPDATE_APPOINTMENT);
 
-                preparedStatement.setString(1, appointment.getDiagnose());
-                preparedStatement.setInt(2, appointment.getType().getId());
-                preparedStatement.setString(3, appointment.getInfo());
-                preparedStatement.setInt(4, appointment.getId());
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
-                connection.commit();
-                return preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                connection.rollback();
-                LOG.error(Messages.ERR_CANNOT_UPDATE_APPOINTMENT, e);
-                throw new DBException(Messages.ERR_CANNOT_UPDATE_APPOINTMENT, e);
-            }
+            preparedStatement.setString(1, appointment.getDiagnose());
+            preparedStatement.setInt(2, appointment.getType().getId());
+            preparedStatement.setString(3, appointment.getInfo());
+            preparedStatement.setInt(4, appointment.getId());
 
+            connection.commit();
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_UPDATE_APPOINTMENT, e);
+            throw new DBException(Messages.ERR_CANNOT_UPDATE_APPOINTMENT, e);
+        } finally {
+            MySQLDAOFactory.close(connection);
+            MySQLDAOFactory.close(preparedStatement);
         }
 
-        return 0;
     }
 }

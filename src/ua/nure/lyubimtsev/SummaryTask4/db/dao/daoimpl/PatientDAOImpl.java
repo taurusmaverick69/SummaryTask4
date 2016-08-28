@@ -1,16 +1,20 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 
+import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.PatientDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 import ua.nure.lyubimtsev.SummaryTask4.exception.DBException;
+import ua.nure.lyubimtsev.SummaryTask4.exception.Messages;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PatientDAOImpl implements PatientDAO {
+
+    private static final Logger LOG = Logger.getLogger(PatientDAOImpl.class);
 
     private static final String SQL_GET_PATIENTS_BY_DOCTOR_ID = "SELECT * FROM patient, patient_doctor, state WHERE patient.state_id = state.id AND patient.id = patient_doctor.patient_id AND doctor_id = ?";
     private static final String SQL_GET_ALL_PATIENTS = "SELECT * FROM patient, state WHERE patient.state_id = state.id";
@@ -23,11 +27,15 @@ public class PatientDAOImpl implements PatientDAO {
     public List<Patient> getAllPatients() throws DBException {
         List<Patient> patients = new ArrayList<>();
 
-        try (Connection connection = MySQLDAOFactory.createConnection();
-             Statement statement = connection.createStatement()) {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
 
+        try {
 
-            ResultSet resultSet = statement.executeQuery(SQL_GET_ALL_PATIENTS);
+            connection = MySQLDAOFactory.createConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(SQL_GET_ALL_PATIENTS);
 
             while (resultSet.next()) {
                 patients.add(new Patient(
@@ -40,7 +48,11 @@ public class PatientDAOImpl implements PatientDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+        } finally {
+            MySQLDAOFactory.close(connection, statement, resultSet);
         }
 
         return patients;
@@ -51,12 +63,17 @@ public class PatientDAOImpl implements PatientDAO {
 
         List<Patient> patients = new ArrayList<>();
 
-        try (Connection connection = MySQLDAOFactory.createConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_PATIENTS_BY_DOCTOR_ID)) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = MySQLDAOFactory.createConnection();
+            preparedStatement = connection.prepareStatement(SQL_GET_PATIENTS_BY_DOCTOR_ID);
 
             preparedStatement.setInt(1, doctorId);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 patients.add(new Patient(
@@ -69,7 +86,11 @@ public class PatientDAOImpl implements PatientDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+        } finally {
+            MySQLDAOFactory.close(connection, preparedStatement, resultSet);
         }
 
         return patients;
@@ -80,10 +101,14 @@ public class PatientDAOImpl implements PatientDAO {
 
         int rows;
 
+        Connection connection = null;
+        PreparedStatement patientPreparedStatement = null;
+        PreparedStatement patient_doctorPreparedStatement = null;
 
-        try (Connection connection = MySQLDAOFactory.createConnection();
-             PreparedStatement patientPreparedStatement = connection.prepareStatement(SQL_INSERT_PATIENT, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement patient_doctorPreparedStatement = connection.prepareStatement(SQL_ASSIGN_PATIENT_TO_DOCTOR)) {
+        try {
+            connection = MySQLDAOFactory.createConnection();
+            patientPreparedStatement = connection.prepareStatement(SQL_INSERT_PATIENT, Statement.RETURN_GENERATED_KEYS);
+            patient_doctorPreparedStatement = connection.prepareStatement(SQL_ASSIGN_PATIENT_TO_DOCTOR);
 
             patientPreparedStatement.setString(1, patient.getName());
             patientPreparedStatement.setString(2, patient.getAddress());
@@ -106,17 +131,26 @@ public class PatientDAOImpl implements PatientDAO {
             return patient_doctorPreparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+        } finally {
+            MySQLDAOFactory.close(connection);
+            MySQLDAOFactory.close(patientPreparedStatement);
+            MySQLDAOFactory.close(patient_doctorPreparedStatement);
         }
-        return 0;
     }
 
     @Override
     public int updatePatient(Patient patient) throws DBException {
 
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
-        try (Connection connection = MySQLDAOFactory.createConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PATIENT)) {
+        try {
+
+            connection = MySQLDAOFactory.createConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_PATIENT);
 
             preparedStatement.setString(1, patient.getName());
             preparedStatement.setString(2, patient.getAddress());
@@ -127,10 +161,13 @@ public class PatientDAOImpl implements PatientDAO {
             return preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+        } finally {
+            MySQLDAOFactory.close(connection);
+            MySQLDAOFactory.close(preparedStatement);
         }
-
-        return 0;
     }
 
     @Override
@@ -138,12 +175,18 @@ public class PatientDAOImpl implements PatientDAO {
 
         List<Patient> patients = new ArrayList<>();
 
-        try (Connection connection = MySQLDAOFactory.createConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_UNASSIGNED_PATIENTS)) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = MySQLDAOFactory.createConnection();
+            preparedStatement = connection.prepareStatement(GET_UNASSIGNED_PATIENTS);
 
             preparedStatement.setInt(1, doctorId);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 patients.add(new Patient(
@@ -156,7 +199,11 @@ public class PatientDAOImpl implements PatientDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+        } finally {
+            MySQLDAOFactory.close(connection, preparedStatement, resultSet);
         }
 
         return patients;
@@ -164,8 +211,14 @@ public class PatientDAOImpl implements PatientDAO {
 
     @Override
     public int assignPatient(int patientId, int doctorId) throws DBException {
-        try (Connection connection = MySQLDAOFactory.createConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ASSIGN_PATIENT_TO_DOCTOR)) {
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+
+            connection = MySQLDAOFactory.createConnection();
+            preparedStatement = connection.prepareStatement(SQL_ASSIGN_PATIENT_TO_DOCTOR);
 
             preparedStatement.setInt(1, patientId);
             preparedStatement.setInt(2, doctorId);
@@ -173,9 +226,13 @@ public class PatientDAOImpl implements PatientDAO {
             return preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            MySQLDAOFactory.rollback(connection);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+        } finally {
+            MySQLDAOFactory.close(connection);
+            MySQLDAOFactory.close(preparedStatement);
         }
 
-        return 0;
     }
 }
