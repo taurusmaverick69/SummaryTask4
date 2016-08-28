@@ -24,6 +24,12 @@ public class PatientDAOImpl implements PatientDAO {
     private static final String UPDATE_PATIENT = "UPDATE patient SET name = ?, address = ?, birthDate = ?, state_id = ? WHERE id = ?";
     private static final String GET_UNASSIGNED_PATIENTS = "SELECT *FROM patient, state WHERE  patient.state_id = state.id AND patient.id NOT IN (SELECT patient_id FROM patient_doctor WHERE doctor_id = ?)";
 
+
+    /**
+     * Returns all patients.
+     *
+     * @return List of patient entities.
+     */
     @Override
     public List<Patient> getAllPatients() throws DBException {
         List<Patient> patients = new ArrayList<>();
@@ -62,6 +68,13 @@ public class PatientDAOImpl implements PatientDAO {
         return patients;
     }
 
+
+    /**
+     * Returns patients by doctor id.
+     *
+     * @param doctorId doctor identifier
+     * @return List of patient entities..
+     */
     @Override
     public List<Patient> getPatientsByDoctorId(int doctorId) throws DBException {
 
@@ -104,6 +117,13 @@ public class PatientDAOImpl implements PatientDAO {
         return patients;
     }
 
+
+    /**
+     * Insert a new patient.
+     *
+     * @param patient to insert
+     * @return affected rows.
+     */
     @Override
     public int insertPatient(Patient patient) throws DBException {
 
@@ -154,6 +174,12 @@ public class PatientDAOImpl implements PatientDAO {
         return rows;
     }
 
+    /**
+     * Update patient.
+     *
+     * @param patient to update
+     * @return affected rows.
+     */
     @Override
     public int updatePatient(Patient patient) throws DBException {
 
@@ -191,6 +217,12 @@ public class PatientDAOImpl implements PatientDAO {
 
     }
 
+
+    /**
+     * Returns unassigned patients.
+     *
+     * @return List of patient entities.
+     */
     @Override
     public List<Patient> getUnassignedPatients(int doctorId) throws DBException {
 
@@ -235,6 +267,14 @@ public class PatientDAOImpl implements PatientDAO {
         return patients;
     }
 
+
+    /**
+     * Assign patient to doctor.
+     *
+     * @param patientId patient identifier
+     * @param doctorId doctor identifier
+     * @return affected rows.
+     */
     @Override
     public int assignPatient(int patientId, int doctorId) throws DBException {
 

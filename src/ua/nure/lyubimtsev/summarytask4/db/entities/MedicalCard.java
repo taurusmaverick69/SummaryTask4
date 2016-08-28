@@ -17,8 +17,6 @@ public class MedicalCard  extends Entity {
     private int patientId;
     private List<Appointment> appointments;
 
-    public MedicalCard() {
-    }
 
     public MedicalCard(int id, Date registrationDate, int patientId) {
         this.id = id;
@@ -43,10 +41,6 @@ public class MedicalCard  extends Entity {
 
     public Date getRegistrationDate() {
         return registrationDate;
-    }
-
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
     }
 
     public int getPatientId() {

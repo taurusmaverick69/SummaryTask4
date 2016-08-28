@@ -29,6 +29,11 @@ public class DoctorDAOImpl implements DoctorDAO {
     private static final String SQL_GET_PATIENTS_BY_DOCTOR_ID = "SELECT * FROM patient, patient_doctor, state WHERE patient.id = patient_doctor.patient_id AND patient.state_id = state.id AND patient_doctor.doctor_id = ?";
 
 
+    /**
+     * Returns all doctors.
+     *
+     * @return List of doctor entities.
+     */
     @Override
     public List<Doctor> getAllDoctors() throws DBException {
 
@@ -90,6 +95,13 @@ public class DoctorDAOImpl implements DoctorDAO {
         return doctors;
     }
 
+    /**
+     * Returns doctor by login and password.
+     *
+     * @param login doctor login
+     * @param password doctor password
+     * @return Doctor entity.
+     */
     @Override
     public Doctor getDoctorByLoginAndPassword(String login, String password) throws DBException {
 
@@ -150,6 +162,13 @@ public class DoctorDAOImpl implements DoctorDAO {
         return doctor;
     }
 
+
+    /**
+     * Insert a new doctor.
+     *
+     * @param doctor to insert
+     * @return affected rows.
+     */
     @Override
     public int insertDoctor(Doctor doctor) throws DBException {
 
@@ -193,6 +212,14 @@ public class DoctorDAOImpl implements DoctorDAO {
         return rows;
     }
 
+
+    /**
+     * Update doctor.
+     *
+     * @param doctor to update
+     * @param role, who update
+     * @return affected rows.
+     */
     @Override
     public int updateDoctor(Doctor doctor, Role role) throws DBException {
 
@@ -239,6 +266,8 @@ public class DoctorDAOImpl implements DoctorDAO {
         }
         return rows;
     }
+
+
 
     @Override
     public boolean isLoginExists(String login) throws DBException {

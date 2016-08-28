@@ -4,7 +4,6 @@ import com.mysql.fabric.jdbc.FabricMySQLDriver;
 import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.*;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.*;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.exception.DBException;
 import ua.nure.lyubimtsev.SummaryTask4.exception.Messages;
 
@@ -13,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.Hashtable;
 
 public class MySQLDAOFactory extends DAOFactory {
 
@@ -129,12 +127,6 @@ public class MySQLDAOFactory extends DAOFactory {
             }
         }
     }
-
-
-
-
-
-
 
 
 

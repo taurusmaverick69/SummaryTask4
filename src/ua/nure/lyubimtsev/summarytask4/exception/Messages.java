@@ -30,19 +30,14 @@ public class Messages {
     public static final String ERR_CANNOT_OBTAIN_APPOINTMENTS_BY_MEDICAL_CARD_ID = "Cannot obtain appointments by medical card id";
 
 
-
     public static final String ERR_CANNOT_OBTAIN_TYPES = "Cannot obtain types";
 
     public static final String ERR_CANNOT_OBTAIN_STATES = "Cannot obtain states";
 
     public static final String ERR_CANNOT_OBTAIN_CATEGORIES = "Cannot obtain categories";
 
+
 	public static final String ERR_CANNOT_OBTAIN_CONNECTION = "Cannot obtain a connection from the pool";
-
-
-
-
-
 
 	public static final String ERR_CANNOT_CLOSE_CONNECTION = "Cannot close a connection";
 

@@ -21,6 +21,11 @@ public class StateDAOImpl implements StateDAO {
 
     private static final String SQL_GEL_ALL_STATES = "SELECT * FROM state";
 
+    /**
+     * Returns all states.
+     *
+     * @return List of state entities.
+     */
     @Override
     public List<State> getAllStates() throws DBException {
 

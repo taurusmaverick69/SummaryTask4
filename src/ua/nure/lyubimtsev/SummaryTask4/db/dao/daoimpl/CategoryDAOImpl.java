@@ -21,6 +21,12 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     private static final String GET_ALL_CATEGORIES = "SELECT * FROM category";
 
+
+    /**
+     * Returns all categories.
+     *
+     * @return List of category entities.
+     */
     @Override
     public List<Category> getAllCategories() throws DBException {
 

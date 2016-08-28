@@ -1,6 +1,7 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 
 import org.apache.log4j.Logger;
+import ua.nure.lyubimtsev.SummaryTask4.db.Fields;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.AppointmentDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Appointment;
@@ -21,6 +22,12 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     private static final String SQL_INSERT_APPOINTMENT = "INSERT INTO appointment VALUES (DEFAULT,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_APPOINTMENT = "UPDATE appointment SET diagnose = ?, type_id = ?, info = ? WHERE id = ?";
 
+    /**
+     * Returns Appointments by medicalCard id.
+     *
+     * @param medicalCardId medical card identifier
+     * @return List of appointment entities.
+     */
     @Override
     public List<Appointment> getAppointmentsByMedicalCardId(int medicalCardId) throws DBException {
 
@@ -42,12 +49,12 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
             while (resultSet.next()) {
                 appointments.add(new Appointment(
-                        resultSet.getInt("appointment.id"),
-                        resultSet.getString("appointment.diagnose"),
-                        new Type(resultSet.getInt("type.id"), resultSet.getString("type.name")),
-                        resultSet.getString("appointment.info"),
-                        resultSet.getDate("appointment.date"),
-                        Doctor.newBuilder().setId(resultSet.getInt("doctor.id")).setName(resultSet.getString("doctor.name")).build(),
+                        resultSet.getInt(Fields.APPOINTMENT_ID),
+                        resultSet.getString(Fields.APPOINTMENT_DIAGNOSE),
+                        new Type(resultSet.getInt(Fields.TYPE_ID), resultSet.getString(Fields.TYPE_NAME)),
+                        resultSet.getString(Fields.APPOINTMENT_INFO),
+                        resultSet.getDate(Fields.APPOINTMENT_DATE),
+                        Doctor.newBuilder().setId(resultSet.getInt(Fields.DOCTOR_ID)).setName(resultSet.getString(Fields.DOCTOR_NAME)).build(),
                         medicalCardId
                 ));
             }
@@ -63,6 +70,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
         return appointments;
     }
 
+
+    /**
+     * Insert a new appointment.
+     *
+     * @param appointment to insert
+     * @return affected rows.
+     */
     @Override
     public int insertAppointment(Appointment appointment) throws DBException {
 
@@ -98,6 +112,12 @@ public class AppointmentDAOImpl implements AppointmentDAO {
         }
     }
 
+    /**
+     * Update appointment.
+     *
+     * @param appointment to update
+     * @return affected rows.
+     */
     @Override
     public int updateAppointment(Appointment appointment) throws DBException {
 

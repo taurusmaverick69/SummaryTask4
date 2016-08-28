@@ -19,6 +19,13 @@ public class AdminDAOImpl implements AdminDAO {
 
     private static final String GET_ADMIN_BY_LOGIN_AND_PASSWORD = "SELECT * FROM admin WHERE login = ? AND password = ?";
 
+    /**
+     * Returns admin by login and password.
+     *
+     * @param login admin login
+     * @param password admin password
+     * @return Admin entity.
+     */
     @Override
     public Admin getAdminByLoginAndPassword(String login, String password) throws DBException {
 

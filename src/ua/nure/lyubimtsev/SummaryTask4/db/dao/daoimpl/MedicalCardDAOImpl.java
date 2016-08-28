@@ -17,6 +17,13 @@ public class MedicalCardDAOImpl implements MedicalCardDAO {
     private static final String SQL_INSERT_MEDICAL_CARD = "INSERT INTO medicalcard VALUES (DEFAULT, ?, ?)";
     private static final String SQL_GET_MEDICAL_CARD_BY_PATIENT_ID = "SELECT * FROM medicalcard WHERE patient_id=?";
 
+
+    /**
+     * Insert a new medicalCard.
+     *
+     * @param medicalCard to insert
+     * @return affected rows.
+     */
     @Override
     public int insertMedicalCard(MedicalCard medicalCard) throws DBException {
 
@@ -50,6 +57,12 @@ public class MedicalCardDAOImpl implements MedicalCardDAO {
     }
 
 
+    /**
+     * Returns Medical card by patient id.
+     *
+     * @param patientId patient identifier
+     * @return Medical Card entity.
+     */
     @Override
     public MedicalCard getMedicalCardByPatientId(int patientId) throws DBException {
 

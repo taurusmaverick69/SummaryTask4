@@ -103,10 +103,6 @@ public class Doctor extends Entity {
         return admin_id;
     }
 
-    public void setAdmin_id(int admin_id) {
-        this.admin_id = admin_id;
-    }
-
     @Override
     public String toString() {
         return "Doctor{" +

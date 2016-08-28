@@ -21,6 +21,11 @@ public class TypeDAOImpl implements TypeDAO {
 
     private static final String SQL_GET_ALL_TYPES = "SELECT * FROM type";
 
+    /**
+     * Returns all types.
+     *
+     * @return List of type entities.
+     */
     @Override
     public List<Type> getAllTypes() throws DBException {
 
