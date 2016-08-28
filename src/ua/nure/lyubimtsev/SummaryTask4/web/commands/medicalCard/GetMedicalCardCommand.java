@@ -15,6 +15,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * Get medical card.
+ *
+ * @author Vladislav
+ *
+ */
 public class GetMedicalCardCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {

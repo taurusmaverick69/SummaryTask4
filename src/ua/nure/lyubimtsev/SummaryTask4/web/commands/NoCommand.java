@@ -11,10 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * No command.
+ *
+ * @author Vladislav
+ *
+ */
 public class NoCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(NoCommand.class);
-
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {

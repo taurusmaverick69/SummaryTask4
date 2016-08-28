@@ -16,6 +16,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+/**
+ * Insert appointment.
+ *
+ * @author Vladislav
+ *
+ */
 public class InsertAppointmentCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {

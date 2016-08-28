@@ -22,6 +22,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Update patient.
+ *
+ * @author Vladislav
+ *
+ */
 public class UpdatePatientCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {

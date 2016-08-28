@@ -17,6 +17,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * List appointments.
+ *
+ * @author Vladislav
+ *
+ */
 public class GetAppointmentsCommand extends Command {
 
     private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";

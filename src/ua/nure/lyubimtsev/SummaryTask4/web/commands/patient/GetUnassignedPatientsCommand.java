@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Get unassigned patients.
+ *
+ * @author Vladislav
+ *
+ */
 public class GetUnassignedPatientsCommand extends Command {
 
     private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";

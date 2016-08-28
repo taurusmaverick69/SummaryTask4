@@ -16,6 +16,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+
+/**
+ * List doctors.
+ *
+ * @author Vladislav
+ *
+ */
 public class GetDoctorsCommand extends Command {
 
     private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";

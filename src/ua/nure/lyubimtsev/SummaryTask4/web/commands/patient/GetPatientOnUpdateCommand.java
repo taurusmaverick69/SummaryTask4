@@ -15,6 +15,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Get patient that will be updated
+ *
+ * @author Vladislav
+ *
+ */
 public class GetPatientOnUpdateCommand extends Command {
 
     private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";

@@ -18,6 +18,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Assign patient to doctor.
+ *
+ * @author Vladislav
+ *
+ */
 public class AssignPatientCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {

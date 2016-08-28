@@ -18,6 +18,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Get patients.
+ *
+ * @author Vladislav
+ *
+ */
 public class GetPatientsCommand extends Command {
 
     private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";

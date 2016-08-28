@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Login command.
+ *
+ * @author Vladislav
+ *
+ */
 public class LoginCommand extends Command {
 
     @Override

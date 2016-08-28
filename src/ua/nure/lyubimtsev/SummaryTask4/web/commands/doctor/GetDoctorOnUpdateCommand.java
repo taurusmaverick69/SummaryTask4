@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Get doctor that will be updated
+ *
+ * @author Vladislav
+ *
+ */
 public class GetDoctorOnUpdateCommand extends Command {
 
     private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";

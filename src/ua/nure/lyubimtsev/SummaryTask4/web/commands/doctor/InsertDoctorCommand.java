@@ -19,6 +19,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Insert doctor.
+ *
+ * @author Vladislav
+ *
+ */
 public class InsertDoctorCommand extends Command {
 
     @Override
