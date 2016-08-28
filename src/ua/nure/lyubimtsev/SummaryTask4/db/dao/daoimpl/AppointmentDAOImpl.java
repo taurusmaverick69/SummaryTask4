@@ -4,10 +4,8 @@ import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.AppointmentDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Appointment;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Type;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 
-import javax.print.Doc;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
         List<Appointment> appointments = new ArrayList<>();
 
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_APPOINTMENTS_BY_MEDICAL_CARD)) {
 
             preparedStatement.setInt(1, medicalCardId);
@@ -55,7 +53,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
     @Override
     public int insertAppointment(Appointment appointment) {
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO appointment VALUES (DEFAULT,?,?,?,?,?,?)")) {
 
             preparedStatement.setString(1, appointment.getDiagnose());
@@ -75,7 +73,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
     @Override
     public int updateAppointment(Appointment appointment) {
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE  appointment SET diagnose = ?, type_id = ?, info = ? WHERE id = ?")) {
 
             preparedStatement.setString(1, appointment.getDiagnose());

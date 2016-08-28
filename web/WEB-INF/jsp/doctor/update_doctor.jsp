@@ -2,19 +2,26 @@
 <html>
 <body>
 <form action="controller?command=updateDoctor" method="post">
+
+    <input type="hidden" value="${doctorById.id}" name="id">
+
     <div class="card white center">
         <div class="card-content blue">
-            <span class="card-title white-text"><fmt:message key="doctors.actions.edit"/></span>
+            <span class="card-title white-text">
+                <fmt:message key="doctor.action.edit"/>
+            </span>
         </div>
         <div class="section"></div>
         <div class="row">
             <div class="input-field col s10 offset-s1 ">
                 <i class="material-icons prefix">perm_identity</i>
-                <input value="${doctorById.name}" id="name" name="name" type="text" class="validate" required
+                <input value="${doctorById.name}" id="name" name="name" type="text"
+                       class="validate" required
                        minlength="5" maxlength="45">
-                <label for="name"><fmt:message key="doctors.field.fullName"/></label>
+                <label for="name"><fmt:message key="doctor.field.fullName"/></label>
             </div>
         </div>
+
         <div class="row">
             <div class="input-field col s10 offset-s1">
                 <select id="category" name="category">
@@ -32,14 +39,14 @@
                         </c:if>
                     </c:forEach>
                 </select>
-                <label for="category"><fmt:message key="doctors.field.category"/></label>
+                <label for="category"><fmt:message key="doctor.field.category"/></label>
             </div>
         </div>
+
         <script>
             $(document).ready(function () {
                 $("select").material_select();
             });
-
         </script>
 
         <div class="card-action">

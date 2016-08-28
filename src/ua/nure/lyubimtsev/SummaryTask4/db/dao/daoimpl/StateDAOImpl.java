@@ -17,7 +17,7 @@ public class StateDAOImpl implements StateDAO {
 
         List<State> states = new ArrayList<>();
 
-        try(Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try(Connection connection = MySQLDAOFactory.createConnection();
             Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM state");

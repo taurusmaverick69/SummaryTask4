@@ -21,10 +21,9 @@
     <div class="card white center">
         <div class="card-content blue">
             <span class="card-title white-text">
-                <fmt:message key="doctors.actions.add"/>
+                <fmt:message key="doctor.action.add"/>
             </span>
         </div>
-
         <div class="section"></div>
         <div class="row">
             <div class="input-field col s10 offset-s1 ">
@@ -32,7 +31,7 @@
                 <input id="name" name="name" type="text" class="validate" required minlength="5"
                        maxlength="45">
                 <label for="name">
-                    <fmt:message key="doctors.field.fullName"/>
+                    <fmt:message key="doctor.field.fullName"/>
                 </label>
             </div>
         </div>
@@ -43,7 +42,7 @@
                 <input id="login" name="login" type="text" class="validate" required minlength="5"
                        maxlength="45">
                 <label for="login">
-                    <fmt:message key="doctors.field.login"/>
+                    <fmt:message key="doctor.field.login"/>
                 </label>
             </div>
         </div>
@@ -54,7 +53,7 @@
                 <input id="password1" name="password" type="password" class="validate" required
                        minlength="5" maxlength="45">
                 <label for="password1">
-                    <fmt:message key="doctors.field.password"/>
+                    <fmt:message key="doctor.field.password"/>
                 </label>
             </div>
         </div>
@@ -65,7 +64,7 @@
                 <input id="password2" type="password" class="validate" required minlength="5"
                        maxlength="45">
                 <label for="password2">
-                    <fmt:message key="doctors.field.confirmPassword"/>
+                    <fmt:message key="doctor.field.confirmPassword"/>
                 </label>
             </div>
         </div>
@@ -82,10 +81,11 @@
                     </c:forEach>
                 </select>
                 <label for="category">
-                    <fmt:message key="doctors.field.category"/>
+                    <fmt:message key="doctor.field.category"/>
                 </label>
             </div>
         </div>
+
 
         <script>
             $(document).ready(function () {

@@ -1,26 +1,43 @@
 <%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
-<%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
 <%@include file="/WEB-INF/jspf/head.jspf" %>
 <html>
+
+<head>
+    <script src="${pageContext.request.contextPath}/addons/sorttable.js"></script>
+    <style>
+        table.sortable thead {
+            cursor: hand;
+        }
+
+        .modal {
+            width: 40% !important;
+            max-height: 100% !important
+        }
+    </style>
+</head>
+
+
 <body>
 
-<div class="row">
+<header>
+    <div class="row">
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
+    </div>
+</header>
 
-    <jsp:include page='/WEB-INF/jspf/header.jspf'>
-        <jsp:param name="end" value="1"/>
-    </jsp:include>
-
+<main>
     <table class="striped centered">
         <thead>
         <tr>
-            <th>Диагноз</th>
-            <th>Назначение</th>
-            <th>Инфо</th>
-            <th>Дата</th>
-            <th>Доктор</th>
+            <th><fmt:message key="appointment.field.diagnose"/></th>
+            <th><fmt:message key="appointment.field.appointment"/></th>
+            <th><fmt:message key="appointment.field.info"/></th>
+            <th><fmt:message key="appointment.field.date"/></th>
+            <th><fmt:message key="appointment.field.doctor"/></th>
         </tr>
-
         </thead>
+
+        <tbody>
         <%--@elvariable id="medicalCard" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard"--%>
         <c:forEach var="appointment" items="${medicalCard.appointments}">
             <tr>
@@ -58,24 +75,44 @@
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
+    </table>
+
+    <%--@elvariable id="appointmentById" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
+    <c:if test="${not empty appointmentById}">
+        <div id="edit-appointment" class="modal">
+            <%@include file="/WEB-INF/jsp/appointment/update_appointment.jsp" %>
+        </div>
 
         <script>
-            $(document).ready(function () {
-                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-                $('.modal-trigger').leanModal();
-            });
+            $('#edit-appointment').openModal();
         </script>
-    </table>
-</div>
+    </c:if>
+
+</main>
 
 <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
-    <a href="controller?command=forward&page=<%=Path.INSERT_APPOINTMENT_PAGE%>"
-       class="btn-floating btn-large pink">
+    <a href="#insert-appointment" class="btn-floating btn-large pink modal-trigger">
         <i class="material-icons">add</i>
     </a>
 </div>
 
+
+<div id="insert-appointment" class="modal">
+    <%@include file="/WEB-INF/jsp/appointment/insert_appointment.jsp" %>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.modal-trigger').leanModal();
+    });
+</script>
+
 <%@include file="/WEB-INF/jspf/result.jspf" %>
+
+<footer class="page-footer center">
+    <%@include file="/WEB-INF/jspf/footer.jspf" %>
+</footer>
 
 </body>
 </html>

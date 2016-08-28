@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-@WebFilter(urlPatterns = "/*", initParams = @WebInitParam(name = "avoid-urls", value = "/login.jsp,/test.jsp"))
+@WebFilter(urlPatterns = "/*", initParams = @WebInitParam(name = "avoid-urls", value = "/login.jsp,/test2.jsp"))
 public class SessionFilter implements Filter {
 
     private final static String MATERIALIZECSS = "/materializecss";

@@ -12,6 +12,10 @@ import java.io.IOException;
 public class ForwardCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
-        return new Redirect(request.getParameter("page"), ForwardingType.FORWARD);
+        String page = request.getParameter("page");
+        return page != null ?
+                new Redirect(page, ForwardingType.FORWARD)
+                : null;
+
     }
 }

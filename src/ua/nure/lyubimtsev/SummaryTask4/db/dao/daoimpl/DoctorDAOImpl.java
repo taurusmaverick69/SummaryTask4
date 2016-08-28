@@ -20,7 +20,7 @@ public class DoctorDAOImpl implements DoctorDAO {
 
         List<Doctor> doctors = new ArrayList<>();
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM doctor, category WHERE doctor.category_id = category.id");
@@ -48,7 +48,7 @@ public class DoctorDAOImpl implements DoctorDAO {
 
         Doctor doctor = null;
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement prepareStatement = connection.prepareStatement(GET_DOCTOR_BY_LOGIN_AND_PASSWORD)) {
 
             prepareStatement.setString(1, login);
@@ -78,7 +78,7 @@ public class DoctorDAOImpl implements DoctorDAO {
     public int insertDoctor(Doctor doctor) {
 
         int rows = 0;
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO doctor VALUES (DEFAULT,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, doctor.getLogin());
@@ -106,7 +106,7 @@ public class DoctorDAOImpl implements DoctorDAO {
     public int updateDoctor(Doctor doctor, Role role) {
 
         PreparedStatement preparedStatement = null;
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection()) {
+        try (Connection connection = MySQLDAOFactory.createConnection()) {
 
             switch (role) {
                 case ADMIN:
@@ -147,7 +147,7 @@ public class DoctorDAOImpl implements DoctorDAO {
 
     @Override
     public boolean isLoginExists(String login) {
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT id FROM doctor WHERE login = ?")) {
 
             preparedStatement.setString(1, login);

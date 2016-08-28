@@ -2,7 +2,6 @@ package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.PatientDAO;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 
@@ -18,7 +17,7 @@ public class PatientDAOImpl implements PatientDAO {
     public List<Patient> getAllPatients() {
         List<Patient> patients = new ArrayList<>();
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM patient, state WHERE patient.state_id = state.id");
@@ -45,7 +44,7 @@ public class PatientDAOImpl implements PatientDAO {
 
         List<Patient> patients = new ArrayList<>();
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_PATIENTS_BY_DOCTOR_ID)) {
 
             preparedStatement.setInt(1, doctorId);
@@ -74,7 +73,7 @@ public class PatientDAOImpl implements PatientDAO {
 
         int rows;
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement patientPreparedStatement = connection.prepareStatement("INSERT INTO patient VALUES (DEFAULT, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
              PreparedStatement patient_doctorPreparedStatement = connection.prepareStatement("INSERT INTO patient_doctor VALUES (?,?)")) {
 
@@ -108,7 +107,7 @@ public class PatientDAOImpl implements PatientDAO {
     public int updatePatient(Patient patient) {
 
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE patient SET name = ?, address = ?, birthDate = ?, state_id = ? WHERE id = ?")) {
 
             preparedStatement.setString(1, patient.getName());
@@ -131,7 +130,7 @@ public class PatientDAOImpl implements PatientDAO {
 
         List<Patient> patients = new ArrayList<>();
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT *\n" +
                      "FROM patient, state\n" +
                      "WHERE  patient.state_id = state.id\n" +
@@ -160,7 +159,7 @@ public class PatientDAOImpl implements PatientDAO {
 
     @Override
     public int assignPatient(int patientId, int doctorId) {
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO patient_doctor VALUES (?,?)")) {
 
             preparedStatement.setInt(1, patientId);

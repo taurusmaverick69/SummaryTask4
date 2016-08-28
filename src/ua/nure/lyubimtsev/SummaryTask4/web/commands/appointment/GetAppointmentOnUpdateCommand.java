@@ -25,8 +25,8 @@ public class GetAppointmentOnUpdateCommand extends Command {
         MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
         Appointment appointmentById = medicalCard.getAppointmentById(id);
 
-        session.setAttribute("appointmentById", appointmentById);
+        request.setAttribute("appointmentById", appointmentById);
 
-        return new Redirect(Path.UPDATE_APPOINTMENT_PAGE, ForwardingType.FORWARD);
+        return new Redirect(Path.MEDICAL_CARD_PAGE, ForwardingType.FORWARD);
     }
 }

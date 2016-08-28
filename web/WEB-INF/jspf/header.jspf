@@ -17,7 +17,7 @@
                 <ul class="right">
                     <li>
                         <a class="dropdown-button" data-activates="dropdown1">
-                            <fmt:message key="doctors.loginInfo.admin"/>
+                            <fmt:message key="doctor.loginInfo.admin"/>
                                 ${user.login}
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
@@ -43,7 +43,7 @@
                 <ul class="right">
                     <li>
                         <a class="dropdown-button" data-activates="dropdown1">
-                            <fmt:message key="doctors.loginInfo.doctor"/>
+                            <fmt:message key="doctor.loginInfo.doctor"/>
                                 ${user.login}
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>

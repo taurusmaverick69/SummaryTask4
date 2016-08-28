@@ -34,5 +34,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="jquery-git" level="application" />
+    <orderEntry type="library" name="jspdf" level="application" />
   </component>
 </module>

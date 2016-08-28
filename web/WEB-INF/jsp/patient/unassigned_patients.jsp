@@ -1,31 +1,24 @@
 <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="role" type="Role"--%>
-<%@include file="/WEB-INF/jspf/head.jspf"%>
+<%@include file="/WEB-INF/jspf/head.jspf" %>
 
 <html>
-<head>
-
-</head>
-
 <body>
-<nav>
-    <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Неназначеные на доктора пациенты</a>
-        <ul id="nav-mobile">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
-        </ul>
+
+<header>
+    <div class="row">
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
     </div>
-</nav>
-<div class="row">
+</header>
+
+<main>
     <table class="striped centered">
         <thead>
         <tr>
-            <th>ФИО</th>
-            <th>Адрес</th>
-            <th>Дата рождения</th>
-            <th>Состояние</th>
+            <th><fmt:message key="patient.field.fullName"/></th>
+            <th><fmt:message key="patient.field.address"/></th>
+            <th><fmt:message key="patient.field.birthDate"/></th>
+            <th><fmt:message key="patient.field.state"/></th>
         </tr>
         </thead>
 
@@ -48,7 +41,12 @@
         </c:forEach>
         </tbody>
     </table>
-</div>
+</main>
+
+
+<footer class="page-footer center">
+    <%@include file="/WEB-INF/jspf/footer.jspf" %>
+</footer>
 
 </body>
 </html>

@@ -10,31 +10,33 @@
     }
 </style>
 
+<div class="container">
+    <div class="row">
+        <div class="col l4 s12">
+            <a class='dropdown-button btn' href='#' data-activates='languageDropdown'>
+                <fmt:message key="footer.button.language"/>
+            </a>
+
+            <ul id="languageDropdown" class='dropdown-content'>
+                <li>
+                    <a onclick="location.reload()"
+                       href="?command=${param.command}&doctorId=${doctor.id}&patientId=${patient.id}&appointmentId=${appointment.id}&locale=ru">
+                        <fmt:message key="footer.button.dropdown.russian"/>
+                    </a>
+                </li>
+
+                <li>
+                    <a onclick="location.reload()"
+                       href="?command=${param.command}&doctorId=${doctor.id}&patientId=${patient.id}&appointmentId=${appointment.id}&locale=en">
+                        <fmt:message key="footer.button.dropdown.english"/>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="footer-copyright">
     <div class="container">
-        <div class="row">
-            <div class="col l4 s12">
-                <a class='dropdown-button btn' href='#' data-activates='languageDropdown'>
-                    <fmt:message key="footer.button.language"/>
-                </a>
-
-                <ul id="languageDropdown" class='dropdown-content'>
-                    <li>
-                        <a onclick="location.reload()" href="?command=${param.command}&doctorId=${doctor.id}&locale=ru">
-                            <fmt:message key="footer.button.dropdown.russian"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a onclick="location.reload()" href="?command=${param.command}&doctorId=${doctor.id}&locale=en">
-                            <fmt:message key="footer.button.dropdown.english"/>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        Hospital (SummaryTask4, EPAM-KNURE Java Training), 2016
     </div>
-    <div class="footer-copyright">
-        <div class="container">
-            Hospital (SummaryTask4, EPAM-KNURE Java Training), 2016
-        </div>
-    </div>
+</div>

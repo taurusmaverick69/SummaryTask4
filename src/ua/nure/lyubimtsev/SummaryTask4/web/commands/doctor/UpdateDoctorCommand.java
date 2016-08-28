@@ -4,8 +4,6 @@ import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.Role;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.DoctorDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
@@ -38,7 +36,9 @@ public class UpdateDoctorCommand extends Command {
                 .filter(category -> category.getId() == categoryId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        Doctor doctorById = (Doctor) session.getAttribute("doctorById");
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        Doctor doctorById = ((Admin) session.getAttribute("user")).getDoctorById(id);
         Doctor tempDoctor = new Doctor(doctorById.getId(), login, password, name, categoryById);
         boolean success;
         Role role = (Role) session.getAttribute("role");

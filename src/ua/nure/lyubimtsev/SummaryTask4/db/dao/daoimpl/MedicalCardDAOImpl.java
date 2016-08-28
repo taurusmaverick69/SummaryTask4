@@ -11,7 +11,7 @@ import java.util.*;
 public class MedicalCardDAOImpl implements MedicalCardDAO {
     @Override
     public int insertMedicalCard(MedicalCard medicalCard) {
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO medicalcard VALUES (DEFAULT, ?, ?)")) {
 
             preparedStatement.setDate(1, new Date(medicalCard.getRegistrationDate().getTime()));
@@ -30,7 +30,7 @@ public class MedicalCardDAOImpl implements MedicalCardDAO {
 //
 //        List<MedicalCard> medicalCards = new ArrayList<>();
 //
-//        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection()) {
+//        try (Connection connection = MySQLDAOFactory.createConnection().getConnection()) {
 //
 //            Statement statement = connection.createStatement();
 //            ResultSet resultSet = statement.executeQuery("SELECT * FROM medicalcard");
@@ -59,7 +59,7 @@ public class MedicalCardDAOImpl implements MedicalCardDAO {
 
         MedicalCard medicalCard = null;
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM medicalcard WHERE patient_id=?")) {
 
             preparedStatement.setInt(1, patientId);

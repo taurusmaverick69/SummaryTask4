@@ -1,5 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao;
 
+import com.mysql.fabric.jdbc.FabricMySQLDriver;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl.*;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.*;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
@@ -8,21 +9,40 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Hashtable;
 
 public class MySQLDAOFactory extends DAOFactory {
 
-    private static DataSource dataSource;
 
-    public static DataSource createDataSource() {
-        if (dataSource == null) {
-            try {
-                Context ctx = new InitialContext();
-                dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/hospitalDB");
-            } catch (NamingException e) {
-                e.printStackTrace();
+
+    private static Connection connection;
+    private static final String URL = "jdbc:mysql://localhost:3306/hospitaldb?autoReconnect=true&useSSL=false";
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
+
+    public static Connection createConnection() {
+
+        try {
+            if (connection == null || connection.isClosed()) {
+                try {
+                    Context ctx = new InitialContext();
+                    DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/hospitalDB");
+                    connection = dataSource.getConnection();
+                } catch (NamingException e) {
+                    DriverManager.registerDriver(new FabricMySQLDriver());
+                    connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                }
+
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return dataSource;
+        return connection;
+
+
     }
 
     @Override

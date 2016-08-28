@@ -1,7 +1,5 @@
 <html>
 <body>
-
-
 <form action="controller?command=insertPatient" method="post">
     <div class="card white center">
         <div class="card-content blue">
@@ -14,7 +12,7 @@
                 <i class="material-icons prefix">perm_identity</i>
                 <input id="name" name="name" type="text" class="validate" required maxlength="45">
                 <label for="name">
-                    <fmt:message key="patients.field.fullName"/>
+                    <fmt:message key="patient.field.fullName"/>
                 </label>
             </div>
         </div>
@@ -24,7 +22,7 @@
                 <i class="material-icons prefix">home</i>
                 <input id="address" name="address" type="text" class="validate" required maxlength="255">
                 <label for="address">
-                    <fmt:message key="patients.field.address"/>
+                    <fmt:message key="patient.field.address"/>
                 </label>
             </div>
         </div>
@@ -34,7 +32,7 @@
                 <i class="material-icons prefix">date_range</i>
                 <input id="birthDate" name="birthDate" type="date" class="datepicker validate" required>
                 <label for="birthDate">
-                    <fmt:message key="patients.field.birthDate"/>
+                    <fmt:message key="patient.field.birthDate"/>
                 </label>
             </div>
         </div>
@@ -57,7 +55,7 @@
                     </c:forEach>
                 </select>
                 <label for="state">
-                    <fmt:message key="patients.field.state"/>
+                    <fmt:message key="patient.field.state"/>
                 </label>
             </div>
         </div>
@@ -82,7 +80,7 @@
                     </c:if>
                 </select>
                 <label for="doctor">
-                    <fmt:message key="patients.field.birthDate"/>
+                    <fmt:message key="patient.field.birthDate"/>
                 </label>
             </div>
         </div>

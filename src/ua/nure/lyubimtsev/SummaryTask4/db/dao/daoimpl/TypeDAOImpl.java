@@ -13,7 +13,7 @@ public class TypeDAOImpl implements TypeDAO {
     public List<Type> getAllTypes() {
 
         List<Type> types = new ArrayList<>();
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM type");

@@ -15,46 +15,47 @@ public class BreadcrumbFilter implements Filter {
     private Map<String, String> doctorBreadCrumbs = new LinkedHashMap<>();
 
     public void init(FilterConfig config) throws ServletException {
-        System.err.println("BreadcrumbFilter.init");
+
     }
 
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 
+//        System.out.println("BreadcrumbFilter.doFilter");
+//
+//
+//        List<String> allowCommands = Arrays.asList("doctors", "patients.field");
+//        String command = req.getParameter("command");
+//
+//        ResourceBundle bundle1 = ResourceBundle.getBundle("resources");
+//
+//        Locale locale1 = bundle1.getLocale();
+//
+//
+//        if (allowCommands.contains(command)) {
+//
+//            String locale = req.getParameter("locale");
+//            ResourceBundle bundle =
+//                    locale == null ?
+//                            ResourceBundle.getBundle("resources") :
+//                            ResourceBundle.getBundle("resources" , new Locale(locale));
+//
+//
+//            String doctorsByLocale = bundle.getString("doctor.breadcrumb.doctors");
+//            String patientsByLocale = bundle.getString("doctor.breadcrumb.patients");
+//
+//            adminBreadCrumbs.put(Path.GET_DOCTORS_COMMAND, doctorsByLocale);
+//            adminBreadCrumbs.put(Path.GET_PATIENTS_COMMAND, patientsByLocale);
+//
+//            doctorBreadCrumbs.put(Path.GET_PATIENTS_COMMAND, "Пациенты");
+//            doctorBreadCrumbs.put(Path.GET_APPOINTMENTS_COMMAND, "Мед карта пациента");
+//
+//
+//            req.setAttribute("adminBreadCrumbs", adminBreadCrumbs);
+//            req.setAttribute("doctorBreadCrumbs", doctorBreadCrumbs);
+//
+//        }
 
-        List<String> allowCommands = Arrays.asList("doctors", "patients.field");
-        String command = req.getParameter("command");
-
-        ResourceBundle bundle1 = ResourceBundle.getBundle("resources");
-
-        Locale locale1 = bundle1.getLocale();
-
-        System.out.println(locale1);
-
-
-        if (allowCommands.contains(command)) {
-
-            String locale = req.getParameter("locale");
-            ResourceBundle bundle =
-                    locale == null ?
-                            ResourceBundle.getBundle("resources") :
-                            ResourceBundle.getBundle("resources" , new Locale(locale));
-
-
-            String doctorsByLocale = bundle.getString("doctors.breadcrumb.doctors");
-            String patientsByLocale = bundle.getString("doctors.breadcrumb.patients");
-
-            adminBreadCrumbs.put(Path.GET_DOCTORS_COMMAND, doctorsByLocale);
-            adminBreadCrumbs.put(Path.GET_PATIENTS_COMMAND, patientsByLocale);
-
-            doctorBreadCrumbs.put(Path.GET_PATIENTS_COMMAND, "Пациенты");
-            doctorBreadCrumbs.put(Path.GET_APPOINTMENTS_COMMAND, "Мед карта пациента");
-
-
-            req.setAttribute("adminBreadCrumbs", adminBreadCrumbs);
-            req.setAttribute("doctorBreadCrumbs", doctorBreadCrumbs);
-
-        }
         chain.doFilter(req, resp);
     }
 

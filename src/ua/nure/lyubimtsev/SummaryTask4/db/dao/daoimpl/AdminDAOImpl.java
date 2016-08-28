@@ -16,7 +16,7 @@ public class AdminDAOImpl implements AdminDAO {
 
         Admin admin = null;
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              PreparedStatement prepareStatement = connection.prepareStatement(GET_ADMIN_BY_LOGIN_AND_PASSWORD)) {
 
             prepareStatement.setString(1, login);

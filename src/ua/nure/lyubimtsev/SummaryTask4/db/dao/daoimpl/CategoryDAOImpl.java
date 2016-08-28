@@ -1,6 +1,5 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.CategoryDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
@@ -18,7 +17,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
         List<Category> categories = new ArrayList<>();
 
-        try (Connection connection = MySQLDAOFactory.createDataSource().getConnection();
+        try (Connection connection = MySQLDAOFactory.createConnection();
              Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM category");

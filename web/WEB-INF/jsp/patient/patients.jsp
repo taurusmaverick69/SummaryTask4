@@ -1,6 +1,5 @@
 <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="role" type="Role"--%>
-<%@ page import="ua.nure.lyubimtsev.SummaryTask4.Path" %>
 <%@include file="/WEB-INF/jspf/head.jspf" %>
 
 <html>
@@ -17,6 +16,7 @@
         }
     </style>
 </head>
+
 <body>
 
 <header>
@@ -25,20 +25,15 @@
     </div>
 </header>
 
-
-    <%--<jsp:include page='/WEB-INF/jspf/header.jspf'>--%>
-        <%--<jsp:param name="end" value="${role.ordinal()}"/>--%>
-    <%--</jsp:include>--%>
-
 <main>
     <table class="striped centered sortable">
         <thead>
         <tr>
-            <th><fmt:message key="patients.field.fullName"/></th>
-            <th><fmt:message key="patients.field.address"/></th>
-            <th><fmt:message key="patients.field.birthDate"/></th>
-            <th><fmt:message key="patients.field.state"/></th>
-            <th class="sorttable_nosort"><fmt:message key="patients.field.medicalCard"/></th>
+            <th><fmt:message key="patient.field.fullName"/></th>
+            <th><fmt:message key="patient.field.address"/></th>
+            <th><fmt:message key="patient.field.birthDate"/></th>
+            <th><fmt:message key="patient.field.state"/></th>
+            <th class="sorttable_nosort"><fmt:message key="patient.field.medicalCard"/></th>
         </tr>
         </thead>
 
@@ -70,26 +65,22 @@
                 </td>
             </tr>
         </c:forEach>
-
-
-        <%--@elvariable id="patientById" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
-        <c:if test="${not empty patientById}">
-
-            <div id="edit-patient" class="modal">
-                <%@include file="/WEB-INF/jsp/patient/update_patient.jsp" %>
-            </div>
-
-            <script>
-                $('#edit-patient').openModal();
-            </script>
-
-        </c:if>
-
-
-
-
         </tbody>
     </table>
+
+    <%--@elvariable id="patientById" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
+    <c:if test="${not empty patientById}">
+
+        <div id="edit-patient" class="modal">
+            <%@include file="/WEB-INF/jsp/patient/update_patient.jsp" %>
+        </div>
+
+        <script>
+            $('#edit-patient').openModal();
+        </script>
+
+    </c:if>
+
 </main>
 
 

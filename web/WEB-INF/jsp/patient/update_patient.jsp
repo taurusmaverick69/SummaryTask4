@@ -4,7 +4,9 @@
 <form action="controller?command=updatePatient" method="post">
     <div class="card white center">
         <div class="card-content blue">
-            <span class="card-title white-text">Редактировать пациента</span>
+            <span class="card-title white-text">
+                      <fmt:message key="patient.action.edit"/>
+            </span>
         </div>
         <div class="section"></div>
 
@@ -14,7 +16,7 @@
                 <input value="${patientById.name}" id="name" name="name" type="text" class="validate" required
                        maxlength="45">
                 <label for="name">
-                    <fmt:message key="patients.field.fullName"/>
+                    <fmt:message key="patient.field.fullName"/>
                 </label>
             </div>
         </div>
@@ -25,7 +27,7 @@
                 <input value="${patientById.address}" id="address" name="address" type="text" class="validate"
                        required maxlength="255">
                 <label for="address">
-                    <fmt:message key="patients.field.address"/>
+                    <fmt:message key="patient.field.address"/>
                 </label>
             </div>
         </div>
@@ -36,7 +38,7 @@
                 <input value="${patientById.formatBirthDate()}" id="birthDate" name="birthDate" type="date"
                        class="datepicker validate" required>
                 <label for="birthDate">
-                    <fmt:message key="patients.field.birthDate"/>
+                    <fmt:message key="patient.field.birthDate"/>
                 </label>
             </div>
         </div>
@@ -65,7 +67,7 @@
                     </c:forEach>
                 </select>
                 <label for="state">
-                    <fmt:message key="patients.field.state"/>
+                    <fmt:message key="patient.field.state"/>
                 </label>
             </div>
         </div>
@@ -83,7 +85,7 @@
                     <option value=${doctor.id}>${doctor.name}</option>
                 </select>
                 <label for="doctor">
-                    <fmt:message key="patients.field.birthDate"/>
+                    <fmt:message key="patient.field.birthDate"/>
                 </label>
             </div>
 

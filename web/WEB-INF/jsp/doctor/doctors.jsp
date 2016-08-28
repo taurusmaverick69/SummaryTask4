@@ -1,5 +1,4 @@
 <%@include file="/WEB-INF/jspf/head.jspf" %>
-
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/addons/sorttable.js"></script>
@@ -64,8 +63,6 @@
     </style>
 </head>
 <body>
-
-
 <header>
     <div class="row">
         <%@include file="/WEB-INF/jspf/header.jspf" %>
@@ -90,11 +87,11 @@
             <table class="striped centered sortable">
                 <thead>
                 <tr>
-                    <th><fmt:message key="doctors.field.login"/></th>
-                    <th><fmt:message key="doctors.field.password"/></th>
-                    <th><fmt:message key="doctors.field.fullName"/></th>
-                    <th><fmt:message key="doctors.field.category"/></th>
-                    <th><fmt:message key="doctors.field.patients"/></th>
+                    <th><fmt:message key="doctor.field.login"/></th>
+                    <th><fmt:message key="doctor.field.password"/></th>
+                    <th><fmt:message key="doctor.field.fullName"/></th>
+                    <th><fmt:message key="doctor.field.category"/></th>
+                    <th><fmt:message key="doctor.field.patients"/></th>
                 </tr>
                 </thead>
 
@@ -123,33 +120,27 @@
                         </td>
                     </tr>
                 </c:forEach>
-
-
-                    <%--@elvariable id="doctorById" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
-                <c:if test="${not empty doctorById}">
-
-                    <div id="edit-doctor" class="modal">
-                        <%@include file="/WEB-INF/jsp/doctor/update_doctor.jsp" %>
-                    </div>
-
-                    <script>
-                        $('#edit-doctor').openModal();
-                    </script>
-
-                </c:if>
-
                 </tbody>
             </table>
         </div>
     </c:forEach>
+
+    <%--@elvariable id="doctorById" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
+    <c:if test="${not empty doctorById}">
+        <div id="edit-doctor" class="modal">
+            <%@include file="/WEB-INF/jsp/doctor/update_doctor.jsp" %>
+        </div>
+
+        <script>
+            $('#edit-doctor').openModal();
+        </script>
+    </c:if>
+
 </main>
 
 
-
-
 <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
-    <a href="#insert-doctor"
-       class="btn-floating btn-large pink modal-trigger"><i class="material-icons">add</i>
+    <a href="#insert-doctor" class="btn-floating btn-large pink modal-trigger"><i class="material-icons">add</i>
     </a>
 </div>
 
@@ -168,6 +159,7 @@
 <footer class="page-footer center">
     <%@include file="/WEB-INF/jspf/footer.jspf" %>
 </footer>
+
 
 </body>
 </html>

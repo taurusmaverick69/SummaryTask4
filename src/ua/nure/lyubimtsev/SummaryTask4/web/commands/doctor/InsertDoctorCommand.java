@@ -4,7 +4,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.DoctorDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
@@ -26,6 +25,9 @@ public class InsertDoctorCommand extends Command {
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
         HttpSession session = request.getSession();
+
+        System.out.println(request.getParameter("name"));
+
 
         int categoryId = Integer.parseInt(request.getParameter("category"));
         List<Category> categories = (List<Category>) session.getAttribute("categories");
