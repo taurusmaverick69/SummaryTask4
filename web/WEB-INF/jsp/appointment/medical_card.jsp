@@ -16,14 +16,9 @@
     </style>
 </head>
 
-
 <body>
 
-<header>
-    <div class="row">
-        <%@include file="/WEB-INF/jspf/header.jspf" %>
-    </div>
-</header>
+<%@include file="/WEB-INF/jspf/header.jspf" %>
 
 <main>
     <table class="striped centered">
@@ -114,5 +109,3 @@
 
 </body>
 </html>
-
-

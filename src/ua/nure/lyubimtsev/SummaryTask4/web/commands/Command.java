@@ -2,7 +2,6 @@ package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.*;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
 import javax.servlet.ServletException;

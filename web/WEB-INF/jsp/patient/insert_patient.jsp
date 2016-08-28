@@ -3,7 +3,9 @@
 <form action="controller?command=insertPatient" method="post">
     <div class="card white center">
         <div class="card-content blue">
-            <span class="card-title white-text">Добавить пациента</span>
+            <span class="card-title white-text">
+                  <fmt:message key="patient.action.add"/>
+            </span>
         </div>
         <div class="section"></div>
 

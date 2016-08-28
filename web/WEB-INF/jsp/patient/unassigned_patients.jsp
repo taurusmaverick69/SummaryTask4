@@ -5,11 +5,7 @@
 <html>
 <body>
 
-<header>
-    <div class="row">
-        <%@include file="/WEB-INF/jspf/header.jspf" %>
-    </div>
-</header>
+<%@include file="/WEB-INF/jspf/header.jspf" %>
 
 <main>
     <table class="striped centered">
@@ -24,7 +20,7 @@
 
         <tbody>
         <%--@elvariable id="unassignedPatients" type="java.util.List"--%>
-        <c:forEach var="patient" items="${unassignedPatients}">
+        <c:forEach var="patient" items="${unassignedPatients}"><%--@elvariable id="doctorId" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
             <tr>
                 <td>${patient.name}</td>
                 <td>${patient.address}</td>
@@ -43,9 +39,7 @@
     </table>
 </main>
 
-
 <%@include file="/WEB-INF/jspf/footer.jspf" %>
-
 
 </body>
 </html>

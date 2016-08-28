@@ -1,3 +1,4 @@
+<%--@elvariable id="doctorId" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="role" type="Role"--%>
 <%@include file="/WEB-INF/jspf/head.jspf" %>
 
@@ -18,11 +19,7 @@
 
 <body>
 
-<header>
-    <div class="row">
-        <%@include file="/WEB-INF/jspf/header.jspf" %>
-    </div>
-</header>
+<%@include file="/WEB-INF/jspf/header.jspf" %>
 
 <main>
     <table class="striped centered sortable">
@@ -82,25 +79,26 @@
 
 </main>
 
-
 <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
     <a class="btn-floating btn-large pink modal-trigger" href="#modal">
         <i class="material-icons">add</i>
     </a>
 </div>
 
-<!-- Modal Structure -->
 <div id="modal" class="modal">
     <div class="modal-content">
-        <h4>Пациент уже в базе?</h4>
-        <p>Возможно пациент, который будет вам назначен, уже существует в базе.</p>
-        <p>Добавить нового пациента или выбрать из существующих?</p>
+        <h4><fmt:message key="modal.header"/></h4>
+        <p><fmt:message key="modal.content"/></p>
     </div>
     <div class="modal-footer">
         <a href="controller?command=getUnassignedPatients&doctorId=${doctorId}"
-           class=" modal-action modal-close waves-effect waves-green btn-flat">Выбрать из существующих</a>
+           class=" modal-action modal-close waves-effect waves-green btn-flat">
+            <fmt:message key="modal.footer.choose"/>
+        </a>
         <a href="#insert-patient"
-           class=" modal-action modal-close waves-effect waves-green btn-flat modal-trigger">Добавить как нового</a>
+           class=" modal-action modal-close waves-effect waves-green btn-flat modal-trigger">
+            <fmt:message key="modal.footer.add"/>
+        </a>
     </div>
 </div>
 
@@ -116,9 +114,7 @@
 
 <%@include file="/WEB-INF/jspf/result.jspf" %>
 
-
 <%@include file="/WEB-INF/jspf/footer.jspf" %>
-
 
 </body>
 </html>

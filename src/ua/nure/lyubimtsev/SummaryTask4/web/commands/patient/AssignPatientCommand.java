@@ -1,6 +1,5 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 
-
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;

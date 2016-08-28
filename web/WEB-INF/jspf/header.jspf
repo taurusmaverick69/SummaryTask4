@@ -1,53 +1,57 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<nav>
-    <div class="nav-wrapper blue darken-3">
-        <div class="col s12">
-            <%--@elvariable id="role" type="ua.nure.lyubimtsev.SummaryTask4.Role"--%>
-            <%--@elvariable id="end" type="java.lang.String"--%>
 
-            <c:if test="${role.name == 'Admin'}">
-                <a class="brand-logo">
-                    <fmt:message key="title.${pageTitle}"/>
-                </a>
-                <ul class="right">
-                    <li>
-                        <a class="dropdown-button" data-activates="dropdown1">
-                            <fmt:message key="doctor.loginInfo.admin"/>
-                                ${user.login}
-                            <i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                    </li>
-                </ul>
+<header>
+    <nav>
+        <div class="nav-wrapper blue darken-3">
+            <div class="col s12">
+                <%--@elvariable id="pageTitle" type="java.lang.String"--%>
+                <%--@elvariable id="role" type="ua.nure.lyubimtsev.SummaryTask4.Role"--%>
 
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a>${user.name}</a></li>
-                    <li><a href="#!">Изменить профиль</a></li>
-                    <li class="divider"></li>
-                    <li><a href=controller?command=logout>Выход</a></li>
-                </ul>
-            </c:if>
+                <c:if test="${role.name == 'Admin'}"><%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin"--%>
+                    <a class="brand-logo">
 
-            <c:if test="${role.name == 'Doctor'}">
-                <a class="brand-logo">
-                    <fmt:message key="title.${pageTitle}"/>
-                </a>
-                <ul class="right">
-                    <li>
-                        <a class="dropdown-button" data-activates="dropdown1">
-                            <fmt:message key="doctor.loginInfo.doctor"/>
-                                ${user.login}
-                            <i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                    </li>
-                </ul>
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a>${user.name}</a></li>
-                    <li><a href="#!">Изменить профиль</a></li>
-                    <li class="divider"></li>
-                    <li><a href="controller?command=logout">Выход</a></li>
-                </ul>
-            </c:if>
+                        <fmt:message key="title.${pageTitle}"/>
+                    </a>
+                    <ul class="right">
+                        <li>
+                            <a class="dropdown-button" data-activates="dropdown1">
+                                <fmt:message key="doctor.loginInfo.admin"/>
+                                    ${user.login}
+                                <i class="material-icons right">arrow_drop_down</i>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul id="dropdown1" class="dropdown-content">
+                        <li><a>${user.name}</a></li>
+                        <li><a href="#!">Изменить профиль</a></li>
+                        <li class="divider"></li>
+                        <li><a href=controller?command=logout>Выход</a></li>
+                    </ul>
+                </c:if>
+
+                <c:if test="${role.name == 'Doctor'}"><%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
+                    <a class="brand-logo">
+                        <fmt:message key="title.${pageTitle}"/>
+                    </a>
+                    <ul class="right">
+                        <li>
+                            <a class="dropdown-button" data-activates="dropdown1">
+                                <fmt:message key="doctor.loginInfo.doctor"/>
+                                    ${user.login}
+                                <i class="material-icons right">arrow_drop_down</i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul id="dropdown1" class="dropdown-content">
+                        <li><a>${user.name}</a></li>
+                        <li><a href="#!">Изменить профиль</a></li>
+                        <li class="divider"></li>
+                        <li><a href="controller?command=logout">Выход</a></li>
+                    </ul>
+                </c:if>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</header>

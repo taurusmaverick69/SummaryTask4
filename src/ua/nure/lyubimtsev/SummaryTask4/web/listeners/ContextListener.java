@@ -2,13 +2,12 @@ package ua.nure.lyubimtsev.SummaryTask4.web.listeners;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import ua.nure.lyubimtsev.SummaryTask4.Path;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import java.util.*;
+
 
 /**
  * Context listeners.

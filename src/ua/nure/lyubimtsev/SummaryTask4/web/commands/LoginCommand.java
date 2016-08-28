@@ -51,8 +51,6 @@ public class LoginCommand extends Command {
             redirect.setURL(contextPath + Path.GET_DOCTORS_COMMAND);
         }
 
-
         return redirect;
-
     }
 }

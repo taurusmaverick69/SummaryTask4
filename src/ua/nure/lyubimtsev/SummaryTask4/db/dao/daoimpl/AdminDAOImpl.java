@@ -1,6 +1,5 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 
-
 import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.db.Fields;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;

@@ -2,7 +2,6 @@
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/addons/sorttable.js"></script>
-
     <style>
         .mdl-badge {
             position: relative;
@@ -63,27 +62,19 @@
     </style>
 </head>
 <body>
-<header>
-    <div class="row">
-        <%@include file="/WEB-INF/jspf/header.jspf" %>
 
-        <%--<jsp:include page='/WEB-INF/jspf/header.jspf'>--%>
-        <%--<jsp:param name="end" value="0"/>--%>
-        <%--</jsp:include>--%>
+<%@include file="/WEB-INF/jspf/header.jspf" %>
 
-        <ul class="tabs blue darken-3">
-            <%--@elvariable id="categories" type="java.util.List"--%>
-            <c:forEach var="category" items="${categories}">
-                <li class="tab col s3">
-                    <a class="white-text" href="#${category.name}">
-                        <fmt:message key="tab.${category.name}"/>
-                    </a>
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
-</header>
-
+<ul class="tabs blue darken-3">
+    <%--@elvariable id="categories" type="java.util.List"--%>
+    <c:forEach var="category" items="${categories}">
+        <li class="tab col s3">
+            <a class="white-text" href="#${category.name}">
+                <fmt:message key="tab.${category.name}"/>
+            </a>
+        </li>
+    </c:forEach>
+</ul>
 
 <main>
     <c:forEach var="category" items="${categories}">

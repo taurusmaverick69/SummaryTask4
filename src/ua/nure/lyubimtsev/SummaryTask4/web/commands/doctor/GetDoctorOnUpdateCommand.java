@@ -15,6 +15,10 @@ import java.io.IOException;
 
 public class GetDoctorOnUpdateCommand extends Command {
 
+    private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
+    private static final String LOCALE_KEY = "doctors";
+
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
@@ -24,7 +28,7 @@ public class GetDoctorOnUpdateCommand extends Command {
         Admin admin = (Admin) session.getAttribute("user");
 
         request.setAttribute("doctorById", admin.getDoctorById(id));
-
+        request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
         return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }
 }
