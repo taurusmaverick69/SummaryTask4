@@ -1,5 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor;
 
+import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
@@ -9,6 +10,7 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOnUpdateCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +29,13 @@ import java.util.stream.Collectors;
  */
 public class UpdateDoctorCommand extends Command {
 
+    private static final Logger LOG = Logger.getLogger(UpdateDoctorCommand.class);
+
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+
+        LOG.debug("Command starts");
 
         HttpSession session = request.getSession();
 

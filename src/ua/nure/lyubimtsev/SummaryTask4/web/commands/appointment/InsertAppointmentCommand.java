@@ -1,5 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment;
 
+import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
@@ -24,8 +25,14 @@ import java.util.stream.Collectors;
  *
  */
 public class InsertAppointmentCommand extends Command {
+
+    private static final Logger LOG = Logger.getLogger(InsertAppointmentCommand.class);
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+
+
+        LOG.debug("Command starts");
 
         HttpSession session = request.getSession();
 

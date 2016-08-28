@@ -1,7 +1,9 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
+import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.*;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.patient.UpdatePatientCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,12 @@ import java.io.IOException;
  */
 public class PRGCommand extends Command {
 
+    private static final Logger LOG = Logger.getLogger(PRGCommand.class);
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+
+        LOG.debug("Command starts");
 
         boolean success = Boolean.parseBoolean(request.getParameter("success"));
 

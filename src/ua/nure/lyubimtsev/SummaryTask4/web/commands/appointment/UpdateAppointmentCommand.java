@@ -1,5 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment;
 
+import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
@@ -15,7 +16,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 /**
  * Update appointment.
  *
@@ -23,9 +23,13 @@ import java.util.stream.Collectors;
  *
  */
 public class UpdateAppointmentCommand extends Command {
+
+    private static final Logger LOG = Logger.getLogger(UpdateAppointmentCommand.class);
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
+        LOG.debug("Command starts");
 
         HttpSession session = request.getSession();
 

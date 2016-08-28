@@ -1,11 +1,13 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 
+import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.*;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
+import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOnUpdateCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +25,15 @@ import java.util.stream.Collectors;
  */
 public class GetPatientOnUpdateCommand extends Command {
 
+    private static final Logger LOG = Logger.getLogger(GetPatientOnUpdateCommand.class);
+
     private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
     private static final String LOCALE_KEY = "patients";
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+
+        LOG.debug("Command starts");
 
         HttpSession session = request.getSession();
         int patientId = Integer.parseInt(request.getParameter("patientId"));

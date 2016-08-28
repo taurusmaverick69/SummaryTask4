@@ -2,9 +2,6 @@ package ua.nure.lyubimtsev.SummaryTask4.db.dao;
 
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 /**
  * Class, that produces DAOs such as AdminDAO, CategoryDAO, AppointmentDAO and so forth.
  *
@@ -25,8 +22,6 @@ public abstract class DAOFactory {
         }
         return factory;
     }
-
-
 
     public abstract AdminDAO getAdminDAO();
 

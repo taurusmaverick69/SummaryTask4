@@ -1,5 +1,6 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment;
 
+import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
@@ -22,11 +23,15 @@ import java.io.IOException;
  */
 public class GetAppointmentOnUpdateCommand extends Command {
 
+    private static final Logger LOG = Logger.getLogger(GetAppointmentOnUpdateCommand.class);
+
     private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
     private static final String LOCALE_KEY = "medicalCard";
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+
+        LOG.debug("Command starts");
 
         HttpSession session = request.getSession();
         int id = Integer.parseInt(request.getParameter("id"));
