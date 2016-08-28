@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetAppointmentsCommand extends Command {
+
+    private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
+    private static final String LOCALE_KEY = "medicalCard";
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
@@ -38,6 +42,7 @@ public class GetAppointmentsCommand extends Command {
         }
         session.setAttribute("types", types);
 
+        request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
         return new Redirect(Path.MEDICAL_CARD_PAGE, ForwardingType.FORWARD);
     }
 }

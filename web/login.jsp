@@ -12,7 +12,6 @@
         <div class="section"></div>
 
 
-
         <div class="container">
             <div class="z-depth-1 grey lighten-4 row"
                  style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
@@ -80,9 +79,7 @@
     </style>
 </main>
 
-<footer class="page-footer center">
-    <%@include file="/WEB-INF/jspf/footer.jspf" %>
-</footer>
+<%@include file="/WEB-INF/jspf/footer.jspf" %>
 
 
 </body>

@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetUnassignedPatientsCommand extends Command {
+
+    private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
+    private static final String LOCALE_KEY = "unassignedPatients";
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
@@ -24,6 +28,7 @@ public class GetUnassignedPatientsCommand extends Command {
         request.setAttribute("doctorId", doctorId);
         request.getSession().setAttribute("unassignedPatients", unassignedPatients);
 
+        request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
         return new Redirect(Path.UNASSIGNED_PATIENTS_PAGE, ForwardingType.FORWARD);
     }
 }

@@ -71,10 +71,14 @@
         <%--<jsp:param name="end" value="0"/>--%>
         <%--</jsp:include>--%>
 
-        <ul class="tabs deep-purple darken-3">
+        <ul class="tabs blue darken-3">
             <%--@elvariable id="categories" type="java.util.List"--%>
             <c:forEach var="category" items="${categories}">
-                <li class="tab col s3"><a class="white-text" href="#${category.name}">${category.name}</a></li>
+                <li class="tab col s3">
+                    <a class="white-text" href="#${category.name}">
+                        <fmt:message key="tab.${category.name}"/>
+                    </a>
+                </li>
             </c:forEach>
         </ul>
     </div>
@@ -156,9 +160,8 @@
 
 <%@include file="/WEB-INF/jspf/result.jspf" %>
 
-<footer class="page-footer center">
-    <%@include file="/WEB-INF/jspf/footer.jspf" %>
-</footer>
+
+<%@include file="/WEB-INF/jspf/footer.jspf" %>
 
 
 </body>

@@ -18,6 +18,9 @@ import java.util.List;
 
 public class GetDoctorsCommand extends Command {
 
+    private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
+    private static final String LOCALE_KEY = "doctors";
+
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, AppException {
@@ -41,6 +44,8 @@ public class GetDoctorsCommand extends Command {
         }
 
         session.setAttribute("all", admin.getDoctors());
+
+        request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
         return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }
 }

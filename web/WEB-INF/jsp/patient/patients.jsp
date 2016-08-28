@@ -105,7 +105,7 @@
 </div>
 
 <div id="insert-patient" class="modal">
-    <%@include file="/WEB-INF/jsp/patient/insert_patient.jsp"%>
+    <%@include file="/WEB-INF/jsp/patient/insert_patient.jsp" %>
 </div>
 
 <script>
@@ -116,9 +116,9 @@
 
 <%@include file="/WEB-INF/jspf/result.jspf" %>
 
-<footer class="page-footer center">
-    <%@include file="/WEB-INF/jspf/footer.jspf" %>
-</footer>
+
+<%@include file="/WEB-INF/jspf/footer.jspf" %>
+
 
 </body>
 </html>

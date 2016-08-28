@@ -44,9 +44,8 @@
 </main>
 
 
-<footer class="page-footer center">
-    <%@include file="/WEB-INF/jspf/footer.jspf" %>
-</footer>
+<%@include file="/WEB-INF/jspf/footer.jspf" %>
+
 
 </body>
 </html>
