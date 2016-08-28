@@ -37,11 +37,18 @@ public class GetAppointmentOnUpdateCommand extends Command {
         int id = Integer.parseInt(request.getParameter("id"));
 
         MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
+        LOG.trace("medicalCard --> " + medicalCard);
+
         Appointment appointmentById = medicalCard.getAppointmentById(id);
+        LOG.trace("appointmentById --> " + appointmentById);
 
         request.setAttribute("appointmentById", appointmentById);
+        LOG.trace("Set the session attribute: appointmentById --> " + appointmentById);
 
         request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
+        LOG.trace("Set the session attribute: pageTitle --> " + LOCALE_KEY);
+
+        LOG.debug("Commands finished");
         return new Redirect(Path.MEDICAL_CARD_PAGE, ForwardingType.FORWARD);
     }
 }

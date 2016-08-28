@@ -40,10 +40,16 @@ public class UpdateDoctorCommand extends Command {
         HttpSession session = request.getSession();
 
         int doctorId = Integer.parseInt(request.getParameter("doctorId"));
+        LOG.trace("doctorId --> " + doctorId);
 
         String name = request.getParameter("name");
+        LOG.trace("name --> " + name);
+
         String login = request.getParameter("login");
+        LOG.trace("login --> " + login);
+
         String password = request.getParameter("password");
+        LOG.trace("password --> " + password);
 
         int categoryId = Integer.parseInt(request.getParameter("category"));
         List<Category> categories = ((List<Category>) session.getAttribute("categories"));
@@ -51,14 +57,12 @@ public class UpdateDoctorCommand extends Command {
                 .stream()
                 .filter(category -> category.getId() == categoryId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
-
-
+        LOG.trace("categoryById --> " + categoryById);
 
         Doctor doctorById = ((Admin) session.getAttribute("user")).getDoctorById(doctorId);
-
+        LOG.trace("doctorById --> " + doctorById);
 
         Doctor tempDoctor = new Doctor(doctorById.getId(), login, password, name, categoryById);
-
 
         boolean success;
         Role role = (Role) session.getAttribute("role");
@@ -78,6 +82,8 @@ public class UpdateDoctorCommand extends Command {
             }
 
         }
+
+        LOG.debug("Commands finished");
         return new Redirect(Path.PRG_COMMAND + "&entity=Doctor&action=update&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

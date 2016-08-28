@@ -53,6 +53,8 @@ public class PRGCommand extends Command {
                 redirect.setURL(Path.GET_APPOINTMENTS_COMMAND);
                 break;
         }
+
+        LOG.debug("Commands finished");
         return redirect;
     }
 }

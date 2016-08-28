@@ -36,17 +36,24 @@ public class GetPatientOnUpdateCommand extends Command {
         LOG.debug("Command starts");
 
         HttpSession session = request.getSession();
+
         int patientId = Integer.parseInt(request.getParameter("patientId"));
+        LOG.trace("patientId --> " + patientId);
 
         List<Patient> patients = (List<Patient>) session.getAttribute("patients");
         Patient patientById = patients
                 .stream()
                 .filter(patient -> patient.getId() == patientId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+        LOG.trace("patientById --> " + patientById);
 
+        LOG.trace("Set the session attribute: patientById --> " + patientById);
         request.setAttribute("patientById", patientById);
-        request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
-        return new Redirect(Path.PATIENTS_PAGE, ForwardingType.FORWARD);
 
+        LOG.trace("Set the session attribute: pageTitle --> " + LOCALE_KEY);
+        request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
+
+        LOG.debug("Commands finished");
+        return new Redirect(Path.PATIENTS_PAGE, ForwardingType.FORWARD);
     }
 }

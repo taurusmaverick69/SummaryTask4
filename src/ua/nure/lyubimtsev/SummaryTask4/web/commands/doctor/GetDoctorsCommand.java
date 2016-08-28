@@ -9,7 +9,6 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
-import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOnUpdateCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +22,6 @@ import java.util.List;
  * List doctors.
  *
  * @author Vladislav
- *
  */
 public class GetDoctorsCommand extends Command {
 
@@ -41,14 +39,24 @@ public class GetDoctorsCommand extends Command {
         HttpSession session = request.getSession();
 
         Admin admin = (Admin) session.getAttribute("user");
+        LOG.trace("admin --> " + admin);
 
         List<Doctor> allDoctors = factory.getDoctorDAO().getAllDoctors();
+        LOG.trace("allDoctors --> " + allDoctors);
         admin.setDoctors(allDoctors);
 
         List<Category> categories = factory.getCategoryDAO().getAllCategories();
+
         session.setAttribute("categories", categories);
+        LOG.trace("Set the session attribute: categories  -->  " + categories);
+
         for (Category category : categories) {
-            session.setAttribute(category.getName(), admin.getDoctorsByCategory(category));
+
+            String name = category.getName();
+            List<Doctor> doctorsByCategory = admin.getDoctorsByCategory(category);
+
+            session.setAttribute(name, doctorsByCategory);
+            LOG.trace("Set the session attribute: " + name + " --> " + doctorsByCategory);
         }
 
         Category all = new Category(0, "all");
@@ -56,9 +64,14 @@ public class GetDoctorsCommand extends Command {
             categories.add(0, all);
         }
 
-        session.setAttribute("all", admin.getDoctors());
+        List<Doctor> doctors = admin.getDoctors();
+        session.setAttribute("all", doctors);
+        LOG.trace("Set the session attribute: all --> " + doctors);
 
         request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
+        LOG.trace("Set the request attribute: pageTitle --> " + LOCALE_KEY);
+
+        LOG.debug("Commands finished");
         return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }
 }

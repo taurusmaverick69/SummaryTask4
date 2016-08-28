@@ -34,6 +34,7 @@ public class UpdateAppointmentCommand extends Command {
         HttpSession session = request.getSession();
 
         String diagnose = request.getParameter("diagnose");
+        LOG.trace("diagnose --> " + diagnose);
 
         int typeId = Integer.parseInt(request.getParameter("type"));
         List<Type> types = ((List<Type>) session.getAttribute("types"));
@@ -41,10 +42,15 @@ public class UpdateAppointmentCommand extends Command {
                 .stream()
                 .filter(type -> type.getId() == typeId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+        LOG.trace("typeById --> " + typeById);
+
 
         String info = request.getParameter("info");
+        LOG.trace("info --> " + info);
 
         Appointment appointmentById = (Appointment) session.getAttribute("appointmentById");
+        LOG.trace("appointmentById --> " + appointmentById);
+
         Appointment tempAppointment = new Appointment();
 
         tempAppointment.setId(appointmentById.getId());
@@ -59,6 +65,7 @@ public class UpdateAppointmentCommand extends Command {
             appointmentById.setInfo(info);
         }
 
+        LOG.debug("Commands finished");
         return new Redirect(Path.PRG_COMMAND + "&entity=Appointment&action=update&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

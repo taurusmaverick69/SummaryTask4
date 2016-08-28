@@ -39,14 +39,19 @@ public class InsertDoctorCommand extends Command {
         HttpSession session = request.getSession();
 
         int categoryId = Integer.parseInt(request.getParameter("category"));
-        List<Category> categories = (List<Category>) session.getAttribute("categories");
+        LOG.trace("categoryId --> " + categoryId);
 
+
+        List<Category> categories = (List<Category>) session.getAttribute("categories");
         Category categoryById = categories
                 .stream()
                 .filter(category -> category.getId() == categoryId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+        LOG.trace("categoryById --> " + categoryById);
+
 
         Admin admin = (Admin) session.getAttribute("user");
+        LOG.trace("admin --> " + admin);
 
         Doctor doctor = new Doctor(
                 request.getParameter("login"),
@@ -59,12 +64,16 @@ public class InsertDoctorCommand extends Command {
         DoctorDAO doctorDAO = factory.getDoctorDAO();
 
         if (doctorDAO.isLoginExists(doctor.getLogin())) {
+
+            LOG.debug("Commands finished");
             return new Redirect(Path.INSERT_DOCTOR_PAGE + "?result=" + "Пользователь с таким именем уже существует", ForwardingType.FORWARD);
         } else {
             boolean success;
             if (success = doctorDAO.insertDoctor(doctor) > 0) {
                 admin.getDoctors().add(doctor);
             }
+
+            LOG.debug("Commands finished");
             return new Redirect(Path.PRG_COMMAND + "&entity=Doctor&action=insert&success=" + success, ForwardingType.SEND_REDIRECT);
         }
     }

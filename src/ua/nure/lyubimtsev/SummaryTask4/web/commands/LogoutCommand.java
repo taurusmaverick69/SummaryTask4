@@ -33,6 +33,10 @@ public class LogoutCommand extends Command {
         if (session != null) {
             session.invalidate();
         }
+
+        LOG.trace("Session invalidated --> " + session);
+
+        LOG.debug("Commands finished");
         return new Redirect(Path.LOGIN_PAGE, ForwardingType.FORWARD);
     }
 }

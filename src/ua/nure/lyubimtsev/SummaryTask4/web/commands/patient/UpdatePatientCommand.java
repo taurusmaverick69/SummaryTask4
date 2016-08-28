@@ -42,9 +42,13 @@ public class UpdatePatientCommand extends Command {
         HttpSession session = request.getSession();
 
         int patientId = Integer.parseInt(request.getParameter("patientId"));
+        LOG.trace("patientId --> " + patientId);
 
         String name = request.getParameter("name");
+        LOG.trace("name --> " + name);
+
         String address = request.getParameter("address");
+        LOG.trace("address --> " + address);
 
         Date birthDate = null;
         try {
@@ -52,6 +56,7 @@ public class UpdatePatientCommand extends Command {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        LOG.trace("birthDate --> " + birthDate);
 
         List<State> states = ((List<State>) session.getAttribute("states"));
         int stateId = Integer.parseInt(request.getParameter("state"));
@@ -59,12 +64,15 @@ public class UpdatePatientCommand extends Command {
                 .stream()
                 .filter(state -> state.getId() == stateId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+        LOG.trace("stateById --> " + stateById);
 
         int doctorId = (int) session.getAttribute("doctorId");
+        LOG.trace("doctorId --> " + doctorId);
 
         Object user = session.getAttribute("user");
         Patient patientById = null;
         Role role = (Role) session.getAttribute("role");
+        LOG.trace("patientId --> " + patientId);
         switch (role) {
             case ADMIN:
                 patientById = ((Admin) user).getDoctorById(doctorId).getPatientById(patientId);
@@ -73,6 +81,8 @@ public class UpdatePatientCommand extends Command {
                 patientById = ((Doctor) user).getPatientById(patientId);
                 break;
         }
+        LOG.trace("patientById --> " + patientById);
+
 
         Patient tempPatient = new Patient(patientId, name, address, birthDate, stateById);
         boolean success;
@@ -82,6 +92,8 @@ public class UpdatePatientCommand extends Command {
             patientById.setBirthDate(birthDate);
             patientById.setState(stateById);
         }
+
+        LOG.debug("Commands finished");
         return new Redirect(Path.PRG_COMMAND + "&entity=Patient&action=update&doctorId=" + doctorId + "&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }

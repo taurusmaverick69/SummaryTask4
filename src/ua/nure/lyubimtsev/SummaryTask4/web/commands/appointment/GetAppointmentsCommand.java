@@ -39,9 +39,11 @@ public class GetAppointmentsCommand extends Command {
         HttpSession session = request.getSession();
 
         MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
+        LOG.trace("medicalCard --> " + medicalCard);
 
         List<Appointment> appointments =
                 factory.getAppointmentDAO().getAppointmentsByMedicalCardId(medicalCard.getId());
+        LOG.trace("appointments --> " + appointments);
 
         medicalCard.setAppointments(appointments);
 
@@ -50,9 +52,14 @@ public class GetAppointmentsCommand extends Command {
         if (doctor.getCategory().getName().equals("nurse")) {
             types.remove(new Type("operation"));
         }
+
         session.setAttribute("types", types);
+        LOG.trace("Set the session attribute: types --> " + types);
 
         request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
+        LOG.trace("Set the request attribute: pageTitle --> " + LOCALE_KEY);
+
+        LOG.debug("Commands finished");
         return new Redirect(Path.MEDICAL_CARD_PAGE, ForwardingType.FORWARD);
     }
 }

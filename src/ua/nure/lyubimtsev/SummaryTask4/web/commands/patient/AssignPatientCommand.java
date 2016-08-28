@@ -38,7 +38,10 @@ public class AssignPatientCommand extends Command {
         HttpSession session = request.getSession();
 
         int patientId = Integer.parseInt(request.getParameter("patientId"));
+        LOG.trace("patientId --> " + patientId);
+
         int doctorId = (Integer) session.getAttribute("doctorId");
+        LOG.trace("doctorId --> " + doctorId);
 
         boolean success;
         if (success = factory.getPatientDAO().assignPatient(patientId, doctorId) > 0) {
@@ -48,6 +51,7 @@ public class AssignPatientCommand extends Command {
                     .stream()
                     .filter(patient -> patient.getId() == patientId)
                     .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+            LOG.trace("patientById --> " + patientById);
 
             Object user = session.getAttribute("user");
             Doctor doctor = null;
@@ -55,14 +59,19 @@ public class AssignPatientCommand extends Command {
             switch (role) {
                 case ADMIN:
                     doctor = ((Admin) user).getDoctorById(doctorId);
+                    LOG.trace("doctor --> " + doctor);
                     break;
+
                 case DOCTOR:
                     doctor = ((Doctor) user);
+                    LOG.trace("doctor --> " + doctor);
                     break;
             }
             doctor.getPatients().add(patientById);
         }
 
+
+        LOG.debug("Commands finished");
         return new Redirect(Path.PRG_COMMAND + "&entity=Patient&action=assign&doctorId=" + doctorId + "&success=" + success, ForwardingType.SEND_REDIRECT);
 
     }

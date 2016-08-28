@@ -31,12 +31,12 @@ public class InsertAppointmentCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
-
         LOG.debug("Command starts");
 
         HttpSession session = request.getSession();
 
         String diagnose = request.getParameter("diagnose");
+        LOG.trace("diagnose --> " + diagnose);
 
         int typeId = Integer.parseInt(request.getParameter("type"));
         List<Type> types = (List<Type>) session.getAttribute("types");
@@ -44,13 +44,16 @@ public class InsertAppointmentCommand extends Command {
                 .stream()
                 .filter(type -> type.getId() == typeId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+        LOG.trace("typeById --> " + typeById);
 
         String info = request.getParameter("info");
-
+        LOG.trace("info --> " + info);
 
         Doctor doctor = (Doctor) session.getAttribute("doctor");
-        MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
+        LOG.trace("doctor --> " + doctor);
 
+        MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
+        LOG.trace("medicalCard --> " + medicalCard);
 
         Appointment appointment = new Appointment(diagnose, typeById, info, new Date(), doctor, medicalCard.getId());
 
@@ -59,6 +62,7 @@ public class InsertAppointmentCommand extends Command {
             medicalCard.getAppointments().add(appointment);
         }
 
+        LOG.debug("Commands finished");
         return new Redirect(Path.PRG_COMMAND + "&entity=Appointment&action=insert&success=" + success, ForwardingType.SEND_REDIRECT);
 
     }

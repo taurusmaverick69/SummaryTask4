@@ -27,6 +27,7 @@ public class ForwardCommand extends Command {
         LOG.debug("Command starts");
 
         String page = request.getParameter("page");
+        LOG.debug("Commands finished");
         return page != null ?
                 new Redirect(page, ForwardingType.FORWARD)
                 : null;

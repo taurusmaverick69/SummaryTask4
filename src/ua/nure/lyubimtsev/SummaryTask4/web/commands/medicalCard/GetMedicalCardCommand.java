@@ -8,7 +8,6 @@ import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.MedicalCardDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
-import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOnUpdateCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -35,18 +34,26 @@ public class GetMedicalCardCommand extends Command {
         HttpSession session = request.getSession();
 
         int patientId = Integer.parseInt(request.getParameter("patientId"));
+        LOG.trace("patientId --> " + patientId);
 
 
         MedicalCardDAO medicalCardDAO = factory.getMedicalCardDAO();
         MedicalCard medicalCard = medicalCardDAO.getMedicalCardByPatientId(patientId);
+
+        LOG.trace("medicalCard --> " + medicalCard);
+
+
 
         if (medicalCard == null) {
             medicalCard = new MedicalCard(new Date(), patientId);
             medicalCardDAO.insertMedicalCard(medicalCard);
         }
 
-        session.setAttribute("medicalCard", medicalCard);
 
+        session.setAttribute("medicalCard", medicalCard);
+        LOG.trace("Set the session attribute: medicalCard --> " + medicalCard);
+
+        LOG.debug("Commands finished");
         return new Redirect(Path.GET_APPOINTMENTS_COMMAND, ForwardingType.FORWARD);
     }
 }

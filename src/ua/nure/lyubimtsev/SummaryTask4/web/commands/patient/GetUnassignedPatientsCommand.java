@@ -12,6 +12,7 @@ import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOn
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,13 +34,22 @@ public class GetUnassignedPatientsCommand extends Command {
 
         LOG.debug("Command starts");
 
+        HttpSession session = request.getSession();
+
         int doctorId = Integer.parseInt(request.getParameter("doctorId"));
+
         List<Patient> unassignedPatients = factory.getPatientDAO().getUnassignedPatients(doctorId);
 
         request.setAttribute("doctorId", doctorId);
-        request.getSession().setAttribute("unassignedPatients", unassignedPatients);
+        LOG.trace("Set the request attribute: doctorId --> " + doctorId);
+
+        session.setAttribute("unassignedPatients", unassignedPatients);
+        LOG.trace("Set the session attribute: unassignedPatients --> " + unassignedPatients);
 
         request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
+        LOG.trace("Set the request attribute: pageTitle --> " + LOCALE_KEY);
+
+        LOG.debug("Commands finished");
         return new Redirect(Path.UNASSIGNED_PATIENTS_PAGE, ForwardingType.FORWARD);
     }
 }

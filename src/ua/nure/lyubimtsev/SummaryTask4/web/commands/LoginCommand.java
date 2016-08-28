@@ -39,7 +39,6 @@ public class LoginCommand extends Command {
         Redirect redirect = new Redirect();
         redirect.setForwardingType(ForwardingType.SEND_REDIRECT);
 
-
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
@@ -52,17 +51,39 @@ public class LoginCommand extends Command {
                 request.setAttribute("loginFailed", "Invalid username or password");
                 return new Redirect(Path.LOGIN_PAGE, ForwardingType.FORWARD);
             } else {
+                LOG.trace("Found in DB: user --> " + doctor);
+
                 session.setAttribute("user", doctor);
-                session.setAttribute("role", Role.DOCTOR);
+                LOG.trace("Set the session attribute: user --> " + doctor);
+
+                Role role = Role.DOCTOR;
+                LOG.trace("userRole --> " + role);
+
+                session.setAttribute("role", role);
+                LOG.trace("Set the session attribute: role --> " + role);
+
+                LOG.info("User " + doctor + " logged as " + role.toString().toLowerCase());
                 redirect.setURL(contextPath + Path.GET_PATIENTS_COMMAND);
             }
 
         } else {
+            LOG.trace("Found in DB: user --> " + admin);
+
             session.setAttribute("user", admin);
-            session.setAttribute("role", Role.ADMIN);
+            LOG.trace("Set the session attribute: user --> " + admin);
+
+            Role role = Role.ADMIN;
+            LOG.trace("userRole --> " + role);
+
+            session.setAttribute("role", role);
+            LOG.trace("Set the session attribute: role --> " + role);
+
+            LOG.info("User " + admin + " logged as " + role.toString().toLowerCase());
             redirect.setURL(contextPath + Path.GET_DOCTORS_COMMAND);
         }
 
+
+        LOG.debug("Commands finished");
         return redirect;
     }
 }

@@ -42,7 +42,10 @@ public class InsertPatientCommand extends Command {
         HttpSession session = request.getSession();
 
         String name = request.getParameter("name");
+        LOG.trace("name --> " + name);
+
         String address = request.getParameter("address");
+        LOG.trace("address --> " + address);
 
         Date birthDate = null;
         try {
@@ -50,6 +53,7 @@ public class InsertPatientCommand extends Command {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        LOG.trace("birthDate --> " + birthDate);
 
         List<State> states = (List<State>) session.getAttribute("states");
         int stateId = Integer.parseInt(request.getParameter("state"));
@@ -57,15 +61,18 @@ public class InsertPatientCommand extends Command {
                 .stream()
                 .filter(state -> state.getId() == stateId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
+        LOG.trace("stateById --> " + stateById);
 
+        int doctorId = (int) session.getAttribute("doctorId");
+        LOG.trace("doctorId --> " + doctorId);
 
-        int doctorId = (Integer) session.getAttribute("doctorId");
         Patient patient = new Patient(name, address, birthDate, stateById, doctorId);
 
         boolean success;
         Object user = session.getAttribute("user");
         if (success = factory.getPatientDAO().insertPatient(patient) > 0) {
             Role role = (Role) session.getAttribute("role");
+            LOG.trace("role --> " + role);
             switch (role) {
                 case ADMIN:
                     Admin admin = (Admin) user;
@@ -78,6 +85,7 @@ public class InsertPatientCommand extends Command {
             }
         }
 
+        LOG.debug("Commands finished");
         return new Redirect(Path.PRG_COMMAND + "&entity=Patient&action=insert&doctorId=" + doctorId + "&success=" + success, ForwardingType.SEND_REDIRECT);
     }
 }
