@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Doctor entity.
+ * Category entity.
  *
  * @author V.Lyubimtsev
  */

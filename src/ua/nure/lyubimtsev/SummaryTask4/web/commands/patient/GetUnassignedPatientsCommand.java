@@ -19,8 +19,9 @@ public class GetUnassignedPatientsCommand extends Command {
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
         int doctorId = Integer.parseInt(request.getParameter("doctorId"));
-        List<Patient> unassignedPatients = DAOFactory.getMySQLDAOFactory().getPatientDAO().getUnassignedPatients(doctorId);
+        List<Patient> unassignedPatients = factory.getPatientDAO().getUnassignedPatients(doctorId);
 
+        request.setAttribute("doctorId", doctorId);
         request.getSession().setAttribute("unassignedPatients", unassignedPatients);
 
         return new Redirect(Path.UNASSIGNED_PATIENTS_PAGE, ForwardingType.FORWARD);

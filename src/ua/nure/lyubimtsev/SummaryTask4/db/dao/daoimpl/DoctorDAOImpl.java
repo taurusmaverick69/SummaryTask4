@@ -7,6 +7,8 @@ import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.DoctorDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 import ua.nure.lyubimtsev.SummaryTask4.exception.DBException;
 import ua.nure.lyubimtsev.SummaryTask4.exception.Messages;
 
@@ -24,6 +26,7 @@ public class DoctorDAOImpl implements DoctorDAO {
     private static final String SQL_INSERT_DOCTOR = "INSERT INTO doctor VALUES (DEFAULT,?,?,?,?,?)";
     private static final String SQL_ADMIN_UPDATE_DOCTOR = "UPDATE doctor SET name = ?, category_id = ? WHERE id = ?";
     private static final String SQL_DOCTOR_UPDATE_DOCTOR = "UPDATE doctor SET login = ?, password = ?, name = ?, category_id = ? WHERE id = ?";
+    private static final String SQL_GET_PATIENTS_BY_DOCTOR_ID = "SELECT * FROM patient, patient_doctor, state WHERE patient.id = patient_doctor.patient_id AND patient.state_id = state.id AND patient_doctor.doctor_id = ?";
 
 
     @Override
@@ -38,23 +41,41 @@ public class DoctorDAOImpl implements DoctorDAO {
         try {
 
             connection = MySQLDAOFactory.createConnection();
-            statement = connection.createStatement();
-
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
+            statement = connection.createStatement();
+
             resultSet = statement.executeQuery(SQL_GET_ALL_DOCTORS);
 
+            PreparedStatement patientPreparedStatement = connection.prepareStatement(SQL_GET_PATIENTS_BY_DOCTOR_ID);
+
             while (resultSet.next()) {
-                doctors.add(
-                        new Doctor(
-                                resultSet.getInt(Fields.DOCTOR_ID),
-                                resultSet.getString(Fields.DOCTOR_LOGIN),
-                                resultSet.getString(Fields.DOCTOR_PASSWORD),
-                                resultSet.getString(Fields.DOCTOR_NAME),
-                                new Category(resultSet.getInt(Fields.CATEGORY_ID), resultSet.getString(Fields.CATEGORY_NAME))
-                        )
+                Doctor doctor = new Doctor(
+                        resultSet.getInt(Fields.DOCTOR_ID),
+                        resultSet.getString(Fields.DOCTOR_LOGIN),
+                        resultSet.getString(Fields.DOCTOR_PASSWORD),
+                        resultSet.getString(Fields.DOCTOR_NAME),
+                        new Category(resultSet.getInt(Fields.CATEGORY_ID), resultSet.getString(Fields.CATEGORY_NAME))
                 );
+
+                patientPreparedStatement.setInt(1, doctor.getId());
+                ResultSet patientResultSet = patientPreparedStatement.executeQuery();
+                List<Patient> patients = new ArrayList<>();
+
+                while (patientResultSet.next()) {
+                    Patient patient = new Patient(
+                            patientResultSet.getInt(Fields.PATIENT_ID),
+                            patientResultSet.getString(Fields.PATIENT_NAME),
+                            patientResultSet.getString(Fields.PATIENT_ADDRESS),
+                            patientResultSet.getDate(Fields.PATIENT_BIRTH_DATE),
+                            new State(patientResultSet.getInt(Fields.STATE_ID), patientResultSet.getString(Fields.STATE_NAME))
+                    );
+                    patients.add(patient);
+                }
+
+                doctor.setPatients(patients);
+                doctors.add(doctor);
             }
             connection.commit();
 
@@ -79,10 +100,10 @@ public class DoctorDAOImpl implements DoctorDAO {
 
         try {
             connection = MySQLDAOFactory.createConnection();
-            preparedStatement = connection.prepareStatement(SQL_GET_DOCTOR_BY_LOGIN_AND_PASSWORD, Statement.RETURN_GENERATED_KEYS);
-
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
+            preparedStatement = connection.prepareStatement(SQL_GET_DOCTOR_BY_LOGIN_AND_PASSWORD, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
@@ -90,6 +111,7 @@ public class DoctorDAOImpl implements DoctorDAO {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+                PreparedStatement patientPreparedStatement = connection.prepareStatement(SQL_GET_PATIENTS_BY_DOCTOR_ID);
                 doctor = new Doctor(
                         resultSet.getInt(Fields.DOCTOR_ID),
                         resultSet.getString(Fields.DOCTOR_LOGIN),
@@ -97,7 +119,24 @@ public class DoctorDAOImpl implements DoctorDAO {
                         resultSet.getString(Fields.DOCTOR_NAME),
                         new Category(resultSet.getInt(Fields.CATEGORY_ID), resultSet.getString(Fields.CATEGORY_NAME))
                 );
+
+                patientPreparedStatement.setInt(1, doctor.getId());
+                ResultSet patientResultSet = patientPreparedStatement.executeQuery();
+                List<Patient> patients = new ArrayList<>();
+
+                while (patientResultSet.next()) {
+                    Patient patient = new Patient(
+                            patientResultSet.getInt(Fields.PATIENT_ID),
+                            patientResultSet.getString(Fields.PATIENT_NAME),
+                            patientResultSet.getString(Fields.PATIENT_ADDRESS),
+                            patientResultSet.getDate(Fields.PATIENT_BIRTH_DATE),
+                            new State(patientResultSet.getInt(Fields.STATE_ID), patientResultSet.getString(Fields.STATE_NAME))
+                    );
+                    patients.add(patient);
+                }
+                doctor.setPatients(patients);
             }
+
             connection.commit();
 
         } catch (SQLException e) {
@@ -121,10 +160,10 @@ public class DoctorDAOImpl implements DoctorDAO {
 
         try {
             connection = MySQLDAOFactory.createConnection();
-            preparedStatement = connection.prepareStatement(SQL_INSERT_DOCTOR, Statement.RETURN_GENERATED_KEYS);
-
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
+            preparedStatement = connection.prepareStatement(SQL_INSERT_DOCTOR, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, doctor.getLogin());
             preparedStatement.setString(2, doctor.getPassword());
@@ -157,11 +196,16 @@ public class DoctorDAOImpl implements DoctorDAO {
     @Override
     public int updateDoctor(Doctor doctor, Role role) throws DBException {
 
+        int rows = 0;
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = MySQLDAOFactory.createConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
             switch (role) {
                 case ADMIN:
                     preparedStatement = connection.prepareStatement(SQL_ADMIN_UPDATE_DOCTOR);
@@ -171,7 +215,6 @@ public class DoctorDAOImpl implements DoctorDAO {
                     break;
 
                 case DOCTOR:
-
                     preparedStatement = connection.prepareStatement(SQL_DOCTOR_UPDATE_DOCTOR);
                     preparedStatement.setString(1, doctor.getLogin());
                     preparedStatement.setString(2, doctor.getPassword());
@@ -183,7 +226,8 @@ public class DoctorDAOImpl implements DoctorDAO {
                     return 0;
             }
 
-            return preparedStatement.executeUpdate();
+            rows = preparedStatement.executeUpdate();
+            connection.commit();
 
         } catch (SQLException e) {
             MySQLDAOFactory.rollback(connection);
@@ -193,6 +237,7 @@ public class DoctorDAOImpl implements DoctorDAO {
             MySQLDAOFactory.close(connection);
             MySQLDAOFactory.close(preparedStatement);
         }
+        return rows;
     }
 
     @Override

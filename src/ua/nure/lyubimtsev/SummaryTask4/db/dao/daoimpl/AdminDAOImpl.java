@@ -9,7 +9,10 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.exception.DBException;
 import ua.nure.lyubimtsev.SummaryTask4.exception.Messages;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class AdminDAOImpl implements AdminDAO {
 
@@ -28,10 +31,10 @@ public class AdminDAOImpl implements AdminDAO {
 
         try {
             connection = MySQLDAOFactory.createConnection();
-            preparedStatement = connection.prepareStatement(GET_ADMIN_BY_LOGIN_AND_PASSWORD);
-
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
+            preparedStatement = connection.prepareStatement(GET_ADMIN_BY_LOGIN_AND_PASSWORD);
 
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
@@ -50,8 +53,8 @@ public class AdminDAOImpl implements AdminDAO {
             connection.commit();
         } catch (SQLException e) {
             MySQLDAOFactory.rollback(connection);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN_BY_LOGIN_AND_PASSWORD, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN_BY_LOGIN_AND_PASSWORD, e);
         } finally {
             MySQLDAOFactory.close(connection, preparedStatement, resultSet);
         }

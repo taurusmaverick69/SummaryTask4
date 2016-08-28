@@ -30,12 +30,14 @@
         <div class="row">
             <div class="input-field col s10 offset-s1 ">
                 <i class="material-icons prefix">date_range</i>
-                <input id="birthDate" name="birthDate" type="date" class="datepicker validate" required>
+                <input id="birthDate" name="birthDate" type="date"
+                       class="datepicker validate" required>
                 <label for="birthDate">
                     <fmt:message key="patient.field.birthDate"/>
                 </label>
             </div>
         </div>
+
 
         <script>
             $(".datepicker").pickadate({
@@ -43,7 +45,6 @@
                 selectYears: 15, // Creates a dropdown of 15 years to control year
                 format: "dd.mm.yyyy"
             });
-
         </script>
 
         <div class="row">
@@ -56,31 +57,6 @@
                 </select>
                 <label for="state">
                     <fmt:message key="patient.field.state"/>
-                </label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s10 offset-s1">
-
-
-                <%--@elvariable id="role" type="ua.nure.lyubimtsev.SummaryTask4.Role"--%>
-                <%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin"--%>
-                <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
-
-                <select id="doctor" name="doctor">
-                    <c:if test="${role.name == 'Admin'}">
-                        <c:forEach var="doctor" items="${user.doctors}">
-                            <option value=${doctor.id}>${doctor.name}</option>
-                        </c:forEach>
-                    </c:if>
-
-                    <c:if test="${role.name == 'Doctor'}">
-                        <option value=${doctor.id}>${doctor.name}</option>
-                    </c:if>
-                </select>
-                <label for="doctor">
-                    <fmt:message key="patient.field.birthDate"/>
                 </label>
             </div>
         </div>

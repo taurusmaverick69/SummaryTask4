@@ -12,6 +12,12 @@ import ua.nure.lyubimtsev.SummaryTask4.web.commands.patient.*;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Holder for all commands.
+ *
+ * @author Vladislav
+ *
+ */
 public class CommandContainer {
 
     private static final Logger LOG = Logger.getLogger(CommandContainer.class);

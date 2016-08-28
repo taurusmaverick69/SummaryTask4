@@ -42,4 +42,11 @@ public class Fields {
     public static final String CATEGORY_ID = "category.id";
     public static final String CATEGORY_NAME = "category.name";
 
+    public static final String PATIENT_ID = "patient.id";
+    public static final String PATIENT_NAME = "patient.name";
+    public static final String PATIENT_ADDRESS = "address";
+    public static final String PATIENT_BIRTH_DATE = "birthDate";
+    public static final String STATE_ID = "state.id";
+    public static final String STATE_NAME = "state.name";
+
 }

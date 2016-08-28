@@ -2,6 +2,9 @@
 <html>
 <body>
 <form action="controller?command=updatePatient" method="post">
+
+    <input type="hidden" value="${patientById.id}" name="patientId">
+
     <div class="card white center">
         <div class="card-content blue">
             <span class="card-title white-text">

@@ -25,6 +25,8 @@ public class UpdateDoctorCommand extends Command {
 
         HttpSession session = request.getSession();
 
+        int doctorId = Integer.parseInt(request.getParameter("doctorId"));
+
         String name = request.getParameter("name");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
@@ -37,9 +39,13 @@ public class UpdateDoctorCommand extends Command {
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        Doctor doctorById = ((Admin) session.getAttribute("user")).getDoctorById(id);
+
+        Doctor doctorById = ((Admin) session.getAttribute("user")).getDoctorById(doctorId);
+
+
         Doctor tempDoctor = new Doctor(doctorById.getId(), login, password, name, categoryById);
+
+
         boolean success;
         Role role = (Role) session.getAttribute("role");
         if (success = factory.getDoctorDAO().updateDoctor(tempDoctor, role) > 0) {

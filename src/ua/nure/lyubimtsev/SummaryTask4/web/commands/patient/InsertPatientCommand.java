@@ -4,8 +4,10 @@ import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.Role;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.*;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
@@ -43,7 +45,8 @@ public class InsertPatientCommand extends Command {
                 .filter(state -> state.getId() == stateId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-        int doctorId = Integer.parseInt(request.getParameter("doctor"));
+
+        int doctorId = (Integer) session.getAttribute("doctorId");
         Patient patient = new Patient(name, address, birthDate, stateById, doctorId);
 
         boolean success;

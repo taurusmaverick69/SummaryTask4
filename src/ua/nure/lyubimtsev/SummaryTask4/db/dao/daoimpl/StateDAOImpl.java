@@ -1,6 +1,7 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.dao.daoimpl;
 
 import org.apache.log4j.Logger;
+import ua.nure.lyubimtsev.SummaryTask4.db.Fields;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.MySQLDAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.StateDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
@@ -31,19 +32,23 @@ public class StateDAOImpl implements StateDAO {
 
         try {
             connection = MySQLDAOFactory.createConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SQL_GEL_ALL_STATES);
 
             while (resultSet.next()) {
                 states.add(new State(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name")
+                        resultSet.getInt(Fields.ENTITY_ID),
+                        resultSet.getString(Fields.NAME)
                 ));
             }
+            connection.commit();
         } catch (SQLException e) {
             MySQLDAOFactory.rollback(connection);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_STATES, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_STATES, e);
         } finally {
             MySQLDAOFactory.close(connection, statement, resultSet);
         }

@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
 
+/**
+ * Main interface for the Command pattern implementation.
+ *
+ * @author Vladislav
+ *
+ */
 public abstract class Command implements Serializable {
 
     protected DAOFactory factory = DAOFactory.getMySQLDAOFactory();

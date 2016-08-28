@@ -4,10 +4,10 @@ package ua.nure.lyubimtsev.SummaryTask4.web.commands.patient;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
+import ua.nure.lyubimtsev.SummaryTask4.Role;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
@@ -26,7 +26,7 @@ public class AssignPatientCommand extends Command {
         HttpSession session = request.getSession();
 
         int patientId = Integer.parseInt(request.getParameter("patientId"));
-        int doctorId = ((Doctor) request.getSession().getAttribute("doctor")).getId();
+        int doctorId = (Integer) session.getAttribute("doctorId");
 
         boolean success;
         if (success = factory.getPatientDAO().assignPatient(patientId, doctorId) > 0) {
@@ -37,7 +37,17 @@ public class AssignPatientCommand extends Command {
                     .filter(patient -> patient.getId() == patientId)
                     .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-            Doctor doctor = (Doctor) session.getAttribute("doctor");
+            Object user = session.getAttribute("user");
+            Doctor doctor = null;
+            Role role = (Role) session.getAttribute("role");
+            switch (role) {
+                case ADMIN:
+                    doctor = ((Admin) user).getDoctorById(doctorId);
+                    break;
+                case DOCTOR:
+                    doctor = ((Doctor) user);
+                    break;
+            }
             doctor.getPatients().add(patientById);
         }
 

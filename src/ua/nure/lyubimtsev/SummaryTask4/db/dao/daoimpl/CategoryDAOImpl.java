@@ -8,7 +8,10 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.exception.DBException;
 import ua.nure.lyubimtsev.SummaryTask4.exception.Messages;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +31,10 @@ public class CategoryDAOImpl implements CategoryDAO {
 
         try {
             connection = MySQLDAOFactory.createConnection();
-            statement = connection.createStatement();
-
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
+            statement = connection.createStatement();
 
             resultSet = statement.executeQuery(GET_ALL_CATEGORIES);
 
@@ -43,7 +46,6 @@ public class CategoryDAOImpl implements CategoryDAO {
             }
 
             connection.commit();
-
         } catch (SQLException e) {
             MySQLDAOFactory.rollback(connection);
             LOG.error(Messages.ERR_CANNOT_OBTAIN_CATEGORIES, e);

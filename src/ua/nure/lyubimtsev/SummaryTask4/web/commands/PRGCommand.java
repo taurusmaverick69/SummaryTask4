@@ -1,6 +1,7 @@
 package ua.nure.lyubimtsev.SummaryTask4.web.commands;
 
 import ua.nure.lyubimtsev.SummaryTask4.*;
+import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ public class PRGCommand extends Command {
 
 
     @Override
-    public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
         boolean success = Boolean.parseBoolean(request.getParameter("success"));
 

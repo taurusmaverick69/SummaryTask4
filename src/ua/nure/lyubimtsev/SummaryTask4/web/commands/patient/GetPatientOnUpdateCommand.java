@@ -25,11 +25,12 @@ public class GetPatientOnUpdateCommand extends Command {
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
         HttpSession session = request.getSession();
-        int id = Integer.parseInt(request.getParameter("id"));
-        List<Patient> patients = ((Doctor) session.getAttribute("doctor")).getPatients();
+        int patientId = Integer.parseInt(request.getParameter("patientId"));
+
+        List<Patient> patients = (List<Patient>) session.getAttribute("patients");
         Patient patientById = patients
                 .stream()
-                .filter(patient -> patient.getId() == id)
+                .filter(patient -> patient.getId() == patientId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
         request.setAttribute("patientById", patientById);

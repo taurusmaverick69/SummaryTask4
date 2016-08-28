@@ -3,10 +3,10 @@ package ua.nure.lyubimtsev.SummaryTask4.web.commands.doctor;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.entitydao.PatientDAO;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
+import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
@@ -19,18 +19,15 @@ import java.util.List;
 public class GetDoctorsCommand extends Command {
 
     @Override
-    public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public Redirect execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException, AppException {
 
         HttpSession session = request.getSession();
 
         Admin admin = (Admin) session.getAttribute("user");
 
         List<Doctor> allDoctors = factory.getDoctorDAO().getAllDoctors();
-        PatientDAO patientDAO = factory.getPatientDAO();
         admin.setDoctors(allDoctors);
-        for (Doctor doctor : admin.getDoctors()) {
-            doctor.setPatients(patientDAO.getPatientsByDoctorId(doctor.getId()));
-        }
 
         List<Category> categories = factory.getCategoryDAO().getAllCategories();
         session.setAttribute("categories", categories);

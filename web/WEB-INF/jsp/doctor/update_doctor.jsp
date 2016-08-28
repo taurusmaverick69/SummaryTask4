@@ -3,7 +3,7 @@
 <body>
 <form action="controller?command=updateDoctor" method="post">
 
-    <input type="hidden" value="${doctorById.id}" name="id">
+    <input type="hidden" value="${doctorById.id}" name="doctorId">
 
     <div class="card white center">
         <div class="card-content blue">

@@ -3,42 +3,50 @@ package ua.nure.lyubimtsev.SummaryTask4.exception;
 /**
  * Holder for messages of exceptions.
  * 
- * @author Dmytro_Kolesnikov
+ * @author Vladislav
  *
  */
 public class Messages {
 
-	private Messages() {
-		// no op
-	}
-	
-	public static final String ERR_CANNOT_OBTAIN_USER_ORDER_BEANS = "Cannot obtain user order beans";
+    public static final String ERR_CANNOT_OBTAIN_ADMIN_BY_LOGIN_AND_PASSWORD = "Cannot obtain admin by login and password";
+
+    public static final String ERR_CANNOT_OBTAIN_DOCTORS = "Cannot obtain doctors";
+    public static final String ERR_CANNOT_OBTAIN_DOCTOR_BY_LOGIN_AND_PASSWORD = "Cannot obtain doctor by login and password";
+    public static final String ERR_CANNOT_INSERT_DOCTOR = "Cannot insert doctor";
+    public static final String ERR_CANNOT_UPDATE_DOCTOR = "Cannot update doctor";
+
+    public static final String ERR_CANNOT_ASSIGN_PATIENT = "Cannot assign patient on doctor";
+    public static final String ERR_CANNOT_OBTAIN_UNASSIGNED_PATIENTS = "cannot obtain unassigned patients";
+    public static final String ERR_CANNOT_UPDATE_PATIENT = "Cannot update patient";
+    public static final String ERR_CANNOT_INSERT_PATIENT = "Cannot insert patient";
+    public static final String ERR_CANNOT_OBTAIN_PATIENT_BY_DOCTOR_ID = "Cannot obtain patient by doctor id";
+    public static final String ERR_CANNOT_OBTAIN_PATIENTS = "Cannot obtain patients";
+
+    public static final String ERR_CANNOT_OBTAIN_MEDICAL_CARD_BY_PATIENT_ID = "Cannot obtain medical card by patient id";
+    public static final String ERR_CANNOT_INSERT_MEDICAL_CARD = "Cannot insert medical card";
+
+    public static final String ERR_CANNOT_UPDATE_APPOINTMENT = "Cannot update appointment";
+	public static final String ERR_CANNOT_INSERT_APPOINTMENT = "Cannot insert appointment";
+    public static final String ERR_CANNOT_OBTAIN_APPOINTMENTS_BY_MEDICAL_CARD_ID = "Cannot obtain appointments by medical card id";
+
+
+
+    public static final String ERR_CANNOT_OBTAIN_TYPES = "Cannot obtain types";
+
+    public static final String ERR_CANNOT_OBTAIN_STATES = "Cannot obtain states";
+
+    public static final String ERR_CANNOT_OBTAIN_CATEGORIES = "Cannot obtain categories";
 
 	public static final String ERR_CANNOT_OBTAIN_CONNECTION = "Cannot obtain a connection from the pool";
 
-	public static final String ERR_CANNOT_OBTAIN_CATEGORIES = "Cannot obtain categories";
 
-	public static final String ERR_CANNOT_OBTAIN_MENU_ITEMS = "Cannot obtain menu items";
 
-	public static final String ERR_CANNOT_OBTAIN_MENU_ITEMS_BY_ORDER = "Cannot obtain menu items by order";
 
-	public static final String ERR_CANNOT_OBTAIN_MENU_ITEMS_BY_IDENTIFIERS = "Cannot obtain menu items by its identifiers";
 
-	public static final String ERR_CANNOT_OBTAIN_ORDERS = "Cannot obtain orders";
-
-	public static final String ERR_CANNOT_OBTAIN_ORDERS_BY_STATUS_ID = "Cannot obtain orders by status id";
-
-	public static final String ERR_CANNOT_OBTAIN_ORDERS_BY_IDENTIFIERS = "Cannot obtain orders by its identifiers";
-
-	public static final String ERR_CANNOT_OBTAIN_ORDERS_BY_USER_AND_STATUS_ID = "Cannot obtain orders by user and status id";
-
-	public static final String ERR_CANNOT_OBTAIN_USER_BY_ID = "Cannot obtain a user by its id";
-
-	public static final String ERR_CANNOT_OBTAIN_USER_BY_LOGIN = "Cannot obtain a user by its login";
-
-	public static final String ERR_CANNOT_UPDATE_USER = "Cannot update a user";
 
 	public static final String ERR_CANNOT_CLOSE_CONNECTION = "Cannot close a connection";
+
+	public static final String ERR_CANNOT_CREATE_CONNECTION = "Cannot create a connection";
 
 	public static final String ERR_CANNOT_CLOSE_RESULTSET = "Cannot close a result set";
 

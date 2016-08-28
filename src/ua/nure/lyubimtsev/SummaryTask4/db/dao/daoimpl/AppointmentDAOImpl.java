@@ -31,10 +31,10 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
         try {
             connection = MySQLDAOFactory.createConnection();
-            preparedStatement = connection.prepareStatement(GET_APPOINTMENTS_BY_MEDICAL_CARD);
-
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
+            preparedStatement = connection.prepareStatement(GET_APPOINTMENTS_BY_MEDICAL_CARD);
 
             preparedStatement.setInt(1, medicalCardId);
 
@@ -55,8 +55,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             connection.commit();
         } catch (SQLException e) {
             MySQLDAOFactory.rollback(connection);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_APPOINTMENTS, e);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_APPOINTMENTS, e);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_APPOINTMENTS_BY_MEDICAL_CARD_ID, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_APPOINTMENTS_BY_MEDICAL_CARD_ID, e);
         } finally {
             MySQLDAOFactory.close(connection, preparedStatement, resultSet);
         }
@@ -101,11 +101,12 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     @Override
     public int updateAppointment(Appointment appointment) throws DBException {
 
+        int rows = 0;
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
-
             connection = MySQLDAOFactory.createConnection();
             preparedStatement = connection.prepareStatement(SQL_UPDATE_APPOINTMENT);
 
@@ -117,8 +118,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             preparedStatement.setString(3, appointment.getInfo());
             preparedStatement.setInt(4, appointment.getId());
 
+            rows = preparedStatement.executeUpdate();
             connection.commit();
-            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             MySQLDAOFactory.rollback(connection);
             LOG.error(Messages.ERR_CANNOT_UPDATE_APPOINTMENT, e);
@@ -128,5 +129,6 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             MySQLDAOFactory.close(preparedStatement);
         }
 
+        return rows;
     }
 }

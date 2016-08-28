@@ -19,7 +19,8 @@ import java.io.IOException;
 public class LoginCommand extends Command {
 
     @Override
-    public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+    public Redirect execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException, AppException {
 
         HttpSession session = request.getSession();
 
@@ -30,7 +31,7 @@ public class LoginCommand extends Command {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        Admin admin = DAOFactory.getMySQLDAOFactory().getAdminDAO().getAdminByLoginAndPassword(login, DigestUtils.md5Hex(password));
+        Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, DigestUtils.md5Hex(password));
 
         String contextPath = request.getContextPath();
         if (admin == null) {

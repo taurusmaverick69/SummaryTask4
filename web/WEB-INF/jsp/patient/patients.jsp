@@ -1,4 +1,3 @@
-<%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="role" type="Role"--%>
 <%@include file="/WEB-INF/jspf/head.jspf" %>
 
@@ -39,7 +38,7 @@
 
         <tbody>
         <%--@elvariable id="patients" type="java.util.List"--%>
-        <c:forEach var="patient" items="${doctor.patients}">
+        <c:forEach var="patient" items="${patients}">
 
             <tr>
                 <td>${patient.name}</td>
@@ -58,7 +57,7 @@
                     </c:if>
                 </td>
                 <td>
-                    <a href="controller?command=getPatientOnUpdate&id=${patient.id}"
+                    <a href="controller?command=getPatientOnUpdate&patientId=${patient.id}"
                        class="btn-floating waves-effect">
                         <i class="material-icons">edit</i>
                     </a>
@@ -98,7 +97,7 @@
         <p>Добавить нового пациента или выбрать из существующих?</p>
     </div>
     <div class="modal-footer">
-        <a href="controller?command=getUnassignedPatients&doctorId=${doctor.id}"
+        <a href="controller?command=getUnassignedPatients&doctorId=${doctorId}"
            class=" modal-action modal-close waves-effect waves-green btn-flat">Выбрать из существующих</a>
         <a href="#insert-patient"
            class=" modal-action modal-close waves-effect waves-green btn-flat modal-trigger">Добавить как нового</a>

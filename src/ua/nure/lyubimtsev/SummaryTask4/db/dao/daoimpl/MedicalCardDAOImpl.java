@@ -20,26 +20,33 @@ public class MedicalCardDAOImpl implements MedicalCardDAO {
     @Override
     public int insertMedicalCard(MedicalCard medicalCard) throws DBException {
 
+        int rows = 0;
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = MySQLDAOFactory.createConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
             preparedStatement = connection.prepareStatement(SQL_INSERT_MEDICAL_CARD);
 
             preparedStatement.setDate(1, new Date(medicalCard.getRegistrationDate().getTime()));
             preparedStatement.setInt(2, medicalCard.getPatientId());
 
-            return preparedStatement.executeUpdate();
+            rows = preparedStatement.executeUpdate();
+            connection.commit();
 
         } catch (SQLException e) {
             MySQLDAOFactory.rollback(connection);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            LOG.error(Messages.ERR_CANNOT_INSERT_MEDICAL_CARD, e);
+            throw new DBException(Messages.ERR_CANNOT_INSERT_MEDICAL_CARD, e);
         } finally {
             MySQLDAOFactory.close(connection);
             MySQLDAOFactory.close(preparedStatement);
         }
+        return rows;
     }
 
 
@@ -54,6 +61,9 @@ public class MedicalCardDAOImpl implements MedicalCardDAO {
 
         try {
             connection = MySQLDAOFactory.createConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
             preparedStatement = connection.prepareStatement(SQL_GET_MEDICAL_CARD_BY_PATIENT_ID);
 
             preparedStatement.setInt(1, patientId);
@@ -67,10 +77,11 @@ public class MedicalCardDAOImpl implements MedicalCardDAO {
                 );
             }
 
+            connection.commit();
         } catch (SQLException e) {
             MySQLDAOFactory.rollback(connection);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_MEDICAL_CARD_BY_PATIENT_ID, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_MEDICAL_CARD_BY_PATIENT_ID, e);
         } finally {
             MySQLDAOFactory.close(connection, preparedStatement, resultSet);
         }

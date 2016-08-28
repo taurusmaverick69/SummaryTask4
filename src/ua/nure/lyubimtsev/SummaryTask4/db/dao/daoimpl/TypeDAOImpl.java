@@ -8,14 +8,16 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Type;
 import ua.nure.lyubimtsev.SummaryTask4.exception.DBException;
 import ua.nure.lyubimtsev.SummaryTask4.exception.Messages;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TypeDAOImpl implements TypeDAO {
 
     private static final Logger LOG = Logger.getLogger(TypeDAOImpl.class);
-
 
     private static final String SQL_GET_ALL_TYPES = "SELECT * FROM type";
 
@@ -28,9 +30,11 @@ public class TypeDAOImpl implements TypeDAO {
         Statement statement = null;
         ResultSet resultSet = null;
 
-        try  {
-
+        try {
             connection = MySQLDAOFactory.createConnection();
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SQL_GET_ALL_TYPES);
 
@@ -40,13 +44,15 @@ public class TypeDAOImpl implements TypeDAO {
                         resultSet.getString(Fields.NAME)
                 ));
             }
+            connection.commit();
         } catch (SQLException e) {
             MySQLDAOFactory.rollback(connection);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_ADMIN, e);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_TYPES, e);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_TYPES, e);
         } finally {
             MySQLDAOFactory.close(connection, statement, resultSet);
         }
+
         return types;
 
     }

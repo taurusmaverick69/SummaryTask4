@@ -32,7 +32,7 @@
                 <td>${patient.state.name}</td>
 
                 <td>
-                    <a href="controller?command=assignPatient&patientId=${patient.id}"
+                    <a href="controller?command=assignPatient&patientId=${patient.id}&doctorId=${doctorId}"
                        class="btn-floating waves-effect">
                         <i class="material-icons">add</i>
                     </a>
