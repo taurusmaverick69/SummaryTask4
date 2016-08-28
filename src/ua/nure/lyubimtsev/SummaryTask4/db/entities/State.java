@@ -1,8 +1,13 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
-public class State {
 
-    private int id;
+/**
+ * State entity.
+ *
+ * @author V.Lyubimtsev
+ */
+public class State  extends Entity {
+
     private String name;
 
     public State(int id, String name) {

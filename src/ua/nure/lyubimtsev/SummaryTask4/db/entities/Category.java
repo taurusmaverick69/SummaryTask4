@@ -1,8 +1,13 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
-public class Category {
 
-    private int id;
+/**
+ * Category entity.
+ *
+ * @author V.Lyubimtsev
+ */
+public class Category extends Entity {
+
     private String name;
 
     public Category() {
@@ -40,8 +45,7 @@ public class Category {
 
         Category category = (Category) o;
 
-        if (id != category.id) return false;
-        return name != null ? name.equals(category.name) : category.name == null;
+        return id == category.id && (name != null ? name.equals(category.name) : category.name == null);
 
     }
 

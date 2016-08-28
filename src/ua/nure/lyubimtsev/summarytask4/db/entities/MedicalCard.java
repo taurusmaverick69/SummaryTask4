@@ -5,9 +5,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MedicalCard {
 
-    private int id;
+/**
+ * MedicalCard entity.
+ *
+ * @author V.Lyubimtsev
+ */
+public class MedicalCard  extends Entity {
+
     private Date registrationDate;
     private int patientId;
     private List<Appointment> appointments;

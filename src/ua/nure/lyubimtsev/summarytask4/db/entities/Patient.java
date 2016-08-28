@@ -3,9 +3,13 @@ package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Patient {
+/**
+ * Patient entity.
+ *
+ * @author V.Lyubimtsev
+ */
+public class Patient extends Entity {
 
-    private int id;
     private String name;
     private String address;
     private Date birthDate;

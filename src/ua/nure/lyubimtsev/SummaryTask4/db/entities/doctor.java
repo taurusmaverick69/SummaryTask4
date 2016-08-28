@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Doctor {
+/**
+ * Doctor entity.
+ *
+ * @author V.Lyubimtsev
+ */
+public class Doctor extends Entity {
 
-    private int id;
     private String login;
     private String password;
     private String name;

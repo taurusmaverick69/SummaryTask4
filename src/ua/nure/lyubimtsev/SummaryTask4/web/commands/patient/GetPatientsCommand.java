@@ -4,22 +4,16 @@ import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
 import ua.nure.lyubimtsev.SummaryTask4.Role;
-import ua.nure.lyubimtsev.SummaryTask4.db.dao.DAOFactory;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class GetPatientsCommand extends Command {
 
@@ -31,7 +25,7 @@ public class GetPatientsCommand extends Command {
         Role role = (Role) session.getAttribute("role");
         Object user = session.getAttribute("user");
 
-        session.setAttribute("states", factory.getStateDAO().getStates());
+        session.setAttribute("states", factory.getStateDAO().getAllStates());
 
         Doctor doctor = null;
         switch (role) {

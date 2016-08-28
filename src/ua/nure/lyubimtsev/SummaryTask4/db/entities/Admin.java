@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Admin {
 
-    private int id;
+/**
+ * Admin entity.
+ *
+ * @author V.Lyubimtsev
+ */
+public class Admin extends Entity {
+
     private String login;
     private String password;
     private String name;

@@ -1,13 +1,16 @@
 package ua.nure.lyubimtsev.SummaryTask4.db.entities;
 
-public class Type {
 
-    private int id;
+/**
+ * Type entity.
+ *
+ * @author V.Lyubimtsev
+ */
+public class Type extends Entity {
+
     private String name;
 
     public Type(int id, String name) {
-
-
         this.id = id;
         this.name = name;
     }
