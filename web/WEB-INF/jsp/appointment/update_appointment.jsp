@@ -5,6 +5,8 @@
 <form action="controller?command=updateAppointment" method="post">
 
 
+    <input type="hidden" value="${appointmentById.id}" name="appointmentId">
+
     <div class="card white center">
         <div class="card-content blue">
             <span class="card-title white-text">

@@ -11,7 +11,6 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
-import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOnUpdateCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +27,6 @@ import java.util.stream.Collectors;
  * Insert patient.
  *
  * @author Vladislav
- *
  */
 public class InsertPatientCommand extends Command {
 
@@ -89,6 +87,11 @@ public class InsertPatientCommand extends Command {
         }
 
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND + "&entity=Patient&action=insert&doctorId=" + doctorId + "&success=" + success, ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.PRG_COMMAND +
+                "&action=" + INSERT +
+                "&entity=" + PATIENT +
+                "&doctorId=" + doctorId +
+                "&success=" + success,
+                ForwardingType.SEND_REDIRECT);
     }
 }

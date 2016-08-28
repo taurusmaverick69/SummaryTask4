@@ -75,7 +75,12 @@ public class AssignPatientCommand extends Command {
 
 
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND + "&entity=Patient&action=assign&doctorId=" + doctorId + "&success=" + success, ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.PRG_COMMAND +
+                "&action=" + ASSIGN +
+                "&entity=" + PATIENT +
+                "&doctorId=" + doctorId +
+                "&success=" + success,
+                ForwardingType.SEND_REDIRECT);
 
     }
 }

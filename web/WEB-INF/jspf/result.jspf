@@ -10,6 +10,6 @@
 <%--@elvariable id="result" type="java.lang.String"--%>
 <c:if test="${not empty result}">
     <script>
-        Materialize.toast("<span>${result}</span>", 3000, "rounded");
+        Materialize.toast("<span>  <fmt:message key="result.${result}"/></span>", 3000, "rounded");
     </script>
 </c:if>

@@ -36,6 +36,10 @@ public class UpdateAppointmentCommand extends Command {
 
         HttpSession session = request.getSession();
 
+        int appointmentId = Integer.parseInt(request.getParameter("appointmentId"));
+        LOG.trace("appointmentId --> " + appointmentId);
+
+
         String diagnose = request.getParameter("diagnose");
         LOG.trace("diagnose --> " + diagnose);
 
@@ -51,12 +55,14 @@ public class UpdateAppointmentCommand extends Command {
         String info = request.getParameter("info");
         LOG.trace("info --> " + info);
 
-        Appointment appointmentById = (Appointment) session.getAttribute("appointmentById");
+        MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
+
+        Appointment appointmentById = medicalCard.getAppointmentById(appointmentId);
         LOG.trace("appointmentById --> " + appointmentById);
 
         Appointment tempAppointment = new Appointment();
 
-        tempAppointment.setId(appointmentById.getId());
+        tempAppointment.setId(appointmentId);
         tempAppointment.setDiagnose(diagnose);
         tempAppointment.setType(typeById);
         tempAppointment.setInfo(info);
@@ -69,6 +75,10 @@ public class UpdateAppointmentCommand extends Command {
         }
 
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND + "&entity=Appointment&action=update&success=" + success, ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.PRG_COMMAND +
+                "&action=" + UPDATE +
+                "&entity=" + APPOINTMENT +
+                "&success=" + success,
+                ForwardingType.SEND_REDIRECT);
     }
 }

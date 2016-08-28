@@ -54,12 +54,13 @@ public class GetPatientsCommand extends Command {
         List<Patient> patients = new ArrayList<>();
 
         int doctorId = 0;
-        Doctor doctor;
+        Doctor doctor = null;
         switch (role) {
             case ADMIN:
                 doctorId = Integer.parseInt(request.getParameter("doctorId"));
                 Admin admin = (Admin) user;
-                patients = admin.getDoctorById(doctorId).getPatients();
+                doctor = admin.getDoctorById(doctorId);
+                patients = doctor.getPatients();
                 break;
             case DOCTOR:
                 doctor = (Doctor) user;
@@ -67,6 +68,9 @@ public class GetPatientsCommand extends Command {
                 doctorId = doctor.getId();
                 break;
         }
+
+        session.setAttribute("doctorName", doctor.getName());
+        LOG.trace("Set the session attribute: doctorId --> " + doctorId);
 
         session.setAttribute("doctorId", doctorId);
         LOG.trace("Set the session attribute: doctorId --> " + doctorId);

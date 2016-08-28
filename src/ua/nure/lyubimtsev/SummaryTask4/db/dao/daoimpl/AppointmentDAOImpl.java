@@ -80,15 +80,17 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     @Override
     public int insertAppointment(Appointment appointment) throws DBException {
 
+        int rows = 0;
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = MySQLDAOFactory.createConnection();
-            preparedStatement = connection.prepareStatement(SQL_INSERT_APPOINTMENT);
-
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
+            preparedStatement = connection.prepareStatement(SQL_INSERT_APPOINTMENT);
 
             preparedStatement.setString(1, appointment.getDiagnose());
             preparedStatement.setInt(2, appointment.getType().getId());
@@ -97,8 +99,9 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             preparedStatement.setInt(5, appointment.getMedicalCardId());
             preparedStatement.setInt(6, appointment.getDoctor().getId());
 
+
+            rows =  preparedStatement.executeUpdate();
             connection.commit();
-            return preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
 
@@ -110,6 +113,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             MySQLDAOFactory.close(connection);
             MySQLDAOFactory.close(preparedStatement);
         }
+        return rows;
     }
 
     /**

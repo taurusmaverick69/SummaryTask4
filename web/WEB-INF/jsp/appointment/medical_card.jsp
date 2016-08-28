@@ -20,6 +20,15 @@
 
 <%@include file="/WEB-INF/jspf/header.jspf" %>
 
+<ul class="tabs blue darken-3">
+    <li class="tab col s3">
+        <a class="white-text">
+            <fmt:message key="tab.patient"/>
+            ${patientName}
+        </a>
+    </li>
+</ul>
+
 <main>
     <table class="striped centered">
         <thead>

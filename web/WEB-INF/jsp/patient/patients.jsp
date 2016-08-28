@@ -1,3 +1,4 @@
+<%--@elvariable id="doctorName" type="java.lang.String"--%>
 <%--@elvariable id="doctorId" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
 <%--@elvariable id="role" type="Role"--%>
 <%@include file="/WEB-INF/jspf/head.jspf" %>
@@ -20,6 +21,15 @@
 <body>
 
 <%@include file="/WEB-INF/jspf/header.jspf" %>
+
+<ul class="tabs blue darken-3">
+    <li class="tab col s3">
+        <a class="white-text">
+            <fmt:message key="tab.doctor"/>
+            ${doctorName}
+        </a>
+    </li>
+</ul>
 
 <main>
     <table class="striped centered sortable">

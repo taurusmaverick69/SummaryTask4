@@ -47,7 +47,6 @@ public class GetDoctorOnUpdateCommand extends Command {
         request.setAttribute("doctorById", doctorById);
         LOG.trace("Set the request attribute: doctorById --> " + doctorById);
 
-
         request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
         LOG.trace("Set the request attribute: pageTitle --> " + LOCALE_KEY);
 

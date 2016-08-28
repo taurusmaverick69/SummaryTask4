@@ -12,6 +12,8 @@ import java.util.StringTokenizer;
 @WebFilter(urlPatterns = "/*", initParams = @WebInitParam(name = "avoid-urls", value = "/login.jsp,/test2.jsp"))
 public class SessionFilter implements Filter {
 
+    private final static String END_SESSION = "login.endSession.submit";
+
     private final static String MATERIALIZECSS = "/materializecss";
     private final static String LOGIN_COMMAND = "login";
     private ArrayList<String> urlList;
@@ -42,7 +44,7 @@ public class SessionFilter implements Filter {
             response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
             Object userName = request.getSession().getAttribute("user");
             if (null == userName) {
-                request.setAttribute("endSession", "Session has ended. Please, sign in.");
+                request.setAttribute("endSession", END_SESSION);
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
             chain.doFilter(req, res);

@@ -54,7 +54,7 @@ public class InsertAppointmentCommand extends Command {
         String info = request.getParameter("info");
         LOG.trace("info --> " + info);
 
-        Doctor doctor = (Doctor) session.getAttribute("doctor");
+        Doctor doctor = (Doctor) session.getAttribute("user");
         LOG.trace("doctor --> " + doctor);
 
         MedicalCard medicalCard = (MedicalCard) session.getAttribute("medicalCard");
@@ -68,7 +68,11 @@ public class InsertAppointmentCommand extends Command {
         }
 
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND + "&entity=Appointment&action=insert&success=" + success, ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.PRG_COMMAND +
+                "&action=" + INSERT +
+                "&entity=" + APPOINTMENT +
+                "&success=" + success,
+                ForwardingType.SEND_REDIRECT);
 
     }
 }

@@ -27,26 +27,26 @@ public class PRGCommand extends Command {
     private static final String PATIENT = "Patient";
     private static final String APPOINTMENT = "Appointment";
 
-    private static final String DOCTOR_INSERT_SUCCESS = "result.doctor.add.success";
-    private static final String DOCTOR_INSERT_FAILED = "result.doctor.add.failed";
+    private static final String DOCTOR_INSERT_SUCCESS = "doctor.add.success";
+    private static final String DOCTOR_INSERT_FAILED = "doctor.add.failed";
 
-    private static final String DOCTOR_UPDATE_SUCCESS = "result.doctor.edit.success";
-    private static final String DOCTOR_UPDATE_FAILED = "result.doctor.edit.failed";
+    private static final String DOCTOR_UPDATE_SUCCESS = "doctor.edit.success";
+    private static final String DOCTOR_UPDATE_FAILED = "doctor.edit.failed";
 
-    private static final String PATIENT_INSERT_SUCCESS = "result.patient.add.success";
-    private static final String PATIENT_INSERT_FAILED = "result.patient.add.failed";
+    private static final String PATIENT_INSERT_SUCCESS = "patient.add.success";
+    private static final String PATIENT_INSERT_FAILED = "patient.add.failed";
 
-    private static final String PATIENT_UPDATE_SUCCESS = "result.patient.edit.success";
-    private static final String PATIENT_UPDATE_FAILED = "result.patient.edit.failed";
+    private static final String PATIENT_UPDATE_SUCCESS = "patient.edit.success";
+    private static final String PATIENT_UPDATE_FAILED = "patient.edit.failed";
 
-    private static final String PATIENT_ASSIGN_SUCCESS = "result.patient.assign.success";
-    private static final String PATIENT_ASSIGN_FAILED = "result.patient.assign.failed";
+    private static final String PATIENT_ASSIGN_SUCCESS = "patient.assign.success";
+    private static final String PATIENT_ASSIGN_FAILED = "patient.assign.failed";
 
-    private static final String APPOINTMENT_INSERT_SUCCESS = "result.appointment.add.success";
-    private static final String APPOINTMENT_INSERT_FAILED = "result.appointment.add.failed";
+    private static final String APPOINTMENT_INSERT_SUCCESS = "appointment.add.success";
+    private static final String APPOINTMENT_INSERT_FAILED = "appointment.add.failed";
 
-    private static final String APPOINTMENT_UPDATE_SUCCESS = "result.appointment.edit.success";
-    private static final String APPOINTMENT_UPDATE_FAILED = "result.appointment.edit.failed";
+    private static final String APPOINTMENT_UPDATE_SUCCESS = "appointment.edit.success";
+    private static final String APPOINTMENT_UPDATE_FAILED = "appointment.edit.failed";
 
     private static final String ERROR = "Error";
 

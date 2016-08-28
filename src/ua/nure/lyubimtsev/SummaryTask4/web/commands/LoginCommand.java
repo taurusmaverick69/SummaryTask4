@@ -26,6 +26,8 @@ import java.io.IOException;
  */
 public class LoginCommand extends Command {
 
+    private static final String INVALID = "login.invalid";
+
     private static final Logger LOG = Logger.getLogger(LoginCommand.class);
 
     @Override
@@ -48,7 +50,7 @@ public class LoginCommand extends Command {
         if (admin == null) {
             Doctor doctor = factory.getDoctorDAO().getDoctorByLoginAndPassword(login, DigestUtils.md5Hex(password));
             if (doctor == null) {
-                request.setAttribute("loginFailed", "Invalid username or password");
+                request.setAttribute("loginFailed", INVALID);
                 return new Redirect(Path.LOGIN_PAGE, ForwardingType.FORWARD);
             } else {
                 LOG.trace("Found in DB: user --> " + doctor);

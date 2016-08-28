@@ -87,6 +87,10 @@ public class UpdateDoctorCommand extends Command {
         }
 
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND + "&entity=Doctor&action=update&success=" + success, ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.PRG_COMMAND +
+                "&action=" + UPDATE +
+                "&entity=" + DOCTOR +
+                "&success=" + success,
+                ForwardingType.SEND_REDIRECT);
     }
 }

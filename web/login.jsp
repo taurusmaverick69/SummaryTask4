@@ -58,14 +58,14 @@
     <%--@elvariable id="loginFailed" type="java.lang.String"--%>
     <c:if test="${not empty loginFailed}">
         <script>
-            Materialize.toast("<span>${loginFailed}</span>", 3000, "rounded");
+            Materialize.toast("<span><fmt:message key="${loginFailed}"/></span>", 3000, "rounded");
         </script>
     </c:if>
 
     <%--@elvariable id="endSession" type="java.lang.String"--%>
     <c:if test="${not empty endSession}">
         <script>
-            Materialize.toast("<span>${endSession}</span>", 3000, "rounded");
+            Materialize.toast("<span><fmt:message key="${endSession}"/></span>", 3000, "rounded");
         </script>
     </c:if>
 

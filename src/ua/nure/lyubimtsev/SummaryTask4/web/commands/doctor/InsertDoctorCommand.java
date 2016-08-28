@@ -11,7 +11,6 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
-import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOnUpdateCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
  * Insert doctor.
  *
  * @author Vladislav
- *
  */
 public class InsertDoctorCommand extends Command {
 
@@ -33,7 +31,6 @@ public class InsertDoctorCommand extends Command {
 
     private static final String INSERT = "Insert";
     private static final String DOCTOR = "Doctor";
-
 
 
     @Override
@@ -79,11 +76,12 @@ public class InsertDoctorCommand extends Command {
             }
 
 
-            request.setAttribute("entity", DOCTOR);
-            request.setAttribute("action", INSERT);
-
             LOG.debug("Commands finished");
-            return new Redirect(Path.PRG_COMMAND + "&success=" + success, ForwardingType.SEND_REDIRECT);
+            return new Redirect(Path.PRG_COMMAND +
+                    "&action=" + INSERT +
+                    "&entity=" + DOCTOR +
+                    "&success=" + success,
+                    ForwardingType.SEND_REDIRECT);
         }
     }
 

@@ -45,12 +45,12 @@ public class GetPatientOnUpdateCommand extends Command {
                 .stream()
                 .filter(patient -> patient.getId() == patientId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
-        LOG.trace("patientById --> " + patientById);
 
-        LOG.trace("Set the session attribute: patientById --> " + patientById);
+
+        LOG.trace("Set the request attribute: patientById --> " + patientById);
         request.setAttribute("patientById", patientById);
 
-        LOG.trace("Set the session attribute: pageTitle --> " + LOCALE_KEY);
+        LOG.trace("Set the request attribute: pageTitle --> " + LOCALE_KEY);
         request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
 
         LOG.debug("Commands finished");

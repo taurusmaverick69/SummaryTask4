@@ -20,14 +20,14 @@
                 <ul id="languageDropdown" class='dropdown-content'>
                     <li>
                         <a onclick="location.reload()"
-                           href="?command=${param.command}&doctorId=${doctorId}&patientId=${patient.id}&appointmentId=${appointment.id}&locale=ru">
+                           href="?command=${param.command}&doctorId=${doctorId}&patientId=${patient.id}&appointmentId=${appointment.id}&login=${login}&password=${password}&locale=ru">
                             <fmt:message key="footer.button.dropdown.russian"/>
                         </a>
                     </li>
 
                     <li>
                         <a onclick="location.reload()"
-                           href="?command=${param.command}&doctorId=${doctorId}&patientId=${patient.id}&appointmentId=${appointment.id}&locale=en">
+                           href="?command=${param.command}&doctorId=${doctorId}&patientId=${patient.id}&appointmentId=${appointment.id}&login=${login}&password=${password}&locale=en">
                             <fmt:message key="footer.button.dropdown.english"/>
                         </a>
                     </li>

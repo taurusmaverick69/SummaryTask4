@@ -76,23 +76,6 @@
         </div>
 
 
-        <div class="row">
-            <div class="input-field col s10 offset-s1">
-
-                <%--@elvariable id="role" type="ua.nure.lyubimtsev.SummaryTask4.Role"--%>
-                <%--@elvariable id="user" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Admin"--%>
-                <%--@elvariable id="doctor" type="ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor"--%>
-
-                <select id="doctor" name="doctor">
-                    <option value=${doctor.id}>${doctor.name}</option>
-                </select>
-                <label for="doctor">
-                    <fmt:message key="patient.field.birthDate"/>
-                </label>
-            </div>
-        </div>
-
-
         <script>
             $(document).ready(function () {
                 $("select").material_select();
