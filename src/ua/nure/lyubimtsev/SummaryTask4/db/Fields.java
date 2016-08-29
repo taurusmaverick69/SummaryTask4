@@ -1,6 +1,5 @@
 package ua.nure.lyubimtsev.SummaryTask4.db;
 
-
 /**
  * Holder for fields names of DB tables.
  *
