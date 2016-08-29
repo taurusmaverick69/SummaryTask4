@@ -43,7 +43,7 @@ public class AssignPatientCommand extends Command {
         int patientId = Integer.parseInt(request.getParameter("patientId"));
         LOG.trace("patientId --> " + patientId);
 
-        int doctorId = (Integer) session.getAttribute("doctorId");
+        int doctorId = (int) session.getAttribute("doctorId");
         LOG.trace("doctorId --> " + doctorId);
 
         boolean success;

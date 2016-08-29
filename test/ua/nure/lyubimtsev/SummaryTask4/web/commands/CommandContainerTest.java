@@ -11,7 +11,7 @@ public class CommandContainerTest extends CommandTest{
     public void instanceOf() throws Exception {
 
         new CommandContainer();
-        Command test = CommandContainer.get("test");
+        Command test = CommandContainer.get("assignAdmin");
         assertThat(test, CoreMatchers.instanceOf(NoCommand.class));
 
 

@@ -17,6 +17,9 @@ public class MedicalCard  extends Entity {
     private int patientId;
     private List<Appointment> appointments;
 
+    public MedicalCard(int id) {
+        this.id = id;
+    }
 
     public MedicalCard(int id, Date registrationDate, int patientId) {
         this.id = id;

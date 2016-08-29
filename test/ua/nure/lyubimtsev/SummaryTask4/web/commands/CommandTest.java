@@ -9,9 +9,9 @@ import javax.servlet.http.HttpSession;
 
 public class CommandTest extends Mockito {
 
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    HttpServletResponse response = mock(HttpServletResponse.class);
-    HttpSession session = mock(HttpSession.class);
+    protected HttpServletRequest request = mock(HttpServletRequest.class);
+    protected HttpServletResponse response = mock(HttpServletResponse.class);
+    protected HttpSession session = mock(HttpSession.class);
 
 }
 
