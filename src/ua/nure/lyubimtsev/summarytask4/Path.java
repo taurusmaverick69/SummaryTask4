@@ -20,7 +20,7 @@ public class Path {
 
     public static final String MEDICAL_CARD_PAGE = "/WEB-INF/jsp/appointment/medical_card.jsp";
     public static final String INSERT_APPOINTMENT_PAGE = "/WEB-INF/jsp/appointment/insert_appointment.jsp";
-    public static final String UPDATE_APPOINTMENT_PAGE = "/WEB-INF/jsp/appointment/update_appointment.jsp";
+//    public static final String UPDATE_APPOINTMENT_PAGE = "/WEB-INF/jsp/appointment/update_appointment.jsp";
 
     // commands
     public static final String GET_DOCTORS_COMMAND = "/controller?command=doctors";
@@ -28,5 +28,6 @@ public class Path {
     public static final String GET_APPOINTMENTS_COMMAND = "/controller?command=appointments";
 
     public static final String PRG_COMMAND = "controller?command=PRG";
+
 
 }
