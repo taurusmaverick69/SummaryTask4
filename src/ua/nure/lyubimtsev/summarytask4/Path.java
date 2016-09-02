@@ -8,6 +8,8 @@ public class Path {
 
     //doctors
     public static final String DOCTORS_PAGE = "/WEB-INF/jsp/doctor/doctors.jsp";
+
+
     public static final String INSERT_DOCTOR_PAGE = "/WEB-INF/jsp/doctor/insert_doctor.jsp";
     public static final String UPDATE_DOCTOR_PAGE = "/WEB-INF/jsp/doctor/update_doctor.jsp";
 
@@ -23,9 +25,9 @@ public class Path {
 //    public static final String UPDATE_APPOINTMENT_PAGE = "/WEB-INF/jsp/appointment/update_appointment.jsp";
 
     // commands
-    public static final String GET_DOCTORS_COMMAND = "/controller?command=doctors";
-    public static final String GET_PATIENTS_COMMAND = "/controller?command=patients";
-    public static final String GET_APPOINTMENTS_COMMAND = "/controller?command=appointments";
+    public static final String GET_DOCTORS_COMMAND = "controller?command=doctors";
+    public static final String GET_PATIENTS_COMMAND = "controller?command=patients";
+    public static final String GET_APPOINTMENTS_COMMAND = "controller?command=appointments";
 
     public static final String PRG_COMMAND = "controller?command=PRG";
 

@@ -66,7 +66,6 @@ public class InsertDoctorCommand extends Command {
         DoctorDAO doctorDAO = factory.getDoctorDAO();
 
         if (doctorDAO.isLoginExists(doctor.getLogin())) {
-
             LOG.debug("Commands finished");
             return new Redirect(Path.INSERT_DOCTOR_PAGE + "?result=" + "Пользователь с таким именем уже существует", ForwardingType.FORWARD);
         } else {
@@ -77,11 +76,17 @@ public class InsertDoctorCommand extends Command {
 
 
             LOG.debug("Commands finished");
-            return new Redirect(Path.PRG_COMMAND +
-                    "&action=" + INSERT +
-                    "&entity=" + DOCTOR +
-                    "&success=" + success,
-                    ForwardingType.SEND_REDIRECT);
+
+
+            return new Redirect(Path.GET_DOCTORS_COMMAND, ForwardingType.SEND_REDIRECT);
+
+
+
+//            return new Redirect(Path.PRG_COMMAND +
+//                    "&action=" + INSERT +
+//                    "&entity=" + DOCTOR +
+//                    "&success=" + success,
+//                    ForwardingType.SEND_REDIRECT);
         }
     }
 

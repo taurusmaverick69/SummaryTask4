@@ -46,7 +46,6 @@ public class LoginCommand extends Command {
 
         Admin admin = factory.getAdminDAO().getAdminByLoginAndPassword(login, DigestUtils.md5Hex(password));
 
-        String contextPath = request.getContextPath();
         if (admin == null) {
             Doctor doctor = factory.getDoctorDAO().getDoctorByLoginAndPassword(login, DigestUtils.md5Hex(password));
             if (doctor == null) {
@@ -65,7 +64,7 @@ public class LoginCommand extends Command {
                 LOG.trace("Set the session attribute: role --> " + role);
 
                 LOG.info("User " + doctor + " logged as " + role.toString().toLowerCase());
-                redirect.setURL(contextPath + Path.GET_PATIENTS_COMMAND);
+                redirect.setURL(Path.GET_PATIENTS_COMMAND);
             }
 
         } else {
@@ -81,7 +80,7 @@ public class LoginCommand extends Command {
             LOG.trace("Set the session attribute: role --> " + role);
 
             LOG.info("User " + admin + " logged as " + role.toString().toLowerCase());
-            redirect.setURL(contextPath + Path.GET_DOCTORS_COMMAND);
+            redirect.setURL(Path.GET_DOCTORS_COMMAND);
         }
 
 

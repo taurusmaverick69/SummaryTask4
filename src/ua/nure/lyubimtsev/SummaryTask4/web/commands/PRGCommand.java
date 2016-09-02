@@ -9,6 +9,7 @@ import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -55,68 +56,77 @@ public class PRGCommand extends Command {
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
-        LOG.debug("Command starts");
 
-        boolean success = Boolean.parseBoolean(request.getParameter("success"));
 
-        String entity = request.getParameter("entity");
-        String action = request.getParameter("action");
 
-        Redirect redirect = new Redirect();
-        redirect.setForwardingType(ForwardingType.FORWARD);
 
-        String result = "";
+        return new Redirect(Path.GET_DOCTORS_COMMAND, ForwardingType.SEND_REDIRECT);
 
-        switch (entity) {
-            case DOCTOR:
-                switch (action) {
-                    case INSERT:
-                        result = success ? DOCTOR_INSERT_SUCCESS : DOCTOR_INSERT_FAILED;
-                        break;
 
-                    case UPDATE:
-                        result = success ? DOCTOR_UPDATE_SUCCESS : DOCTOR_UPDATE_FAILED;
-                        break;
-                }
-                redirect.setURL(Path.GET_DOCTORS_COMMAND);
-                break;
 
-            case PATIENT:
-                switch (action) {
-                    case INSERT:
-                        result = success ? PATIENT_INSERT_SUCCESS : PATIENT_INSERT_FAILED;
-                        break;
 
-                    case UPDATE:
-                        result = success ? PATIENT_UPDATE_SUCCESS : PATIENT_UPDATE_FAILED;
-                        break;
-
-                    case ASSIGN:
-                        result = success ? PATIENT_ASSIGN_SUCCESS : PATIENT_ASSIGN_FAILED;
-                        break;
-                }
-                int doctorId = Integer.parseInt(request.getParameter("doctorId"));
-                redirect.setURL(Path.GET_PATIENTS_COMMAND + "&doctorId=" + doctorId);
-                break;
-
-            case APPOINTMENT:
-                switch (action) {
-                    case INSERT:
-                        result = success ? APPOINTMENT_INSERT_SUCCESS : APPOINTMENT_INSERT_FAILED;
-                        break;
-                    case UPDATE:
-                        result = success ? APPOINTMENT_UPDATE_SUCCESS : APPOINTMENT_UPDATE_FAILED;
-                        break;
-                }
-                redirect.setURL(Path.GET_APPOINTMENTS_COMMAND);
-                break;
-            default:
-                result = ERROR;
-        }
-
-        request.setAttribute("result", result);
-
-        LOG.debug("Commands finished");
-        return redirect;
+//        LOG.debug("Command starts");
+//
+//        boolean success = Boolean.parseBoolean(request.getParameter("success"));
+//
+//        String entity = request.getParameter("entity");
+//        String action = request.getParameter("action");
+//
+//        Redirect redirect = new Redirect();
+//        redirect.setForwardingType(ForwardingType.FORWARD);
+//
+//        String result = "";
+//
+//        switch (entity) {
+//            case DOCTOR:
+//                switch (action) {
+//                    case INSERT:
+//                        result = success ? DOCTOR_INSERT_SUCCESS : DOCTOR_INSERT_FAILED;
+//                        break;
+//
+//                    case UPDATE:
+//                        result = success ? DOCTOR_UPDATE_SUCCESS : DOCTOR_UPDATE_FAILED;
+//                        break;
+//                }
+//                redirect.setURL(Path.GET_DOCTORS_COMMAND);
+//                break;
+//
+//            case PATIENT:
+//                switch (action) {
+//                    case INSERT:
+//                        result = success ? PATIENT_INSERT_SUCCESS : PATIENT_INSERT_FAILED;
+//                        break;
+//
+//                    case UPDATE:
+//                        result = success ? PATIENT_UPDATE_SUCCESS : PATIENT_UPDATE_FAILED;
+//                        break;
+//
+//                    case ASSIGN:
+//                        result = success ? PATIENT_ASSIGN_SUCCESS : PATIENT_ASSIGN_FAILED;
+//                        break;
+//                }
+//                int doctorId = Integer.parseInt(request.getParameter("doctorId"));
+//                redirect.setURL(Path.GET_PATIENTS_COMMAND + "&doctorId=" + doctorId);
+//                break;
+//
+//            case APPOINTMENT:
+//                switch (action) {
+//                    case INSERT:
+//                        result = success ? APPOINTMENT_INSERT_SUCCESS : APPOINTMENT_INSERT_FAILED;
+//                        break;
+//                    case UPDATE:
+//                        result = success ? APPOINTMENT_UPDATE_SUCCESS : APPOINTMENT_UPDATE_FAILED;
+//                        break;
+//                }
+//                redirect.setURL(Path.GET_APPOINTMENTS_COMMAND);
+//                break;
+//            default:
+//                result = ERROR;
+//        }
+//
+//        request.setAttribute("result", result);
+//
+//        LOG.debug("Commands finished");
+//        return redirect;
     }
 }

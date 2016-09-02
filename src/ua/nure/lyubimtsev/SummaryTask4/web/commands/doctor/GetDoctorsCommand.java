@@ -71,7 +71,25 @@ public class GetDoctorsCommand extends Command {
         request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
         LOG.trace("Set the request attribute: pageTitle --> " + LOCALE_KEY);
 
+
         LOG.debug("Commands finished");
+
+
+
+        String xxx = (String) session.getAttribute("xxx");
+
+
+
+        if (xxx == null){
+            session.setAttribute("xxx", "xxx");
+            System.err.println("PRGCommand.execute");
+
+        } else {
+            System.err.println("PRGCommand.execute2222");
+        }
+
+
+
         return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }
 }

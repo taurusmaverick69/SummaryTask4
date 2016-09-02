@@ -149,11 +149,31 @@
     });
 </script>
 
-<%@include file="/WEB-INF/jspf/result.jspf" %>
+<style>
+    #toast-container {
+        top: auto !important;
+        right: auto !important;
+        bottom: 10%;
+        left: 7%;
+    }
+</style>
 
+<%--@elvariable id="test" type="java.lang.String"--%>
+<c:if test="${not empty param.test}">
+    <script>
+        Materialize.toast("<span>  ${param.test}</span>", 3000, "rounded");
+    </script>
+
+    <c:remove var="test"/>
+
+
+
+</c:if>
+
+
+<%--<%@include file="/WEB-INF/jspf/result.jspf" %>--%>
 
 <%@include file="/WEB-INF/jspf/footer.jspf" %>
-
 
 </body>
 </html>
