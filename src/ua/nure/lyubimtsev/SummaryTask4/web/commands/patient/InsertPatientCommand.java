@@ -30,10 +30,10 @@ import java.util.stream.Collectors;
  */
 public class InsertPatientCommand extends Command {
 
-    private static final String INSERT = "Insert";
-    private static final String PATIENT = "Patient";
-
     private static final Logger LOG = Logger.getLogger(InsertPatientCommand.class);
+
+    private static final String PATIENT_INSERT_SUCCESS = "patient.add.success";
+    private static final String PATIENT_INSERT_FAILED = "patient.add.failed";
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -69,9 +69,9 @@ public class InsertPatientCommand extends Command {
 
         Patient patient = new Patient(name, address, birthDate, stateById, doctorId);
 
-        boolean success;
         Object user = session.getAttribute("user");
-        if (success = factory.getPatientDAO().insertPatient(patient) > 0) {
+        boolean success = factory.getPatientDAO().insertPatient(patient) > 0;
+        if (success) {
             Role role = (Role) session.getAttribute("role");
             LOG.trace("role --> " + role);
             switch (role) {
@@ -86,12 +86,9 @@ public class InsertPatientCommand extends Command {
             }
         }
 
+        session.setAttribute("result", success ? PATIENT_INSERT_SUCCESS : PATIENT_INSERT_FAILED);
+
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND +
-                "&action=" + INSERT +
-                "&entity=" + PATIENT +
-                "&doctorId=" + doctorId +
-                "&success=" + success,
-                ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.GET_PATIENTS_COMMAND + "&doctorId=" + doctorId, ForwardingType.SEND_REDIRECT);
     }
 }

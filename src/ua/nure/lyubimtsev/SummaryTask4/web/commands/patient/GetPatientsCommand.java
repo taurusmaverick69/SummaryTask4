@@ -46,7 +46,6 @@ public class GetPatientsCommand extends Command {
 
         Object user = session.getAttribute("user");
 
-
         List<State> allStates = factory.getStateDAO().getAllStates();
         session.setAttribute("states", allStates);
         LOG.trace("Set the session attribute: states --> " + allStates);
@@ -70,7 +69,7 @@ public class GetPatientsCommand extends Command {
         }
 
         session.setAttribute("doctorName", doctor.getName());
-        LOG.trace("Set the session attribute: doctorId --> " + doctorId);
+        LOG.trace("Set the session attribute: doctorName --> " + doctor.getName());
 
         session.setAttribute("doctorId", doctorId);
         LOG.trace("Set the session attribute: doctorId --> " + doctorId);

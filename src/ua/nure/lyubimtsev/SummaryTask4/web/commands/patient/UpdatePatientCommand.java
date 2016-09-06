@@ -11,7 +11,6 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Patient;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.State;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
-import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOnUpdateCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,14 +27,13 @@ import java.util.stream.Collectors;
  * Update patient.
  *
  * @author Vladislav
- *
  */
 public class UpdatePatientCommand extends Command {
 
-    private static final String UPDATE = "Update";
-    private static final String PATIENT = "Patient";
-
     private static final Logger LOG = Logger.getLogger(UpdatePatientCommand.class);
+
+    private static final String PATIENT_UPDATE_SUCCESS = "patient.edit.success";
+    private static final String PATIENT_UPDATE_FAILED = "patient.edit.failed";
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -88,20 +86,19 @@ public class UpdatePatientCommand extends Command {
 
 
         Patient tempPatient = new Patient(patientId, name, address, birthDate, stateById);
-        boolean success;
-        if (success = factory.getPatientDAO().updatePatient(tempPatient) > 0) {
+
+        boolean success = factory.getPatientDAO().updatePatient(tempPatient) > 0;
+        if (success) {
             patientById.setName(name);
             patientById.setAddress(address);
             patientById.setBirthDate(birthDate);
             patientById.setState(stateById);
         }
 
+        session.setAttribute("result", success ? PATIENT_UPDATE_SUCCESS : PATIENT_UPDATE_FAILED);
+
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND +
-                "&action=" + UPDATE +
-                "&entity=" + PATIENT +
-                "&doctorId=" + doctorId +
-                "&success=" + success,
-                ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.GET_PATIENTS_COMMAND + "&doctorId=" + doctorId, ForwardingType.SEND_REDIRECT);
+
     }
 }

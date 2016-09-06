@@ -10,7 +10,6 @@ import ua.nure.lyubimtsev.SummaryTask4.db.entities.Category;
 import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
-import ua.nure.lyubimtsev.SummaryTask4.web.commands.appointment.GetAppointmentOnUpdateCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,15 +24,13 @@ import java.util.stream.Collectors;
  * Update doctor.
  *
  * @author Vladislav
- *
  */
 public class UpdateDoctorCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(UpdateDoctorCommand.class);
 
-    private static final String UPDATE = "Update";
-    private static final String DOCTOR = "Doctor";
-
+    private static final String DOCTOR_UPDATE_SUCCESS = "doctor.edit.success";
+    private static final String DOCTOR_UPDATE_FAILED = "doctor.edit.failed";
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -67,9 +64,9 @@ public class UpdateDoctorCommand extends Command {
 
         Doctor tempDoctor = new Doctor(doctorById.getId(), login, password, name, categoryById);
 
-        boolean success;
         Role role = (Role) session.getAttribute("role");
-        if (success = factory.getDoctorDAO().updateDoctor(tempDoctor, role) > 0) {
+        boolean success = factory.getDoctorDAO().updateDoctor(tempDoctor, role) > 0;
+        if (success) {
             switch (role) {
                 case ADMIN:
                     doctorById.setName(name);
@@ -83,14 +80,11 @@ public class UpdateDoctorCommand extends Command {
                     doctorById.setCategory(categoryById);
                     break;
             }
-
         }
 
+        session.setAttribute("result", success ? DOCTOR_UPDATE_SUCCESS : DOCTOR_UPDATE_FAILED);
+
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND +
-                "&action=" + UPDATE +
-                "&entity=" + DOCTOR +
-                "&success=" + success,
-                ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.GET_DOCTORS_COMMAND, ForwardingType.SEND_REDIRECT);
     }
 }

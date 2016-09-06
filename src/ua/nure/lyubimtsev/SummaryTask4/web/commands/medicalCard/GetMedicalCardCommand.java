@@ -36,13 +36,10 @@ public class GetMedicalCardCommand extends Command {
         int patientId = Integer.parseInt(request.getParameter("patientId"));
         LOG.trace("patientId --> " + patientId);
 
-
         MedicalCardDAO medicalCardDAO = factory.getMedicalCardDAO();
         MedicalCard medicalCard = medicalCardDAO.getMedicalCardByPatientId(patientId);
 
         LOG.trace("medicalCard --> " + medicalCard);
-
-
 
         if (medicalCard == null) {
             medicalCard = new MedicalCard(new Date(), patientId);

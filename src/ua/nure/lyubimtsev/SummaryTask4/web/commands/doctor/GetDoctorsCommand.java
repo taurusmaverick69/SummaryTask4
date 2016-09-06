@@ -73,23 +73,6 @@ public class GetDoctorsCommand extends Command {
 
 
         LOG.debug("Commands finished");
-
-
-
-        String xxx = (String) session.getAttribute("xxx");
-
-
-
-        if (xxx == null){
-            session.setAttribute("xxx", "xxx");
-            System.err.println("PRGCommand.execute");
-
-        } else {
-            System.err.println("PRGCommand.execute2222");
-        }
-
-
-
         return new Redirect(Path.DOCTORS_PAGE, ForwardingType.FORWARD);
     }
 }

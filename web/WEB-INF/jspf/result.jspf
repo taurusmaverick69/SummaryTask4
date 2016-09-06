@@ -12,4 +12,7 @@
     <script>
         Materialize.toast("<span>  <fmt:message key="result.${result}"/></span>", 3000, "rounded");
     </script>
+
+    <c:remove var="result"/>
+
 </c:if>

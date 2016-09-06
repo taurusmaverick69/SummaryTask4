@@ -29,9 +29,8 @@ public class InsertDoctorCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(InsertDoctorCommand.class);
 
-    private static final String INSERT = "Insert";
-    private static final String DOCTOR = "Doctor";
-
+    private static final String DOCTOR_INSERT_SUCCESS = "doctor.add.success";
+    private static final String DOCTOR_INSERT_FAILED = "doctor.add.failed";
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -42,7 +41,6 @@ public class InsertDoctorCommand extends Command {
 
         int categoryId = Integer.parseInt(request.getParameter("category"));
         LOG.trace("categoryId --> " + categoryId);
-
 
         List<Category> categories = (List<Category>) session.getAttribute("categories");
         Category categoryById = categories
@@ -65,29 +63,13 @@ public class InsertDoctorCommand extends Command {
 
         DoctorDAO doctorDAO = factory.getDoctorDAO();
 
-        if (doctorDAO.isLoginExists(doctor.getLogin())) {
-            LOG.debug("Commands finished");
-            return new Redirect(Path.INSERT_DOCTOR_PAGE + "?result=" + "Пользователь с таким именем уже существует", ForwardingType.FORWARD);
-        } else {
-            boolean success;
-            if (success = doctorDAO.insertDoctor(doctor) > 0) {
-                admin.getDoctors().add(doctor);
-            }
-
-
-            LOG.debug("Commands finished");
-
-
-            return new Redirect(Path.GET_DOCTORS_COMMAND, ForwardingType.SEND_REDIRECT);
-
-
-
-//            return new Redirect(Path.PRG_COMMAND +
-//                    "&action=" + INSERT +
-//                    "&entity=" + DOCTOR +
-//                    "&success=" + success,
-//                    ForwardingType.SEND_REDIRECT);
+        boolean success = doctorDAO.insertDoctor(doctor) > 0;
+        if (success) {
+            admin.getDoctors().add(doctor);
         }
-    }
+        session.setAttribute("result", success ? DOCTOR_INSERT_SUCCESS : DOCTOR_INSERT_FAILED);
 
+        LOG.debug("Commands finished");
+        return new Redirect(Path.GET_DOCTORS_COMMAND, ForwardingType.SEND_REDIRECT);
+    }
 }

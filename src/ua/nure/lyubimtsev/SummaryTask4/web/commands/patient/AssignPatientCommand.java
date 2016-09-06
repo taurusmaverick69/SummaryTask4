@@ -28,10 +28,10 @@ import java.util.stream.Collectors;
  */
 public class AssignPatientCommand extends Command {
 
-    private static final String ASSIGN = "Assign";
-    private static final String PATIENT = "Patient";
-
     private static final Logger LOG = Logger.getLogger(AssignPatientCommand.class);
+
+    private static final String PATIENT_ASSIGN_SUCCESS = "patient.assign.success";
+    private static final String PATIENT_ASSIGN_FAILED = "patient.assign.failed";
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -46,8 +46,9 @@ public class AssignPatientCommand extends Command {
         int doctorId = (int) session.getAttribute("doctorId");
         LOG.trace("doctorId --> " + doctorId);
 
-        boolean success;
-        if (success = factory.getPatientDAO().assignPatient(patientId, doctorId) > 0) {
+
+        boolean success = factory.getPatientDAO().assignPatient(patientId, doctorId) > 0;
+        if (success) {
 
             List<Patient> unassignedPatients = (List<Patient>) session.getAttribute("unassignedPatients");
             Patient patientById = unassignedPatients
@@ -73,14 +74,10 @@ public class AssignPatientCommand extends Command {
             doctor.getPatients().add(patientById);
         }
 
+        session.setAttribute("result", success ? PATIENT_ASSIGN_SUCCESS : PATIENT_ASSIGN_FAILED);
 
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND +
-                "&action=" + ASSIGN +
-                "&entity=" + PATIENT +
-                "&doctorId=" + doctorId +
-                "&success=" + success,
-                ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.GET_PATIENTS_COMMAND, ForwardingType.SEND_REDIRECT);
 
     }
 }

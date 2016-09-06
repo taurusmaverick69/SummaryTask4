@@ -4,7 +4,10 @@ import org.apache.log4j.Logger;
 import ua.nure.lyubimtsev.SummaryTask4.ForwardingType;
 import ua.nure.lyubimtsev.SummaryTask4.Path;
 import ua.nure.lyubimtsev.SummaryTask4.Redirect;
-import ua.nure.lyubimtsev.SummaryTask4.db.entities.*;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Appointment;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Doctor;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.MedicalCard;
+import ua.nure.lyubimtsev.SummaryTask4.db.entities.Type;
 import ua.nure.lyubimtsev.SummaryTask4.exception.AppException;
 import ua.nure.lyubimtsev.SummaryTask4.web.commands.Command;
 
@@ -22,14 +25,13 @@ import java.util.stream.Collectors;
  * Insert appointment.
  *
  * @author Vladislav
- *
  */
 public class InsertAppointmentCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(InsertAppointmentCommand.class);
 
-    private static final String INSERT = "Insert";
-    private static final String APPOINTMENT = "Appointment";
+    private static final String APPOINTMENT_INSERT_SUCCESS = "appointment.add.success";
+    private static final String APPOINTMENT_INSERT_FAILED = "appointment.add.failed";
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -60,17 +62,15 @@ public class InsertAppointmentCommand extends Command {
 
         Appointment appointment = new Appointment(diagnose, typeById, info, new Date(), doctor, medicalCard.getId());
 
-        boolean success;
-        if (success = factory.getAppointmentDAO().insertAppointment(appointment) > 0) {
+        boolean success = factory.getAppointmentDAO().insertAppointment(appointment) > 0;
+        if (success) {
             medicalCard.getAppointments().add(appointment);
         }
 
+        session.setAttribute("result", success ? APPOINTMENT_INSERT_SUCCESS : APPOINTMENT_INSERT_FAILED);
+
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND +
-                "&action=" + INSERT +
-                "&entity=" + APPOINTMENT +
-                "&success=" + success,
-                ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.GET_APPOINTMENTS_COMMAND, ForwardingType.SEND_REDIRECT);
 
     }
 }

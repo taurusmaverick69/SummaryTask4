@@ -26,8 +26,8 @@ public class UpdateAppointmentCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(UpdateAppointmentCommand.class);
 
-    private static final String UPDATE = "Update";
-    private static final String APPOINTMENT = "Appointment";
+    private static final String APPOINTMENT_UPDATE_SUCCESS = "appointment.edit.success";
+    private static final String APPOINTMENT_UPDATE_FAILED = "appointment.edit.failed";
 
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -67,18 +67,17 @@ public class UpdateAppointmentCommand extends Command {
         tempAppointment.setType(typeById);
         tempAppointment.setInfo(info);
 
-        boolean success;
-        if (success = factory.getAppointmentDAO().updateAppointment(tempAppointment) > 0){
+
+        boolean success = factory.getAppointmentDAO().updateAppointment(tempAppointment) > 0;
+        if (success){
             appointmentById.setDiagnose(diagnose);
             appointmentById.setType(typeById);
             appointmentById.setInfo(info);
         }
 
+        session.setAttribute("result", success ? APPOINTMENT_UPDATE_SUCCESS : APPOINTMENT_UPDATE_FAILED);
+
         LOG.debug("Commands finished");
-        return new Redirect(Path.PRG_COMMAND +
-                "&action=" + UPDATE +
-                "&entity=" + APPOINTMENT +
-                "&success=" + success,
-                ForwardingType.SEND_REDIRECT);
+        return new Redirect(Path.GET_APPOINTMENTS_COMMAND, ForwardingType.SEND_REDIRECT);
     }
 }
