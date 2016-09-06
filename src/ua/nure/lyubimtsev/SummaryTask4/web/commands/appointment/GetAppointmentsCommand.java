@@ -57,7 +57,6 @@ public class GetAppointmentsCommand extends Command {
         request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
         LOG.trace("Set the request attribute: pageTitle --> " + LOCALE_KEY);
 
-
         List<Patient> patients = (List<Patient>) session.getAttribute("patients");
         Patient patientById = patients
                 .stream()
@@ -70,7 +69,6 @@ public class GetAppointmentsCommand extends Command {
 
         request.setAttribute(PAGE_TITLE_ATTRIBUTE, LOCALE_KEY);
         LOG.trace("Set the request attribute: pageTitle --> " + LOCALE_KEY);
-
 
         LOG.debug("Commands finished");
         return new Redirect(Path.MEDICAL_CARD_PAGE, ForwardingType.FORWARD);

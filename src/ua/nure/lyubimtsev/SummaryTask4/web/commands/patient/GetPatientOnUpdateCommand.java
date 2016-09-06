@@ -46,7 +46,6 @@ public class GetPatientOnUpdateCommand extends Command {
                 .filter(patient -> patient.getId() == patientId)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> list.get(0)));
 
-
         LOG.trace("Set the request attribute: patientById --> " + patientById);
         request.setAttribute("patientById", patientById);
 
