@@ -11,7 +11,6 @@
         <h5 class="indigo-text">Please, login into your account</h5>
         <div class="section"></div>
 
-
         <div class="container">
             <div class="z-depth-1 grey lighten-4 row"
                  style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
@@ -80,7 +79,6 @@
 </main>
 
 <%@include file="/WEB-INF/jspf/footer.jspf" %>
-
 
 </body>
 </html>

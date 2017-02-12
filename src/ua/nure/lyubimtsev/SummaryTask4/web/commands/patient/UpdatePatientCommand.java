@@ -99,6 +99,5 @@ public class UpdatePatientCommand extends Command {
 
         LOG.debug("Commands finished");
         return new Redirect(Path.GET_PATIENTS_COMMAND + "&doctorId=" + doctorId, ForwardingType.SEND_REDIRECT);
-
     }
 }

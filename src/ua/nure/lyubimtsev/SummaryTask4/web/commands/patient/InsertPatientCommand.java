@@ -85,7 +85,6 @@ public class InsertPatientCommand extends Command {
                     break;
             }
         }
-
         session.setAttribute("result", success ? PATIENT_INSERT_SUCCESS : PATIENT_INSERT_FAILED);
 
         LOG.debug("Commands finished");

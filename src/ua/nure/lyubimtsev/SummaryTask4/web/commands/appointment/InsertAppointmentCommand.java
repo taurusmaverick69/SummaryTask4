@@ -71,6 +71,5 @@ public class InsertAppointmentCommand extends Command {
 
         LOG.debug("Commands finished");
         return new Redirect(Path.GET_APPOINTMENTS_COMMAND, ForwardingType.SEND_REDIRECT);
-
     }
 }

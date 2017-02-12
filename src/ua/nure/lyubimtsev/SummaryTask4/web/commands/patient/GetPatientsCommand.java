@@ -82,6 +82,5 @@ public class GetPatientsCommand extends Command {
 
         LOG.debug("Commands finished");
         return new Redirect(Path.PATIENTS_PAGE, ForwardingType.FORWARD);
-
     }
 }

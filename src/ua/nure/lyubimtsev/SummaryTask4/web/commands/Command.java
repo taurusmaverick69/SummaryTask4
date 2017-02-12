@@ -26,5 +26,4 @@ public abstract class Command implements Serializable {
      * @return Type of Object Redirect which contains address to go once the commands is executed and type of forwarding(sendRedirect for PRG pattern or forward).
      */
     public abstract Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException;
-
 }

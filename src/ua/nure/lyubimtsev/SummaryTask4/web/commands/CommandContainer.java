@@ -69,8 +69,6 @@ public class CommandContainer {
             LOG.trace("Command not found, name --> " + commandName);
             return commands.get("noCommand");
         }
-
         return commands.get(commandName);
     }
-
 }

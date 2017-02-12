@@ -78,6 +78,5 @@ public class AssignPatientCommand extends Command {
 
         LOG.debug("Commands finished");
         return new Redirect(Path.GET_PATIENTS_COMMAND, ForwardingType.SEND_REDIRECT);
-
     }
 }

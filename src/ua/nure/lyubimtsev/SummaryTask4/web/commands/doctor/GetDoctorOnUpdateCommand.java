@@ -29,7 +29,6 @@ public class GetDoctorOnUpdateCommand extends Command {
     private static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
     private static final String LOCALE_KEY = "doctors";
 
-
     @Override
     public Redirect execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 

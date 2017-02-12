@@ -82,8 +82,6 @@ public class LoginCommand extends Command {
             LOG.info("User " + admin + " logged as " + role.toString().toLowerCase());
             redirect.setURL(Path.GET_DOCTORS_COMMAND);
         }
-
-
         LOG.debug("Commands finished");
         return redirect;
     }

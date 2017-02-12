@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-@WebFilter(urlPatterns = "/*", initParams = @WebInitParam(name = "avoid-urls", value = "/login.jsp,/test2.jsp"))
+@WebFilter(urlPatterns = "/*", initParams = @WebInitParam(name = "avoid-urls", value = "/login.jsp"))
 public class SessionFilter implements Filter {
 
     private final static String END_SESSION = "login.endSession.submit";
