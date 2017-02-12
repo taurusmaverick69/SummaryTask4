@@ -29,7 +29,6 @@ public class Redirect {
         this.forwardingType = forwardingType;
     }
 
-
     @Override
     public String toString() {
         return "Redirect{" +
